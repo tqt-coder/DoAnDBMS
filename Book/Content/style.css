@@ -1,0 +1,366 @@
+﻿body {
+    background-color: #fcdab0;
+}
+
+.navbar {
+    display: flex;
+    /* Hiển thị khối flex */
+    align-items: right;
+    /* Chuyển thanh navbar sang phải */
+    justify-content: right;
+    /* Chuyển thanh nội dung sang phải */
+}
+
+#content {
+    padding: 20px 0;
+}
+
+.navbar_logo-link {
+    display: block;
+}
+
+.header-top-banner {
+    display: flex;
+    height: 100px;
+}
+
+.navbar_list {
+    display: flex;
+    align-items: center;
+}
+
+.navbar_item {
+    margin: 0 30px;
+    color: #FF4000;
+}
+
+    .navbar_item:hover {
+        /* HOVER giúp di chuột vào menu sẽ đổi màu */
+        color: #FF4000;
+        /* Mã màu CAM */
+    }
+
+.navbar_link {
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 10px 5px;
+    color: var(--while-color);
+    text-decoration: none;
+}
+
+    .navbar_link:hover {
+        color: rgb(63, 63, 241);
+    }
+
+.navbar_logo {
+    position: relative;
+    top: -3px;
+    display: inline-block;
+    flex: 1;
+}
+
+.item--category {
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    color: var(--black-text);
+    font-size: 14px;
+    color: var(--color-white);
+}
+
+    .item--category:hover {
+        color: #FF4000;
+    }
+
+.general {
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+input[type=text],
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=box] {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    font-size: 16px;
+}
+
+form.form_search input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid #FF4000;
+    float: left;
+    width: 80%;
+    background: white;
+}
+
+form.form_search button {
+    position: absolute;
+    width: 20%;
+    padding: 4.5px;
+    background: #FFFFCC;
+    color: #FF4000;
+    font-size: 30px;
+    border: 0px solid white;
+    border-left: none;
+    cursor: pointer;
+    top: calc(15% + 1px);
+    right: 20%;
+    border-radius: 4px;
+}
+
+    form.form_search button:hover {
+        background: #FF4000;
+        color: white;
+    }
+
+form.form_search::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.text-uppercase__link {
+    text-decoration: none;
+    color: var(--color-white);
+    font-size: 2rem;
+}
+
+    .text-uppercase__link:hover {
+        cursor: pointer;
+        color: var(--color-white);
+    }
+
+#footer {
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footer-text__infor {
+    font-size: 1.4rem;
+    text-decoration: none;
+    display: block;
+    padding: 0.4rem;
+}
+
+.text-center__font {
+    font-size: 1.4rem;
+}
+
+.item__book {
+    position: relative;
+    width: 190px;
+    padding: 10px 0;
+    background-color: var(--color-white);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border:  1px solid #ccc;
+    text-decoration: none;
+    color: var(--black-text);
+    margin: 10px 0;
+    flex-direction: column;
+}
+
+    .item__book:hover {
+        color: var(--black-text);
+    }
+
+.item-div__infor-book {
+    font-size: 14px;
+    padding: 2px 12px;
+}
+
+.item-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#item-img {
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+    #item-img:hover + #item-detail {
+        display: flex;
+    }
+
+#item-detail {
+    position: relative;
+    display: none;
+}
+
+#img-detail {
+    position: absolute;
+    background-color: antiquewhite;
+    top: 100%;
+    margin: 10px;
+    z-index: 1;
+}
+
+#detail-square {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: antiquewhite;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%) rotate(45deg);
+}
+
+#item-name {
+    font-weight: bold;
+}
+
+#item-cost {
+}
+
+.item-atb {
+    padding: 5px;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgb(228, 228, 228);
+}
+
+    .item-atb:hover {
+        background-color: rgb(241, 235, 222);
+    }
+
+input.star {
+    display: none;
+}
+
+label.star {
+    float: right;
+    padding: 5px;
+    font-size: 17px;
+    color: #444;
+    transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+    content: '\f005';
+    color: #FD4;
+    transition: all .25s;
+}
+
+input.star-5:checked ~ label.star:before {
+    color: #FE7;
+    text-shadow: 0 0 23px rgba(0, 0, 0, 0.6);
+}
+
+input.star-1:checked ~ label.star:before {
+    color: #F62;
+}
+
+label.star:hover {
+    transform: rotate(-15deg) scale(1.3);
+}
+
+label.star:before {
+    content: '\f006';
+    font-family: FontAwesome;
+}
+
+
+/* Sơn */
+
+.a {
+    color: rgb(105, 184, 89);
+    text-decoration: none;
+}
+
+.content__title {
+    font-size: 17px;
+    padding: 10px;
+    background-color: #f7941e;
+    text-align: center;
+}
+
+.Service > label .box > img {
+    width: 18px;
+}
+
+.CheckboxFake .icon-check-on {
+    display: block;
+}
+
+.CheckboxFake .icon-check-off {
+    display: block;
+}
+
+.item-div__book {
+    width: 100%;
+    height: 200px;
+}
+
+body {
+    line-height: 1.6rem;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.font-14 {
+    font-size: 1.4rem;
+}
+
+.m-t-8 {
+    margin: 0.8rem;
+}
+
+.form_search {
+    position: relative;
+    margin: right;
+    width: 670px;
+    align-items: center;
+}
+
+.navbar_logo__icon {
+    width: 200px;
+    height: 100px;
+}
