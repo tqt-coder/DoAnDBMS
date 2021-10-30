@@ -167,10 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\base.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -224,8 +220,10 @@
     <Content Include="Views\Saches\Delete.cshtml" />
     <Content Include="Views\Saches\Details.cshtml" />
     <Content Include="Views\Saches\Edit.cshtml" />
-    <Content Include="Views\Saches\Index1.cshtml" />
+    <Content Include="Views\Saches\ThieuNhi.cshtml" />
     <Content Include="Views\Saches\Index.cshtml" />
+    <Content Include="Views\Saches\TrinhTham.cshtml" />
+    <Content Include="Views\Saches\NgoaiNgu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -235,10 +233,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />

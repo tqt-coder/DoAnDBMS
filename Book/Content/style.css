@@ -1,8 +1,4 @@
-﻿body {
-    background-color: #fcdab0;
-}
-
-.navbar {
+﻿.navbar {
     display: flex;
     /* Hiển thị khối flex */
     align-items: right;
@@ -13,6 +9,7 @@
 
 #content {
     padding: 20px 0;
+    background-color: #fcdab0;
 }
 
 .navbar_logo-link {

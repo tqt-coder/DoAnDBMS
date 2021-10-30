@@ -21,6 +21,20 @@ namespace Book.Controllers
             return View(saches.ToList());
         }
 
+        public ActionResult ThieuNhi()
+        {
+            var saches = db.Saches.Include(s => s.NhaXuatBan)
+                 .Where(s => s.TheLoai == "Thiếu nhi");
+            return View(saches.ToList());
+        }
+
+        public ActionResult TrinhTham()
+        {
+            var saches = db.Saches.Include(s => s.NhaXuatBan)
+                 .Where(s => s.TheLoai == "Trinh thám");
+            return View(saches.ToList());
+        }
+
         // GET: Saches/Details/5
         public ActionResult Details(string id)
         {
