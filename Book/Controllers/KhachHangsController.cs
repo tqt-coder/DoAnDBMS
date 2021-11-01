@@ -10,129 +10,148 @@ using Book.Models;
 
 namespace Book.Controllers
 {
-    public class SachesController : Controller
+    public class KhachHangsController : Controller
     {
         private DoAnEntities db = new DoAnEntities();
+     
 
-        // GET: Saches
+        // GET: KhachHangs
         public ActionResult Index()
         {
-            var saches = db.Saches.Include(s => s.NhaXuatBan);
-            return View(saches.ToList());
+            return View(db.KhachHangs.ToList());
         }
-
-        public ActionResult ThieuNhi()
+        public ActionResult UserDashBoard()
         {
-            var saches = db.Saches.Include(s => s.NhaXuatBan)
-                 .Where(s => s.TheLoai == "Thiếu nhi");
-            return View(saches.ToList());
+            if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+             
+                return RedirectToAction("Login");
+            }
         }
 
-        public ActionResult TrinhTham()
+
+        // Login
+        public ActionResult Login()
         {
-            //var saches = db.Saches.Include(s => s.NhaXuatBan)
-            //     .Where(s => s.TheLoai == "Trinh thám");
-            var saches = (from s in db.Saches where s.TheLoai == "Trinh thám" select s);
-            
-
-            return View(saches.ToList());
+            return View();
         }
 
-        // GET: Saches/Details/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(KhachHang user)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var obj = db.KhachHangs.Where(a => a.Gmail.Equals(user.Gmail) && a.PassWord.Equals(user.PassWord)).FirstOrDefault();
+                if (obj != null)
+                {
+                    Session["UserID"] = obj.Gmail.ToString();
+                    Session["UserName"] = obj.Gmail.ToString();
+                    return RedirectToAction("UserDashBoard");
+                }
+
+            }
+           ViewBag.error = "Login failed";
+            return View(user);
+        }
+
+      
+        // GET: KhachHangs/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            if (khachHang == null)
             {
                 return HttpNotFound();
             }
-            return View(sach);
+            return View(khachHang);
         }
 
-        // GET: Saches/Create
-        public ActionResult Create()
+        // GET: KhachHangs/Create
+        public ActionResult Register()
         {
-            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB");
             return View();
         }
 
-        // POST: Saches/Create
+        // POST: KhachHangs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaSach,TenSach,TenTacGia,MaNXB,TheLoai,SoLuong,GiaBan,HinhAnh")] Sach sach)
+        public ActionResult Register([Bind(Include = "MaKH,HovaTen,SoDienThoai,PassWord,Gmail,Quyen")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
-                db.Saches.Add(sach);
+                db.KhachHangs.Add(khachHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sach.MaNXB);
-            return View(sach);
+            return View(khachHang);
         }
 
-        // GET: Saches/Edit/5
+        // GET: KhachHangs/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            if (khachHang == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sach.MaNXB);
-            return View(sach);
+            return View(khachHang);
         }
 
-        // POST: Saches/Edit/5
+        // POST: KhachHangs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaSach,TenSach,TenTacGia,MaNXB,TheLoai,SoLuong,GiaBan,HinhAnh")] Sach sach)
+        public ActionResult Edit([Bind(Include = "MaKH,HovaTen,SoDienThoai,PassWord,Gmail,Quyen")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sach).State = EntityState.Modified;
+                db.Entry(khachHang).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sach.MaNXB);
-            return View(sach);
+            return View(khachHang);
         }
 
-        // GET: Saches/Delete/5
+        // GET: KhachHangs/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            if (khachHang == null)
             {
                 return HttpNotFound();
             }
-            return View(sach);
+            return View(khachHang);
         }
 
-        // POST: Saches/Delete/5
+        // POST: KhachHangs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Sach sach = db.Saches.Find(id);
-            db.Saches.Remove(sach);
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            db.KhachHangs.Remove(khachHang);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

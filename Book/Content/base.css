@@ -4,10 +4,10 @@
     --font-16: 16px;
 }
 
-
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 html {
@@ -17,7 +17,6 @@ html {
 
 body {
     line-height: 1.6rem;
-    box-sizing: border-box;
     font-family: inherit;
 }
 
@@ -27,4 +26,7 @@ body {
 
 .m-t-8 {
     margin: 0.8rem;
+}
+.text-error {
+    color: red;
 }

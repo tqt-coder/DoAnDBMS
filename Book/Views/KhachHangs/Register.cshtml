@@ -1,0 +1,85 @@
+﻿@model Book.Models.KhachHang
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link rel="stylesheet" href="~/Content/style.css">
+    <link rel="stylesheet" href="~/Content/base.css">
+
+
+</head>
+<body>
+
+
+    <div class="app">
+
+        <form action="/KhachHangs/Register" method="post" class="form__login">
+
+
+            @Html.AntiForgeryToken()
+
+
+
+
+            <div class="login">
+
+                <h4>KhachHang</h4>
+                <hr>
+
+                <label class="float-l" for="MaKH">MaKH</label>
+
+                <input class="form-login__input" id="MaKH" name="MaKH" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="MaKH" data-valmsg-replace="true"></span>
+
+
+                <label class="float-l" for="HovaTen">HovaTen</label>
+
+                <input class="form-login__input" id="HovaTen" name="HovaTen" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="HovaTen" data-valmsg-replace="true"></span>
+
+
+                <label class="float-l" for="SoDienThoai">SoDienThoai</label>
+
+                <input class="form-login__input" id="SoDienThoai" name="SoDienThoai" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="SoDienThoai" data-valmsg-replace="true"></span>
+
+
+                <label class=" float-l" for="PassWord">PassWord</label>
+
+                <input class="form-login__input" id="PassWord" name="PassWord" type="password" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="PassWord" data-valmsg-replace="true"></span>
+
+
+                <label class="float-l" for="Gmail">Gmail</label>
+
+                <input class="form-login__input" id="Gmail" name="Gmail" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="Gmail" data-valmsg-replace="true"></span>
+
+
+                <label class="float-l" for="Quyen">Quyen</label>
+
+                <input class="form-login__input" id="Quyen" name="Quyen" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="Quyen" data-valmsg-replace="true"></span>
+
+                <button type="submit" class="login__button">Create</button>
+
+            </div>
+
+        </form>
+        <div class="form__login-url">
+            @Html.ActionLink("Back to List", "Index")
+     
+            @Html.ActionLink("Login", "Login")
+        </div>
+
+    </div>
+
+</body>
+</html>

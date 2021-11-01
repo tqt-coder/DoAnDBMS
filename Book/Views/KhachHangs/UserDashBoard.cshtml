@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "UserDashBoard";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserDashBoard</title>
+</head>
+<body>
+    <div>
+        <fieldset>
+            <legend> User DashBoard </legend>
+
+            @if (Session["UserName"] != null)
+            {
+                <text>
+                    Welcome @Session["UserName"].ToString() </text>
+            }
+        </fieldset>
+
+    </div>
+</body>
+</html>
+
+
+
+

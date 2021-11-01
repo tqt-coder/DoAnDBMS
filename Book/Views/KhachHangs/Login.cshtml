@@ -1,0 +1,43 @@
+﻿@model Book.Models.KhachHang
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <link rel="stylesheet" href="~/Content/base.css">
+    <link rel="stylesheet" href="~/Content/style.css">
+</head>
+
+
+<body>
+
+    <div class="app">
+       @if (ViewBag.error != null)
+       {
+        <div class="text-error" style="padding:50px;font-size:20px">@ViewBag.error</div>
+
+       }
+
+        <form class="form__login" action="/KhachHangs/Login" method="Post">
+
+            @Html.AntiForgeryToken()
+
+            <div class="login">
+                <h2 class="login__title">Please Sign In</h2>
+                <input class="form-login__input m-t-20" type="text" placeholder="E-mail" name="Gmail"> <br>
+                <input class="form-login__input" type="password" placeholder="Password" name="PassWord">
+                <br>
+
+                <button class="login__button">Login</button>
+                <a class="login__link" href="/KhachHangs/register"> Click here to Register </a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
