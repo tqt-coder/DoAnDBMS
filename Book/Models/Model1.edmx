@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DonHang">
           <Key>
             <PropertyRef Name="MaDH" />
@@ -113,6 +113,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="recommend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="theloai" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="xem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ma" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="xoakhachkhongmuahang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DoAnModelStoreContainer">
           <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
@@ -136,8 +145,7 @@
             <End Role="Sach" EntitySet="Sach" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DoAnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -279,7 +287,32 @@
             <End Role="NhaXuatBan" EntitySet="NhaXuatBans" />
             <End Role="Sach" EntitySet="Saches" />
           </AssociationSet>
+          <FunctionImport Name="recommend" ReturnType="Collection(DoAnModel.recommend_Result)">
+            <Parameter Name="theloai" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="xem" ReturnType="Collection(DoAnModel.xem_Result)">
+            <Parameter Name="ma" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="xoakhachkhongmuahang">
+            <Parameter Name="id" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="recommend_Result">
+          <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MaNXB" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SoLuong" Nullable="true" />
+          <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
+          <Property Type="String" Name="HinhAnh" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="xem_Result">
+          <Property Type="Int32" Name="SL" Nullable="true" />
+          <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
+          <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="MaKH" Nullable="false" MaxLength="20" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -343,6 +376,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="recommend" FunctionName="DoAnModel.Store.recommend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.recommend_Result">
+                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+                <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
+                <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
+                <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="xem" FunctionName="DoAnModel.Store.xem">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.xem_Result">
+                <ScalarProperty Name="SL" ColumnName="SL" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="xoakhachkhongmuahang" FunctionName="DoAnModel.Store.xoakhachkhongmuahang" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

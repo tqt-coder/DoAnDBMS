@@ -58,5 +58,30 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="recommend" FunctionName="DoAnModel.Store.recommend">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.recommend_Result">
+          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+          <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
+          <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
+          <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="xem" FunctionName="DoAnModel.Store.xem">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.xem_Result">
+          <ScalarProperty Name="SL" ColumnName="SL" />
+          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="xoakhachkhongmuahang" FunctionName="DoAnModel.Store.xoakhachkhongmuahang" />
   </EntityContainerMapping>
 </Mapping>

@@ -5,71 +5,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Sach</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenSach)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenSach)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenTacGia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenTacGia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TheLoai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TheLoai)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoLuong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoLuong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GiaBan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GiaBan)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HinhAnh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HinhAnh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NhaXuatBan.TenNXB)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NhaXuatBan.TenNXB)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaSach }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<form action="" class="detail" method="POST">
+    <nav class="detail-img">
+        <img class="img" src=@Html.DisplayFor(model => model.HinhAnh)>
+    </nav>
+    <nav class="detail-item">
+        <div id="name">@Html.DisplayFor(model => model.TenSach)</div>
+        <div id="cost">@Html.DisplayFor(model => model.GiaBan)</div>
+        <div id="ship">Free</div>
+        <div id="type"></div>
+        <div>
+            <input class="change" onclick="var result = document.getElementById('number'); var qty = result.value; if( !isNaN(qty) & qty > 1) result.value--;return false;" type='button' value='-' />
+            <input type="text" min="1" id="number" value="1">
+            <input class="change" onclick="var result = document.getElementById('number'); var qty = result.value; if( !isNaN(qty)) result.value++;return false;" type='button' value='+' />
+        </div>
+        <div class="button">
+            <button class="tobasket" onclick="">Add</button>
+            <button class="buy" type="submit">Buy</button>
+        </div>
+    </nav>
+</form>

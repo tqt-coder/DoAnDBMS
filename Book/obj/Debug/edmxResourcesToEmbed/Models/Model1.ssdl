@@ -108,6 +108,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="recommend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="theloai" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="xem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ma" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="xoakhachkhongmuahang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="DoAnModelStoreContainer">
     <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />

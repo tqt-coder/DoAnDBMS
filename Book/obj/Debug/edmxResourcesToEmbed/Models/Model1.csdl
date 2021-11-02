@@ -138,5 +138,30 @@
       <End Role="NhaXuatBan" EntitySet="NhaXuatBans" />
       <End Role="Sach" EntitySet="Saches" />
     </AssociationSet>
+    <FunctionImport Name="recommend" ReturnType="Collection(DoAnModel.recommend_Result)">
+      <Parameter Name="theloai" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="xem" ReturnType="Collection(DoAnModel.xem_Result)">
+      <Parameter Name="ma" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="xoakhachkhongmuahang">
+      <Parameter Name="id" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="recommend_Result">
+    <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="MaNXB" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
+    <Property Type="String" Name="HinhAnh" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="xem_Result">
+    <Property Type="Int32" Name="SL" Nullable="true" />
+    <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
+    <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="MaKH" Nullable="false" MaxLength="20" />
+  </ComplexType>
 </Schema>

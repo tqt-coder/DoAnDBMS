@@ -21,10 +21,27 @@ namespace Book.Controllers
             return View(saches.ToList());
         }
 
+        public ActionResult NgoaiNgu()
+        {
+            var saches = db.Database.SqlQuery<recommend_Result>("recommend N'Ngoại ngữ'");
+            return View(saches.ToList());
+        }
+
         public ActionResult ThieuNhi()
         {
-            var saches = db.Saches.Include(s => s.NhaXuatBan)
-                 .Where(s => s.TheLoai == "Thiếu nhi");
+            var saches = db.Database.SqlQuery<recommend_Result>("recommend N'Thiếu nhi'");
+            return View(saches.ToList());
+        }
+
+        public ActionResult KhoaHoc()
+        {
+            var saches = db.Database.SqlQuery<recommend_Result>("recommend N'Khoa học'");
+            return View(saches.ToList());
+        }
+
+        public ActionResult KyNangSong()
+        {
+            var saches = db.Database.SqlQuery<recommend_Result>("recommend N'Kỹ năng sống'");
             return View(saches.ToList());
         }
 
@@ -32,8 +49,7 @@ namespace Book.Controllers
         {
             //var saches = db.Saches.Include(s => s.NhaXuatBan)
             //     .Where(s => s.TheLoai == "Trinh thám");
-            var saches = (from s in db.Saches where s.TheLoai == "Trinh thám" select s);
-            
+            var saches = db.Database.SqlQuery<recommend_Result>("recommend N'Trinh thám'");
 
             return View(saches.ToList());
         }

@@ -12,6 +12,8 @@ namespace Book.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DoAnEntities : DbContext
     {
@@ -30,5 +32,32 @@ namespace Book.Models
         public virtual DbSet<NguoiQuanLy> NguoiQuanLies { get; set; }
         public virtual DbSet<NhaXuatBan> NhaXuatBans { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
+    
+        public virtual ObjectResult<recommend_Result> recommend(string theloai)
+        {
+            var theloaiParameter = theloai != null ?
+                new ObjectParameter("theloai", theloai) :
+                new ObjectParameter("theloai", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<recommend_Result>("recommend", theloaiParameter);
+        }
+    
+        public virtual ObjectResult<xem_Result> xem(string ma)
+        {
+            var maParameter = ma != null ?
+                new ObjectParameter("ma", ma) :
+                new ObjectParameter("ma", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xem_Result>("xem", maParameter);
+        }
+    
+        public virtual int xoakhachkhongmuahang(string id)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("xoakhachkhongmuahang", idParameter);
+        }
     }
 }

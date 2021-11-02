@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Book.Models.Sach>
+﻿@model List<Book.Models.recommend_Result>
 
 @{
     ViewBag.Title = "Trinh thám";
@@ -21,9 +21,9 @@
                                     Kiến thức - Bách khoa
                                 </a>
                                 <a class="item item--category " href="http://www.nettruyenpro.com/tim-truyen/romance">Tiểu thuyết</a>
-                                <a class="item item--category " href="http://www.nettruyenpro.com/tim-truyen/historical">Sách về khoa học</a>
-                                <a class="item item--category " href="/Saches/Index1">Sách ngoại ngữ</a>
-                                <a class="item item--category " href="http://www.nettruyenpro.com/tim-truyen/historical">Sách về kỹ năng sống</a>
+                                <a class="item item--category " href="/Saches/KhoaHoc">Sách về khoa học</a>
+                                <a class="item item--category " href="/Saches/NgoaiNgu">Sách ngoại ngữ</a>
+                                <a class="item item--category " href="/Saches/KyNangSong">Sách về kỹ năng sống</a>
                                 <a class="item item--category " href="/Saches/ThieuNhi">Sách thiếu nhi</a>
                             </div>
                         </div>
@@ -38,7 +38,9 @@
                             <div class="col-lg-3 col-md-4 col-sm-6">
                                 <a href="#" class="item__book">
                                     <div class="item-div">
-                                        <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
+                                        <a href=@Url.Action("Details", "Saches", new { id = item.MaSach })>
+                                            <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
+                                        </a>
                                     </div>
                                     <div class="item-div__infor-book">
                                         @Html.DisplayFor(modelItem => item.TenSach)
@@ -61,11 +63,9 @@
                                         </nav>
                                     </div>
                                     <div>
-                                        <button class="item-atb">Add To Basket</button>
+                                        <button class="item-atb" type="submit">Vào Giỏ</button>
                                     </div>
                                 </a>
-
-
                             </div>
                         }
                         <!-- end -->

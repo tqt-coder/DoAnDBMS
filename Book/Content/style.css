@@ -462,3 +462,97 @@ label.float-l {
     padding: 5px 0;
     align-content: flex-start;
 }
+
+
+/*Detail*/
+
+.detail-img > .img {
+    width: 80%;
+    border-radius: 15px;
+}
+
+    .detail-img > .img:hover {
+        border-radius: 15px;
+        transform: scale(120%);
+    }
+
+.detail {
+    position: relative;
+    justify-content: center;
+    left: 50%;
+    top: 270px;
+    transform: translate(-50%,-50%);
+    align-items: center;
+    border: 1px solid rgb(199, 198, 198);
+    border-radius: 5%;
+    display: flex;
+    font-size: 30px;
+    width: 70%;
+}
+
+    .detail > .detail-item > #name {
+        font-size: 50px;
+    }
+
+    .detail > nav {
+        padding: 5%;
+        display: fix;
+    }
+
+.detail-item > div {
+    display: flex;
+    padding-block: 20px;
+}
+
+.detail-item > .button {
+    justify-content: center;
+}
+
+    .detail-item > .button > button {
+        font-size: 20px;
+        padding: 10px;
+        border-radius: 10px;
+        width: 40%;
+        margin: 10px;
+        margin-top: 5%;
+    }
+
+.detail-item > div > input {
+    text-align: center;
+    display: flex;
+    margin: 0;
+}
+
+.detail-item > div > #number {
+    font-size: 30px;
+    text-align: center;
+    width: 70%;
+}
+
+.detail-item > div > .change {
+    width: 20%;
+    background-color: #dee2e6;
+    border-radius: 5%;
+    font-size: 30px;
+    text-align: center;
+    justify-content: center;
+    border: 1px #f8f9fa;
+    margin-bottom: 1rem;
+}
+
+.detail-item > .button > .tobasket {
+    background-color: rgb(238, 45, 45);
+}
+
+    .detail-item > .button > .tobasket:hover {
+        background-color: rgb(233, 13, 13);
+    }
+
+.detail-item > .button > .buy {
+    background-color: rgb(74, 233, 74);
+}
+
+    .detail-item > .button > .buy:hover {
+        background-color: rgb(9, 247, 9);
+    }
+
