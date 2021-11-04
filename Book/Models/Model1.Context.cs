@@ -32,6 +32,8 @@ namespace Book.Models
         public virtual DbSet<NguoiQuanLy> NguoiQuanLies { get; set; }
         public virtual DbSet<NhaXuatBan> NhaXuatBans { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
+        public virtual DbSet<view_thongtinKH> view_thongtinKH { get; set; }
+        public virtual DbSet<DatHang> DatHangs { get; set; }
     
         public virtual ObjectResult<recommend_Result> recommend(string theloai)
         {

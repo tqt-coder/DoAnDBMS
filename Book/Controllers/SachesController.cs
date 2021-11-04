@@ -21,6 +21,11 @@ namespace Book.Controllers
             return View(saches.ToList());
         }
 
+        public ActionResult Purchases()
+        {
+            var saches = db.DatHangs;
+            return View(saches.ToList());
+        }
         public ActionResult NgoaiNgu()
         {
             var saches = db.Database.SqlQuery<recommend_Result>("recommend N'Ngoại ngữ'");

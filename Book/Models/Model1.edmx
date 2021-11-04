@@ -57,6 +57,38 @@
           <Property Name="GiaBan" Type="money" />
           <Property Name="HinhAnh" Type="varchar(max)" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DoAn.dbo.DatHang' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DatHang">
+          <Key>
+            <PropertyRef Name="MaDH" />
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="NgayDat" />
+            
+            <PropertyRef Name="HinhAnh" />
+          </Key>
+          <Property Name="MaDH" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="HovaTen" Type="nvarchar" MaxLength="20" />
+          <Property Name="NgayDat" Type="date" Nullable="false" />
+          <Property Name="SoLuong" Type="int" Nullable="false" />
+          <Property Name="ThanhTien" Type="money" />
+          <Property Name="HinhAnh" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="view_thongtinKH">
+          <Key>
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="DiaChi" />
+            <PropertyRef Name="MaDH" />
+          </Key>
+          <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="HovaTen" Type="nvarchar" MaxLength="20" />
+          <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaDH" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <Association Name="fk_dh_kh">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -128,6 +160,26 @@
           <EntitySet Name="NguoiQuanLy" EntityType="Self.NguoiQuanLy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhaXuatBan" EntityType="Self.NhaXuatBan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DatHang" EntityType="Self.DatHang" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DatHang].[MaDH] AS [MaDH], 
+    [DatHang].[MaKH] AS [MaKH], 
+    [DatHang].[HovaTen] AS [HovaTen], 
+    [DatHang].[NgayDat] AS [NgayDat], 
+    [DatHang].[SoLuong] AS [SoLuong], 
+    [DatHang].[ThanhTien] AS [ThanhTien], 
+    [DatHang].[HinhAnh] AS [HinhAnh]
+    FROM [dbo].[DatHang] AS [DatHang]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_thongtinKH" EntityType="Self.view_thongtinKH" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_thongtinKH].[MaKH] AS [MaKH], 
+    [view_thongtinKH].[HovaTen] AS [HovaTen], 
+    [view_thongtinKH].[SoDienThoai] AS [SoDienThoai], 
+    [view_thongtinKH].[DiaChi] AS [DiaChi], 
+    [view_thongtinKH].[MaDH] AS [MaDH]
+    FROM [dbo].[view_thongtinKH] AS [view_thongtinKH]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="fk_dh_kh" Association="Self.fk_dh_kh">
             <End Role="KhachHang" EntitySet="KhachHang" />
             <End Role="DonHang" EntitySet="DonHang" />
@@ -288,14 +340,16 @@
             <End Role="Sach" EntitySet="Saches" />
           </AssociationSet>
           <FunctionImport Name="recommend" ReturnType="Collection(DoAnModel.recommend_Result)">
-            <Parameter Name="theloai" Mode="In" Type="String" />
+          <Parameter Name="theloai" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="xem" ReturnType="Collection(DoAnModel.xem_Result)">
-            <Parameter Name="ma" Mode="In" Type="String" />
+          <Parameter Name="ma" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="xoakhachkhongmuahang">
-            <Parameter Name="id" Mode="In" Type="String" />
+          <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
+          <EntitySet Name="DatHangs" EntityType="DoAnModel.DatHang" />
         </EntityContainer>
         <ComplexType Name="recommend_Result">
           <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -313,6 +367,33 @@
           <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="MaKH" Nullable="false" MaxLength="20" />
         </ComplexType>
+        <EntityType Name="view_thongtinKH">
+          <Key>
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="DiaChi" />
+            <PropertyRef Name="MaDH" />
+          </Key>
+          <Property Name="MaKH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HovaTen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaDH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DatHang">
+          <Key>
+            <PropertyRef Name="MaDH" />
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="NgayDat" />
+            <PropertyRef Name="HinhAnh" />
+          </Key>
+          <Property Name="MaDH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MaKH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HovaTen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SoLuong" Type="Int32" Nullable="false" />
+          <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HinhAnh" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -401,6 +482,30 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="xoakhachkhongmuahang" FunctionName="DoAnModel.Store.xoakhachkhongmuahang" />
+          <EntitySetMapping Name="view_thongtinKH">
+            <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
+              <MappingFragment StoreEntitySet="view_thongtinKH">
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DatHangs">
+            <EntityTypeMapping TypeName="DoAnModel.DatHang">
+              <MappingFragment StoreEntitySet="DatHang">
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

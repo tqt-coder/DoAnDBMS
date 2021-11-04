@@ -52,6 +52,37 @@
     <Property Name="GiaBan" Type="money" />
     <Property Name="HinhAnh" Type="varchar(max)" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DoAn.dbo.DatHang' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DatHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="NgayDat" />
+      <PropertyRef Name="HinhAnh" />
+    </Key>
+    <Property Name="MaDH" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="HovaTen" Type="nvarchar" MaxLength="20" />
+    <Property Name="NgayDat" Type="date" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="ThanhTien" Type="money" />
+    <Property Name="HinhAnh" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="view_thongtinKH">
+    <Key>
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="DiaChi" />
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="HovaTen" Type="nvarchar" MaxLength="20" />
+    <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaDH" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
   <Association Name="fk_dh_kh">
     <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -123,6 +154,26 @@
     <EntitySet Name="NguoiQuanLy" EntityType="Self.NguoiQuanLy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhaXuatBan" EntityType="Self.NhaXuatBan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DatHang" EntityType="Self.DatHang" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DatHang].[MaDH] AS [MaDH], 
+    [DatHang].[MaKH] AS [MaKH], 
+    [DatHang].[HovaTen] AS [HovaTen], 
+    [DatHang].[NgayDat] AS [NgayDat], 
+    [DatHang].[SoLuong] AS [SoLuong], 
+    [DatHang].[ThanhTien] AS [ThanhTien], 
+    [DatHang].[HinhAnh] AS [HinhAnh]
+    FROM [dbo].[DatHang] AS [DatHang]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_thongtinKH" EntityType="Self.view_thongtinKH" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [view_thongtinKH].[MaKH] AS [MaKH], 
+    [view_thongtinKH].[HovaTen] AS [HovaTen], 
+    [view_thongtinKH].[SoDienThoai] AS [SoDienThoai], 
+    [view_thongtinKH].[DiaChi] AS [DiaChi], 
+    [view_thongtinKH].[MaDH] AS [MaDH]
+    FROM [dbo].[view_thongtinKH] AS [view_thongtinKH]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="fk_dh_kh" Association="Self.fk_dh_kh">
       <End Role="KhachHang" EntitySet="KhachHang" />
       <End Role="DonHang" EntitySet="DonHang" />

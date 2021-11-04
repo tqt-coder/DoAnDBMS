@@ -38,11 +38,9 @@
                         {
                             <!-- giao diện sách -->
                             <div class="col-lg-3 col-md-4 col-sm-6">
-                                <a href="#" class="item__book">
+                                <a href=@Url.Action("Details", "Saches", new { id = item.MaSach }) class="item__book">
                                     <div class="item-div">
-                                        <a href=@Url.Action("Details", "Saches", new { id = item.MaSach })>
-                                            <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
-                                        </a>
+                                        <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
                                     </div>
                                     <div class="item-div__infor-book">
                                         @Html.DisplayFor(modelItem => item.TenSach)

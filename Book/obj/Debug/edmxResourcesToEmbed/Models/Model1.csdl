@@ -147,6 +147,8 @@
     <FunctionImport Name="xoakhachkhongmuahang">
       <Parameter Name="id" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
+    <EntitySet Name="DatHangs" EntityType="DoAnModel.DatHang" />
   </EntityContainer>
   <ComplexType Name="recommend_Result">
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -164,4 +166,31 @@
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
     <Property Type="String" Name="MaKH" Nullable="false" MaxLength="20" />
   </ComplexType>
+  <EntityType Name="view_thongtinKH">
+    <Key>
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="DiaChi" />
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaKH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="HovaTen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaDH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="DatHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="NgayDat" />
+      <PropertyRef Name="HinhAnh" />
+    </Key>
+    <Property Name="MaDH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="MaKH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="HovaTen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="HinhAnh" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>
