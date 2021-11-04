@@ -23,8 +23,8 @@
     <Property Name="HovaTen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="PassWord" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Quyen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Quyen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="DonHangs" Relationship="Self.fk_dh_kh" FromRole="KhachHang" ToRole="DonHang" />
     <NavigationProperty Name="NguoiQuanLies" Relationship="Self.fk_nql_sach" FromRole="KhachHang" ToRole="NguoiQuanLy" />
   </EntityType>

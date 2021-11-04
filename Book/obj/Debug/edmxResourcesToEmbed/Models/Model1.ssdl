@@ -21,8 +21,8 @@
     <Property Name="HovaTen" Type="nvarchar" MaxLength="20" />
     <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
     <Property Name="PassWord" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="Gmail" Type="varchar" MaxLength="50" />
-    <Property Name="Quyen" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Gmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quyen" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="NguoiQuanLy">
     <Key>

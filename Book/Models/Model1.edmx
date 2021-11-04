@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DonHang">
           <Key>
             <PropertyRef Name="MaDH" />
@@ -26,8 +26,8 @@
           <Property Name="HovaTen" Type="nvarchar" MaxLength="20" />
           <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
           <Property Name="PassWord" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Gmail" Type="varchar" MaxLength="50" />
-          <Property Name="Quyen" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Gmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quyen" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="NguoiQuanLy">
           <Key>
@@ -136,8 +136,7 @@
             <End Role="Sach" EntitySet="Sach" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DoAnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -164,8 +163,8 @@
           <Property Name="HovaTen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="PassWord" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Quyen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Quyen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DonHangs" Relationship="Self.fk_dh_kh" FromRole="KhachHang" ToRole="DonHang" />
           <NavigationProperty Name="NguoiQuanLies" Relationship="Self.fk_nql_sach" FromRole="KhachHang" ToRole="NguoiQuanLy" />
         </EntityType>
