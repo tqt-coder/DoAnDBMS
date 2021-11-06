@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Book.Models.Sach>
 
 @{
-    ViewBag.Title = "Thiếu nhi";
+    ViewBag.Title = ViewBag.header;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,16 +15,16 @@
 
                             <h4 class="content__title">Danh mục sản phẩm</h4>
                             <div class="list collapsed">
-                                <a class="item item--category " href="http://www.nettruyenpro.com/tim-truyen/historical">Sách về lịch sử</a>
-                                <a class="item item--category " href="/Saches/TrinhTham">Sách trinh thám</a>
-                                <a class="item item--category " href="https://www.slideshare.net/toason91/bi-ging-kin-trc-my-tnh">
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Lịch sử" })>Sách về lịch sử</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Trinh thám" })>Sách trinh thám</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Kiến thức - Bách khoa" })>
                                     Kiến thức - Bách khoa
                                 </a>
-                                <a class="item item--category " href="http://www.nettruyenpro.com/tim-truyen/romance">Tiểu thuyết</a>
-                                <a class="item item--category " href="http://www.nettruyenpro.com/tim-truyen/historical">Sách về khoa học</a>
-                                <a class="item item--category " href="/Saches/Index1">Sách ngoại ngữ</a>
-                                <a class="item item--category " href="http://www.nettruyenpro.com/tim-truyen/historical">Sách về kỹ năng sống</a>
-                                <a class="item item--category " href="/Saches/ThieuNhi">Sách thiếu nhi</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Tiểu thuyết" })>Tiểu thuyết</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Khoa học" })>Sách về khoa học</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Ngoại ngữ" })>Sách ngoại ngữ</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Kỹ năng sống" })>Sách về kỹ năng sống</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Thiếu nhi" })>Sách thiếu nhi</a>
                             </div>
                         </div>
 

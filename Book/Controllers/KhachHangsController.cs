@@ -20,6 +20,11 @@ namespace Book.Controllers
         {
             return View(db.KhachHangs.ToList());
         }
+
+        public ActionResult Purchases()
+        {
+            return View(db.KhachHangs.ToList());
+        }
         public ActionResult UserDashBoard()
         {
             if (Session["UserID"] != null)

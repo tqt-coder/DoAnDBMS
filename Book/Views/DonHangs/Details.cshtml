@@ -1,0 +1,82 @@
+﻿@model Book.Models.DonHang
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>DonHang</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NgayDat)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NgayDat)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NgayNhan)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NgayNhan)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SoLuong)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ThanhTien)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ThanhTien)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.KhachHang.HovaTen)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.KhachHang.HovaTen)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Sach.TenSach)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Sach.TenSach)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MaDH }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

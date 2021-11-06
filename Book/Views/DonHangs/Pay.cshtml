@@ -1,0 +1,40 @@
+﻿@model Book.Models.KhachHang
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <form action="/DonHangs/Create" method="post">
+        <input name="__RequestVerificationToken" type="hidden" value="KeIW6yShDW10QeLekLkmmBEk_41PKsid1VP1PgvB8lo66O1rtn3GHvArKuV7I4S2IKHprKKdINYx9OyEtH5H3nBhfdNhj8Rs2dBdC1D-04w1">        <div class="form-horizontal">
+            <h4>DonHang</h4>
+            <hr>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="MaDH">MaDH</label>
+                <div class="col-md-10">
+                    <input value="html" class="form-control text-box single-line" id="MaDH" name="MaDH" value="@Html.DisplayFor(model => model.MaKH)" type="text">
+                    <span class="field-validation-valid text-danger" data-valmsg-for="MaDH" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default">
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

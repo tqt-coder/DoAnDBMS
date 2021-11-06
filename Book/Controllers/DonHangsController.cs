@@ -10,135 +10,121 @@ using Book.Models;
 
 namespace Book.Controllers
 {
-    public class SachesController : Controller
+    public class DonHangsController : Controller
     {
         private DoAnEntities db = new DoAnEntities();
 
-        // GET: Saches
+        // GET: DonHangs
         public ActionResult Index()
         {
-            var saches = db.Saches.Include(s => s.NhaXuatBan);
-            return View(saches.ToList());
+            var donHangs = db.DonHangs.Include(d => d.KhachHang).Include(d => d.Sach);
+            return View(donHangs.ToList());
         }
-
-        public ActionResult Catetogy(string li)
+        // pay
+        public ActionResult Pay()
         {
-            ViewBag.header = li;
-           var saches = db.Saches.Include(s => s.NhaXuatBan)
-                 .Where(s => s.TheLoai == li);
-            return View(saches.ToList());
+            return View();
         }
 
-   
-
-        // GET: Saches/Details/5
+        // GET: DonHangs/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
+            DonHang donHang = db.DonHangs.Find(id);
+            if (donHang == null)
             {
                 return HttpNotFound();
             }
-            return View(sach);
+            return View(donHang);
         }
-        // Post detail
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Details(Sach sa)
-        {
-            if(Session["UserID"] == null)
-            {
-                // Trả về trang login để đăng nhập
-                return RedirectToAction("Login", "KhachHangs");
-            }
-            return RedirectToAction("Pay","DonHangs");
-        }
-        
-        // GET: Saches/Create
+
+        // GET: DonHangs/Create
         public ActionResult Create()
         {
-            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB");
+            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "HovaTen");
+            ViewBag.MaSach = new SelectList(db.Saches, "MaSach", "TenSach");
             return View();
         }
 
-        // POST: Saches/Create
+        // POST: DonHangs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaSach,TenSach,TenTacGia,MaNXB,TheLoai,SoLuong,GiaBan,HinhAnh")] Sach sach)
+        public ActionResult Create([Bind(Include = "MaDH,MaKH,MaSach,DiaChi,NgayDat,NgayNhan,SoLuong,ThanhTien")] DonHang donHang)
         {
             if (ModelState.IsValid)
             {
-                db.Saches.Add(sach);
+                db.DonHangs.Add(donHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sach.MaNXB);
-            return View(sach);
+            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "HovaTen", donHang.MaKH);
+            ViewBag.MaSach = new SelectList(db.Saches, "MaSach", "TenSach", donHang.MaSach);
+            return View(donHang);
         }
 
-        // GET: Saches/Edit/5
+        // GET: DonHangs/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
+            DonHang donHang = db.DonHangs.Find(id);
+            if (donHang == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sach.MaNXB);
-            return View(sach);
+            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "HovaTen", donHang.MaKH);
+            ViewBag.MaSach = new SelectList(db.Saches, "MaSach", "TenSach", donHang.MaSach);
+            return View(donHang);
         }
 
-        // POST: Saches/Edit/5
+        // POST: DonHangs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaSach,TenSach,TenTacGia,MaNXB,TheLoai,SoLuong,GiaBan,HinhAnh")] Sach sach)
+        public ActionResult Edit([Bind(Include = "MaDH,MaKH,MaSach,DiaChi,NgayDat,NgayNhan,SoLuong,ThanhTien")] DonHang donHang)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sach).State = EntityState.Modified;
+                db.Entry(donHang).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sach.MaNXB);
-            return View(sach);
+            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "HovaTen", donHang.MaKH);
+            ViewBag.MaSach = new SelectList(db.Saches, "MaSach", "TenSach", donHang.MaSach);
+            return View(donHang);
         }
 
-        // GET: Saches/Delete/5
+        // GET: DonHangs/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
+            DonHang donHang = db.DonHangs.Find(id);
+            if (donHang == null)
             {
                 return HttpNotFound();
             }
-            return View(sach);
+            return View(donHang);
         }
 
-        // POST: Saches/Delete/5
+        // POST: DonHangs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Sach sach = db.Saches.Find(id);
-            db.Saches.Remove(sach);
+            DonHang donHang = db.DonHangs.Find(id);
+            db.DonHangs.Remove(donHang);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

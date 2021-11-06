@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DonHangsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangsController.cs" />
     <Compile Include="Controllers\SachesController.cs" />
@@ -208,10 +209,8 @@
     <Content Include="Views\Saches\Delete.cshtml" />
     <Content Include="Views\Saches\Details.cshtml" />
     <Content Include="Views\Saches\Edit.cshtml" />
-    <Content Include="Views\Saches\ThieuNhi.cshtml" />
+    <Content Include="Views\Saches\Catetogy.cshtml" />
     <Content Include="Views\Saches\Index.cshtml" />
-    <Content Include="Views\Saches\TrinhTham.cshtml" />
-    <Content Include="Views\Saches\NgoaiNgu.cshtml" />
     <Content Include="Views\KhachHangs\Create.cshtml" />
     <Content Include="Views\KhachHangs\Delete.cshtml" />
     <Content Include="Views\KhachHangs\Details.cshtml" />
@@ -230,6 +229,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
     <Content Include="Views\KhachHangs\UserDashBoard.cshtml" />
+    <Content Include="Views\KhachHangs\Purchases.cshtml" />
+    <Content Include="Views\DonHangs\Create.cshtml" />
+    <Content Include="Views\DonHangs\Delete.cshtml" />
+    <Content Include="Views\DonHangs\Details.cshtml" />
+    <Content Include="Views\DonHangs\Edit.cshtml" />
+    <Content Include="Views\DonHangs\Index.cshtml" />
+    <Content Include="Views\DonHangs\Pay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
