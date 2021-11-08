@@ -1,25 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ChiTietHoaDon">
+    <Key>
+      <PropertyRef Name="MaHD" />
+      <PropertyRef Name="MaSach" />
+    </Key>
+    <Property Name="MaHD" Type="int" Nullable="false" />
+    <Property Name="MaSach" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="ThanhTien" Type="money" />
+  </EntityType>
   <EntityType Name="DonHang">
     <Key>
       <PropertyRef Name="MaDH" />
     </Key>
-    <Property Name="MaDH" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="MaSach" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaKH" Type="int" Nullable="false" />
     <Property Name="NgayDat" Type="date" Nullable="false" />
-    <Property Name="NgayNhan" Type="date" />
-    <Property Name="SoLuong" Type="int" Nullable="false" />
-    <Property Name="ThanhTien" Type="money" />
+    <Property Name="NgayNhan" Type="date" Nullable="false" />
+    <Property Name="TongTien" Type="money" />
   </EntityType>
   <EntityType Name="KhachHang">
     <Key>
       <PropertyRef Name="MaKH" />
     </Key>
-    <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="HovaTen" Type="nvarchar" MaxLength="20" />
+    <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HovaTen" Type="nvarchar" MaxLength="50" />
     <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="PassWord" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Gmail" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Quyen" Type="nvarchar" MaxLength="20" />
@@ -28,16 +36,16 @@
     <Key>
       <PropertyRef Name="MaNQL" />
     </Key>
-    <Property Name="MaNQL" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="Ten" Type="nvarchar" MaxLength="20" />
-    <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaNQL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ten" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaKH" Type="int" />
   </EntityType>
   <EntityType Name="NhaXuatBan">
     <Key>
       <PropertyRef Name="MaNXB" />
     </Key>
     <Property Name="MaNXB" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="TenNXB" Type="nvarchar" MaxLength="20" />
+    <Property Name="TenNXB" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Sach">
     <Key>
@@ -52,6 +60,30 @@
     <Property Name="GiaBan" Type="money" />
     <Property Name="HinhAnh" Type="varchar(max)" Nullable="false" />
   </EntityType>
+  <Association Name="fk_ctdh_dh">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+    <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="MaDH" />
+      </Principal>
+      <Dependent Role="ChiTietHoaDon">
+        <PropertyRef Name="MaHD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ctdh_sach">
+    <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+    <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="MaSach" />
+      </Principal>
+      <Dependent Role="ChiTietHoaDon">
+        <PropertyRef Name="MaSach" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_dh_kh">
     <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -66,22 +98,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_dh_sach">
-    <End Role="Sach" Type="Self.Sach" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Sach">
-        <PropertyRef Name="MaSach" />
-      </Principal>
-      <Dependent Role="DonHang">
-        <PropertyRef Name="MaSach" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_nql_sach">
-    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
+    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="NguoiQuanLy" Type="Self.NguoiQuanLy" Multiplicity="*" />
@@ -108,18 +126,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="recommend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="theloai" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="searchBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tenSach" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SumMoney" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaHD" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="TongTien" Type="money" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
   <EntityContainer Name="DoAnModelStoreContainer">
+    <EntitySet Name="ChiTietHoaDon" EntityType="Self.ChiTietHoaDon" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NguoiQuanLy" EntityType="Self.NguoiQuanLy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhaXuatBan" EntityType="Self.NhaXuatBan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_ctdh_dh" Association="Self.fk_ctdh_dh">
+      <End Role="DonHang" EntitySet="DonHang" />
+      <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ctdh_sach" Association="Self.fk_ctdh_sach">
+      <End Role="Sach" EntitySet="Sach" />
+      <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDon" />
+    </AssociationSet>
     <AssociationSet Name="fk_dh_kh" Association="Self.fk_dh_kh">
       <End Role="KhachHang" EntitySet="KhachHang" />
-      <End Role="DonHang" EntitySet="DonHang" />
-    </AssociationSet>
-    <AssociationSet Name="fk_dh_sach" Association="Self.fk_dh_sach">
-      <End Role="Sach" EntitySet="Sach" />
       <End Role="DonHang" EntitySet="DonHang" />
     </AssociationSet>
     <AssociationSet Name="fk_nql_sach" Association="Self.fk_nql_sach">

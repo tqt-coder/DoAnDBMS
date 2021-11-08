@@ -21,12 +21,13 @@ namespace Book.Models
             this.NguoiQuanLies = new HashSet<NguoiQuanLy>();
         }
     
-        public string MaKH { get; set; }
+        public int MaKH { get; set; }
         public string HovaTen { get; set; }
         public string SoDienThoai { get; set; }
         public string PassWord { get; set; }
         public string Gmail { get; set; }
         public string Quyen { get; set; }
+        public string DiaChi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }

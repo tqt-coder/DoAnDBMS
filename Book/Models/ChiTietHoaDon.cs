@@ -12,12 +12,14 @@ namespace Book.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NguoiQuanLy
+    public partial class ChiTietHoaDon
     {
-        public int MaNQL { get; set; }
-        public string Ten { get; set; }
-        public Nullable<int> MaKH { get; set; }
+        public int MaHD { get; set; }
+        public string MaSach { get; set; }
+        public int SoLuong { get; set; }
+        public Nullable<decimal> ThanhTien { get; set; }
     
-        public virtual KhachHang KhachHang { get; set; }
+        public virtual DonHang DonHang { get; set; }
+        public virtual Sach Sach { get; set; }
     }
 }

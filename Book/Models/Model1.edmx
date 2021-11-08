@@ -5,26 +5,34 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChiTietHoaDon">
+          <Key>
+            <PropertyRef Name="MaHD" />
+            <PropertyRef Name="MaSach" />
+          </Key>
+          <Property Name="MaHD" Type="int" Nullable="false" />
+          <Property Name="MaSach" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SoLuong" Type="int" Nullable="false" />
+          <Property Name="ThanhTien" Type="money" />
+        </EntityType>
         <EntityType Name="DonHang">
           <Key>
             <PropertyRef Name="MaDH" />
           </Key>
-          <Property Name="MaDH" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="MaSach" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKH" Type="int" Nullable="false" />
           <Property Name="NgayDat" Type="date" Nullable="false" />
-          <Property Name="NgayNhan" Type="date" />
-          <Property Name="SoLuong" Type="int" Nullable="false" />
-          <Property Name="ThanhTien" Type="money" />
+          <Property Name="NgayNhan" Type="date" Nullable="false" />
+          <Property Name="TongTien" Type="money" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="MaKH" />
           </Key>
-          <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="HovaTen" Type="nvarchar" MaxLength="20" />
+          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HovaTen" Type="nvarchar" MaxLength="50" />
           <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PassWord" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Gmail" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Quyen" Type="nvarchar" MaxLength="20" />
@@ -33,16 +41,16 @@
           <Key>
             <PropertyRef Name="MaNQL" />
           </Key>
-          <Property Name="MaNQL" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Ten" Type="nvarchar" MaxLength="20" />
-          <Property Name="MaKH" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MaNQL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaKH" Type="int" />
         </EntityType>
         <EntityType Name="NhaXuatBan">
           <Key>
             <PropertyRef Name="MaNXB" />
           </Key>
           <Property Name="MaNXB" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="TenNXB" Type="nvarchar" MaxLength="20" />
+          <Property Name="TenNXB" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Sach">
           <Key>
@@ -57,6 +65,30 @@
           <Property Name="GiaBan" Type="money" />
           <Property Name="HinhAnh" Type="varchar(max)" Nullable="false" />
         </EntityType>
+        <Association Name="fk_ctdh_dh">
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+          <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="MaDH" />
+            </Principal>
+            <Dependent Role="ChiTietHoaDon">
+              <PropertyRef Name="MaHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ctdh_sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+          <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="MaSach" />
+            </Principal>
+            <Dependent Role="ChiTietHoaDon">
+              <PropertyRef Name="MaSach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_dh_kh">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -71,22 +103,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_dh_sach">
-          <End Role="Sach" Type="Self.Sach" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sach">
-              <PropertyRef Name="MaSach" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="MaSach" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_nql_sach">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="NguoiQuanLy" Type="Self.NguoiQuanLy" Multiplicity="*" />
@@ -113,18 +131,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="recommend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="theloai" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="searchBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tenSach" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SumMoney" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaHD" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="TongTien" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <EntityContainer Name="DoAnModelStoreContainer">
+          <EntitySet Name="ChiTietHoaDon" EntityType="Self.ChiTietHoaDon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NguoiQuanLy" EntityType="Self.NguoiQuanLy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhaXuatBan" EntityType="Self.NhaXuatBan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_ctdh_dh" Association="Self.fk_ctdh_dh">
+            <End Role="DonHang" EntitySet="DonHang" />
+            <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ctdh_sach" Association="Self.fk_ctdh_sach">
+            <End Role="Sach" EntitySet="Sach" />
+            <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDon" />
+          </AssociationSet>
           <AssociationSet Name="fk_dh_kh" Association="Self.fk_dh_kh">
             <End Role="KhachHang" EntitySet="KhachHang" />
-            <End Role="DonHang" EntitySet="DonHang" />
-          </AssociationSet>
-          <AssociationSet Name="fk_dh_sach" Association="Self.fk_dh_sach">
-            <End Role="Sach" EntitySet="Sach" />
             <End Role="DonHang" EntitySet="DonHang" />
           </AssociationSet>
           <AssociationSet Name="fk_nql_sach" Association="Self.fk_nql_sach">
@@ -140,41 +179,54 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DoAnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="SumMoney_Result">
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+        </ComplexType>
+        <EntityType Name="ChiTietHoaDon">
+          <Key>
+            <PropertyRef Name="MaHD" />
+            <PropertyRef Name="MaSach" />
+          </Key>
+          <Property Name="MaHD" Type="Int32" Nullable="false" />
+          <Property Name="MaSach" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SoLuong" Type="Int32" Nullable="false" />
+          <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="DonHang" Relationship="Self.fk_ctdh_dh" FromRole="ChiTietHoaDon" ToRole="DonHang" />
+          <NavigationProperty Name="Sach" Relationship="Self.fk_ctdh_sach" FromRole="ChiTietHoaDon" ToRole="Sach" />
+        </EntityType>
         <EntityType Name="DonHang">
           <Key>
             <PropertyRef Name="MaDH" />
           </Key>
-          <Property Name="MaDH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MaKH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MaSach" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKH" Type="Int32" Nullable="false" />
           <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="NgayNhan" Type="DateTime" Precision="0" />
-          <Property Name="SoLuong" Type="Int32" Nullable="false" />
-          <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NgayNhan" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="ChiTietHoaDons" Relationship="Self.fk_ctdh_dh" FromRole="DonHang" ToRole="ChiTietHoaDon" />
           <NavigationProperty Name="KhachHang" Relationship="Self.fk_dh_kh" FromRole="DonHang" ToRole="KhachHang" />
-          <NavigationProperty Name="Sach" Relationship="Self.fk_dh_sach" FromRole="DonHang" ToRole="Sach" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="MaKH" />
           </Key>
-          <Property Name="MaKH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="HovaTen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="PassWord" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Quyen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DonHangs" Relationship="Self.fk_dh_kh" FromRole="KhachHang" ToRole="DonHang" />
           <NavigationProperty Name="NguoiQuanLies" Relationship="Self.fk_nql_sach" FromRole="KhachHang" ToRole="NguoiQuanLy" />
+          <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="NguoiQuanLy">
           <Key>
             <PropertyRef Name="MaNQL" />
           </Key>
-          <Property Name="MaNQL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Ten" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MaKH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaNQL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaKH" Type="Int32" />
           <NavigationProperty Name="KhachHang" Relationship="Self.fk_nql_sach" FromRole="NguoiQuanLy" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="NhaXuatBan">
@@ -182,7 +234,7 @@
             <PropertyRef Name="MaNXB" />
           </Key>
           <Property Name="MaNXB" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TenNXB" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TenNXB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Saches" Relationship="Self.fk_s_nxb" FromRole="NhaXuatBan" ToRole="Sach" />
         </EntityType>
         <EntityType Name="Sach">
@@ -197,9 +249,33 @@
           <Property Name="SoLuong" Type="Int32" />
           <Property Name="GiaBan" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DonHangs" Relationship="Self.fk_dh_sach" FromRole="Sach" ToRole="DonHang" />
+          <NavigationProperty Name="ChiTietHoaDons" Relationship="Self.fk_ctdh_sach" FromRole="Sach" ToRole="ChiTietHoaDon" />
           <NavigationProperty Name="NhaXuatBan" Relationship="Self.fk_s_nxb" FromRole="Sach" ToRole="NhaXuatBan" />
         </EntityType>
+        <Association Name="fk_ctdh_dh">
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+          <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonHang">
+              <PropertyRef Name="MaDH" />
+            </Principal>
+            <Dependent Role="ChiTietHoaDon">
+              <PropertyRef Name="MaHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ctdh_sach">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+          <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="MaSach" />
+            </Principal>
+            <Dependent Role="ChiTietHoaDon">
+              <PropertyRef Name="MaSach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_dh_kh">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -214,22 +290,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_dh_sach">
-          <End Role="Sach" Type="Self.Sach" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sach">
-              <PropertyRef Name="MaSach" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="MaSach" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_nql_sach">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="NguoiQuanLy" Type="Self.NguoiQuanLy" Multiplicity="*" />
@@ -256,18 +318,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DoAnEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DoAnEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChiTietHoaDons" EntityType="Self.ChiTietHoaDon" />
           <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
           <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
           <EntitySet Name="NguoiQuanLies" EntityType="Self.NguoiQuanLy" />
           <EntitySet Name="NhaXuatBans" EntityType="Self.NhaXuatBan" />
           <EntitySet Name="Saches" EntityType="Self.Sach" />
+          <AssociationSet Name="fk_ctdh_dh" Association="Self.fk_ctdh_dh">
+            <End Role="DonHang" EntitySet="DonHangs" />
+            <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ctdh_sach" Association="Self.fk_ctdh_sach">
+            <End Role="Sach" EntitySet="Saches" />
+            <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
+          </AssociationSet>
           <AssociationSet Name="fk_dh_kh" Association="Self.fk_dh_kh">
             <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="DonHang" EntitySet="DonHangs" />
-          </AssociationSet>
-          <AssociationSet Name="fk_dh_sach" Association="Self.fk_dh_sach">
-            <End Role="Sach" EntitySet="Saches" />
             <End Role="DonHang" EntitySet="DonHangs" />
           </AssociationSet>
           <AssociationSet Name="fk_nql_sach" Association="Self.fk_nql_sach">
@@ -278,30 +345,67 @@
             <End Role="NhaXuatBan" EntitySet="NhaXuatBans" />
             <End Role="Sach" EntitySet="Saches" />
           </AssociationSet>
+          <FunctionImport Name="SumMoney" IsComposable="true" ReturnType="Collection(DoAnModel.SumMoney_Result)">
+          <Parameter Name="MaHD" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="recommend" ReturnType="Collection(DoAnModel.recommend_Result)">
+          <Parameter Name="theloai" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="searchBook" ReturnType="Collection(DoAnModel.searchBook_Result)">
+          <Parameter Name="tenSach" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="recommend_Result">
+          <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MaNXB" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SoLuong" Nullable="true" />
+          <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
+          <Property Type="String" Name="HinhAnh" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="searchBook_Result">
+          <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MaNXB" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SoLuong" Nullable="true" />
+          <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
+          <Property Type="String" Name="HinhAnh" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DoAnModelStoreContainer" CdmEntityContainer="DoAnEntities">
+        <EntityContainerMapping StorageEntityContainer="DoAnModelStoreContainer" CdmEntityContainer="DoAnEntities1">
+          <EntitySetMapping Name="ChiTietHoaDons">
+            <EntityTypeMapping TypeName="DoAnModel.ChiTietHoaDon">
+              <MappingFragment StoreEntitySet="ChiTietHoaDon">
+                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
+                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DonHangs">
             <EntityTypeMapping TypeName="DoAnModel.DonHang">
               <MappingFragment StoreEntitySet="DonHang">
                 <ScalarProperty Name="MaDH" ColumnName="MaDH" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
                 <ScalarProperty Name="NgayNhan" ColumnName="NgayNhan" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhachHangs">
             <EntityTypeMapping TypeName="DoAnModel.KhachHang">
               <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
                 <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
@@ -342,6 +446,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionName="DoAnModel.Store.SumMoney" FunctionImportName="SumMoney">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.SumMoney_Result">
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="recommend" FunctionName="DoAnModel.Store.recommend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.recommend_Result">
+                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+                <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
+                <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
+                <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="searchBook" FunctionName="DoAnModel.Store.searchBook">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.searchBook_Result">
+                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+                <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
+                <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
+                <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

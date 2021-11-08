@@ -18,25 +18,16 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DiaChi)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.NgayDat)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NgayNhan)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SoLuong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThanhTien)
+                @Html.DisplayNameFor(model => model.TongTien)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.KhachHang.HovaTen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sach.TenSach)
             </th>
             <th></th>
         </tr>
@@ -44,25 +35,16 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.NgayDat)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NgayNhan)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SoLuong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThanhTien)
+                @Html.DisplayFor(modelItem => item.TongTien)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.KhachHang.HovaTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sach.TenSach)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.MaDH }) |

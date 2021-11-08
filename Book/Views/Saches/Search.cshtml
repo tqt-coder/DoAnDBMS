@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Book.Models.Sach>
+﻿@model List<Book.Models.searchBook_Result>
 
 @{
     ViewBag.Title = ViewBag.header;
@@ -36,7 +36,7 @@
                         {
                             <!-- giao diện sách -->
                             <div class="col-lg-3 col-md-4 col-sm-6">
-                                <a href=@Url.Action("Details", "Saches", new { id = item.MaSach }) class="item__book">
+                                <a href="#" class="item__book">
                                     <div class="item-div">
                                         <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
                                     </div>

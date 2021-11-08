@@ -25,20 +25,12 @@
 
             @Html.AntiForgeryToken()
 
-
-
-
             <div class="login">
 
                 <h4>KhachHang</h4>
                 <hr>
 
-                <label class="float-l" for="MaKH">MaKH</label>
-
-                <input class="form-login__input" id="MaKH" name="MaKH" type="text" value="">
-                <span class="field-validation-valid text-danger" data-valmsg-for="MaKH" data-valmsg-replace="true"></span>
-
-
+                <br>
                 <label class="float-l" for="HovaTen">HovaTen</label>
 
                 <input class="form-login__input" id="HovaTen" name="HovaTen" type="text" value="">
@@ -49,6 +41,11 @@
 
                 <input class="form-login__input" id="SoDienThoai" name="SoDienThoai" type="text" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="SoDienThoai" data-valmsg-replace="true"></span>
+
+                <label class="float-l" for="DiaChi">DiaChi</label>
+
+                <input class="form-login__input" id="DiaChi" name="DiaChi" type="text" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="DiaChi" data-valmsg-replace="true"></span>
 
 
                 <label class=" float-l" for="PassWord">PassWord</label>
@@ -63,9 +60,9 @@
                 <span class="field-validation-valid text-danger" data-valmsg-for="Gmail" data-valmsg-replace="true"></span>
 
 
-             
 
-                <input style="display:none" class="form-login__input" id="Quyen" name="Quyen" type="text" value="" >
+
+                <input style="display:none" class="form-login__input" id="Quyen" name="Quyen" type="text" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="Quyen" data-valmsg-replace="true"></span>
 
                 <button type="submit" class="login__button">Create</button>

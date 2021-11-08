@@ -17,7 +17,7 @@ namespace Book.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sach()
         {
-            this.DonHangs = new HashSet<DonHang>();
+            this.ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
         }
     
         public string MaSach { get; set; }
@@ -30,7 +30,7 @@ namespace Book.Models
         public string HinhAnh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonHang> DonHangs { get; set; }
+        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public virtual NhaXuatBan NhaXuatBan { get; set; }
     }
 }

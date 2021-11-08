@@ -12,12 +12,12 @@ namespace Book.Controllers
 {
     public class SachesController : Controller
     {
-        private DoAnEntities db = new DoAnEntities();
+        private DoAnEntities1 db = new DoAnEntities1();
 
         // GET: Saches
         public ActionResult Index()
         {
-            var saches = db.Saches.Include(s => s.NhaXuatBan);
+            var saches = db.Saches.Include(s => s.NhaXuatBan).Take(10);
             return View(saches.ToList());
         }
 
@@ -45,6 +45,8 @@ namespace Book.Controllers
             }
             return View(sach);
         }
+
+
         // Post detail
         
         [HttpPost]
@@ -56,9 +58,23 @@ namespace Book.Controllers
                 // Trả về trang login để đăng nhập
                 return RedirectToAction("Login", "KhachHangs");
             }
-            return RedirectToAction("Pay","DonHangs");
+            //return RedirectToAction("Pay","DonHangs");
+            return RedirectToAction("Details");
         }
-        
+        // view Search
+        public ActionResult Search(String sa)
+        {
+            var saches = db.Database.SqlQuery<searchBook_Result>("searchBook N'%" + sa + "%'");
+            return View(saches.ToList());
+        }
+        // post search
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(Sach sa)
+        {
+           
+            return Search(sa.TenSach);
+        }
         // GET: Saches/Create
         public ActionResult Create()
         {

@@ -25,10 +25,9 @@
                 </div>
                 <div class="navbar_logo">
                     <!-- <p>Thẻ logo con chó </p> -->
-                    <a href class="navbar_logo-link">
+                    <a href="/Saches/index" class="navbar_logo-link">
                         <!-- <p>link hình vào logo </p> -->
-                        <img class="navbar_logo__icon" src="https://saigonsofa.com/Assets/Client/images/logo-ngang.png" />
-                        <!-- <p>Thẻ hình ảnh logo  </p> -->
+                        <img class="navbar_logo__icon" src="~/Content/img/logo.png" />
                     </a>
                 </div>
 
@@ -37,8 +36,9 @@
                     <ul class="navbar_list">
                         <!-- <p>Thẻ thanh navbar hiển thi ist home jobs contact -->
 
-                        <form class="form_search" action="/action_page.php">
-                            <input type="text" placeholder="Search.." name="search2">
+                        <form method="post" class="form_search" action="/Saches/Search">
+                            @Html.AntiForgeryToken()
+                            <input type="text" placeholder="Search.." name="TenSach">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
 

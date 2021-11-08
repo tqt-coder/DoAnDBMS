@@ -12,7 +12,7 @@ namespace Book.Controllers
 {
     public class KhachHangsController : Controller
     {
-        private DoAnEntities db = new DoAnEntities();
+        private DoAnEntities1 db = new DoAnEntities1();
      
 
         // GET: KhachHangs
@@ -67,7 +67,7 @@ namespace Book.Controllers
 
       
         // GET: KhachHangs/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -92,7 +92,7 @@ namespace Book.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "MaKH,HovaTen,SoDienThoai,PassWord,Gmail,Quyen")] KhachHang khachHang)
+        public ActionResult Register([Bind(Include = "MaKH,HovaTen,SoDienThoai,DiaChi,PassWord,Gmail,Quyen")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace Book.Controllers
         }
 
         // GET: KhachHangs/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -124,7 +124,7 @@ namespace Book.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKH,HovaTen,SoDienThoai,PassWord,Gmail,Quyen")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "MaKH,HovaTen,SoDienThoai,DiaChi,PassWord,Gmail,Quyen")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
@@ -136,7 +136,7 @@ namespace Book.Controllers
         }
 
         // GET: KhachHangs/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -153,7 +153,7 @@ namespace Book.Controllers
         // POST: KhachHangs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int? id)
         {
             KhachHang khachHang = db.KhachHangs.Find(id);
             db.KhachHangs.Remove(khachHang);

@@ -10,14 +10,16 @@
 namespace Book.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class NguoiQuanLy
+    public partial class recommend_Result
     {
-        public int MaNQL { get; set; }
-        public string Ten { get; set; }
-        public Nullable<int> MaKH { get; set; }
-    
-        public virtual KhachHang KhachHang { get; set; }
+        public string MaSach { get; set; }
+        public string TenSach { get; set; }
+        public string TenTacGia { get; set; }
+        public string MaNXB { get; set; }
+        public string TheLoai { get; set; }
+        public Nullable<int> SoLuong { get; set; }
+        public Nullable<decimal> GiaBan { get; set; }
+        public string HinhAnh { get; set; }
     }
 }

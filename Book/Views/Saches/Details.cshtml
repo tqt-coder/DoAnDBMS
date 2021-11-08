@@ -14,7 +14,7 @@
         </nav>
         <nav class="detail-item">
             <div class="detail-item__name">@Html.DisplayFor(model => model.TenSach)</div>
-            <div id="cost">@Html.DisplayFor(model => model.GiaBan); đ</div>
+            <div id="cost">@Html.DisplayFor(model => model.GiaBan)đ</div>
             <div id="ship">Free</div>
             <div>
                 <input class="change" onclick="var result = document.getElementById('number'); var qty = result.value; if( !isNaN(qty) & qty > 1) result.value--;return false;" type='button' value='-' />

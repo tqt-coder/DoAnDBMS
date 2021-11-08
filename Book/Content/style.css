@@ -378,8 +378,9 @@ body {
 }
 
 .navbar_logo__icon {
-    width: 200px;
+    width: 260px;
     height: 100px;
+    object-fit: cover;
 }
 
 label.float-l {

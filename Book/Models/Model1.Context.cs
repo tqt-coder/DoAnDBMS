@@ -12,11 +12,13 @@ namespace Book.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
-    public partial class DoAnEntities : DbContext
+    public partial class DoAnEntities1 : DbContext
     {
-        public DoAnEntities()
-            : base("name=DoAnEntities")
+        public DoAnEntities1()
+            : base("name=DoAnEntities1")
         {
         }
     
@@ -25,10 +27,39 @@ namespace Book.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public virtual DbSet<DonHang> DonHangs { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<NguoiQuanLy> NguoiQuanLies { get; set; }
         public virtual DbSet<NhaXuatBan> NhaXuatBans { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
+    
+        [DbFunction("DoAnEntities1", "SumMoney")]
+        public virtual IQueryable<SumMoney_Result> SumMoney(Nullable<int> maHD)
+        {
+            var maHDParameter = maHD.HasValue ?
+                new ObjectParameter("MaHD", maHD) :
+                new ObjectParameter("MaHD", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SumMoney_Result>("[DoAnEntities1].[SumMoney](@MaHD)", maHDParameter);
+        }
+    
+        public virtual ObjectResult<recommend_Result> recommend(string theloai)
+        {
+            var theloaiParameter = theloai != null ?
+                new ObjectParameter("theloai", theloai) :
+                new ObjectParameter("theloai", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<recommend_Result>("recommend", theloaiParameter);
+        }
+    
+        public virtual ObjectResult<searchBook_Result> searchBook(string tenSach)
+        {
+            var tenSachParameter = tenSach != null ?
+                new ObjectParameter("tenSach", tenSach) :
+                new ObjectParameter("tenSach", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<searchBook_Result>("searchBook", tenSachParameter);
+        }
     }
 }

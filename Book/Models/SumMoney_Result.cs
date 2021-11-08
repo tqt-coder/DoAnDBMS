@@ -10,14 +10,9 @@
 namespace Book.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class NguoiQuanLy
+    public partial class SumMoney_Result
     {
-        public int MaNQL { get; set; }
-        public string Ten { get; set; }
-        public Nullable<int> MaKH { get; set; }
-    
-        public virtual KhachHang KhachHang { get; set; }
+        public Nullable<decimal> TongTien { get; set; }
     }
 }
