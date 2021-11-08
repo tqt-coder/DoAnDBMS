@@ -6,6 +6,6 @@
     "\\Book\\Views",
     "\\Book\\Views\\KhachHangs"
   ],
-  "SelectedNode": "\\Book\\Controllers\\SachesController.cs",
+  "SelectedNode": "\\Book\\Views\\KhachHangs\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
