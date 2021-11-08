@@ -1,5 +1,6 @@
 # DoAnDBMS quản lý thư viện
-
+# Thông báo quan trọng
+### Do thay đổi model của project không hiểu vì sao tui không thể push lên nhánh master được nên mọi người dùng tạm nhánh master2 nha. Khi nào nhánh master dùng được tui sẽ thông báo lại
 # CSS
   - Có thể project bị lỗi dẫn đến việc css không được cập nhật
 # Tạo chức năng tính tiền
