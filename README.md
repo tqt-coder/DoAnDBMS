@@ -1,9 +1,12 @@
 # DoAnDBMS quản lý thư viện
-# Thông báo quan trọng
+
+## Cập nhập Database
+- Trong file doan.sql chỉ cần bỏ file vào và bấm F5 là vào chạy được tất
+## Thông báo quan trọng
 ### Hiện tại thì nhánh master tui đã sửa xong rồi mọi người có thể tải về bình thường nha
-# CSS
+## CSS
   - Có thể project bị lỗi dẫn đến việc css không được cập nhật
-# Tạo chức năng tính tiền
+## Tạo chức năng tính tiền
   - Tạm thời thì đã chỉnh được là khi bấm vào detail của từng sản phẩm nếu click vào nút Buy thì hệ thống sẽ kiểm tra nếu chưa đăng nhập thì bắt đăng nhập, sau khi đăng nhập
  thì chuyển sang tính tiền
  # Cần bổ sung thêm

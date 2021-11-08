@@ -3,9 +3,10 @@
     "",
     "\\Book",
     "\\Book\\Controllers",
+    "\\Book\\Models",
     "\\Book\\Views",
     "\\Book\\Views\\KhachHangs"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\Book\\Models\\Model1.edmx",
   "PreviewInSolutionExplorer": false
 }

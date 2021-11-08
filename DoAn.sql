@@ -1,4 +1,11 @@
-﻿Create DATABASE DoAn
+﻿-- Dùng xóa nếu database đã tồn tại
+use master
+GO
+IF DB_ID('DoAn') IS NOT NULL
+	Drop database DoAn
+GO
+
+Create DATABASE DoAn
 GO
 USE DoAn
 GO
@@ -23,20 +30,18 @@ CREATE TABLE DonHang(
 	MaDH INT IDENTITY(1,1),
 	MaKH INT NOT NULL,
 	NgayDat DATE NOT NULL,
-	NgayNhan DATE NOT NULL, 
-	TongTien MONEY NULL,
+	NgayNhan DATE, 
+	TongTien MONEY,
 	CONSTRAINT pk_dh PRIMARY KEY (MaDH),
 	CONSTRAINT c_ngay	CHECK(NgayNhan>NgayDat),
-
 )
 GO
 
-
 CREATE TABLE ChiTietHoaDon(
 	MaHD INT NOT NULL,
-	MaSach VARCHAR(20)	 NOT NULL,
+	MaSach VARCHAR(20) NOT NULL,
 	SoLuong INT NOT NULL,
-	ThanhTien MONEY NULL,
+	ThanhTien MONEY,
 	CONSTRAINT c_soluong CHECK (SoLuong > 0),
 	CONSTRAINT pk_cthd PRIMARY KEY( MaHD, MaSach),
 )
@@ -62,7 +67,6 @@ CREATE TABLE KhachHang
 	MaKH INT IDENTITY(1,1),
 	HovaTen NVARCHAR(50),
 	SoDienThoai VARCHAR(10),
-	DiaChi NVARCHAR(100) NOT NULL,
 	PassWord varchar(20) NOT NULL,
 	Gmail varchar(50) NOT Null,
 	Quyen nvarchar(20) NULL,	
@@ -81,18 +85,52 @@ ALTER TABLE ChiTietHoaDon ADD CONSTRAINT fk_ctdh_sach FOREIGN KEY (MaSach) REFER
 GO
 ALTER TABLE NguoiQuanLy ADD CONSTRAINT fk_nql_sach FOREIGN KEY (MaKH) REFERENCES KhachHang (MaKH) ON DELETE CASCADE
 GO
+-- Trigger xóa sách khi số lượng bằng 0
+CREATE TRIGGER ChangeQuantity On Sach
+AFTER Insert , Update 
+As
+	Declare @SoLuong int, @MaSach nvarchar(20)
+Begin
+	Declare  ChangeQuantityCursor Cursor for
+	Select s.MaSach, i.SoLuong  From inserted as i, Sach as s Where s.MaSach = i.MaSach
+	Open ChangeQuantityCursor
+	Fetch next from ChangeQuantityCursor into @MaSach, @SoLuong
+	while @@FETCH_STATUS = 0
+	Begin
+		if( @SoLuong = 0)
+			Begin
+				Delete Sach Where MaSach = @MaSach
+			End;
 
--- Trigger
-CREATE TRIGGER t_huydon ON DonHang AFTER DELETE
+	Fetch next from ChangeQuantityCursor into @MaSach, @SoLuong
+	End
+	Close ChangeQuantityCursor
+	Deallocate ChangeQuantityCursor
+END
+
+Go
+-- Trigger hủy chi tiết hàng và trả lại số lượng sách trong kho
+CREATE TRIGGER t_huydon ON ChiTietHoaDon AFTER DELETE
 AS
+Declare @MaSach VARCHAR(20), @SoLuong int
 BEGIN
-	UPDATE Sach 
-	SET SoLuong = s1.SoLuong + (SELECT del.SoLuong 
-		FROM deleted as del, Sach as s 
-		WHERE del.MaSach = s.MaSach)
-	FROM Sach as s1 
-	JOIN deleted as del1 ON del1.MaSach = s1.MaSach
-END;
+	Declare  XoaHDCursor Cursor for
+	Select de.MaSach,de.SoLuong From deleted de
+	Open XoaHDCursor
+	Fetch next from XoaHDCursor into @MaSach, @SoLuong
+	while @@FETCH_STATUS = 0
+	Begin
+		UPDATE Sach 
+		SET SoLuong = SoLuong + @SoLuong
+		FROM Sach
+		where MaSach=@MaSach
+
+	Fetch next from XoaHDCursor into @MaSach, @SoLuong
+	End
+	Close XoaHDCursor
+	Deallocate XoaHDCursor
+END
+
 GO
 -- Trigger thêm tự động thêm tên người quản lý
 CREATE TRIGGER  TenNguoiQuanLy ON NguoiQuanLy
@@ -118,27 +156,40 @@ BEGIN
 	
 	Fetch next from TenNguoiQuanLyCursor into @MaNQL, @ten
 	End
-Close TenNguoiQuanLyCursor
-Deallocate TenNguoiQuanLyCursor
+	Close TenNguoiQuanLyCursor
+	Deallocate TenNguoiQuanLyCursor
 END;
 GO
 
 --Trigger đặt sách 
-CREATE TRIGGER t_themdh ON ChiTietDonHang
+CREATE TRIGGER t_themdh ON ChiTietHoaDon
 AFTER INSERT AS
 DECLARE @new INT,@rest INT,@idsach nvarchar(20)
-SELECT @new=ne.soluong , @rest=s.Soluong,@idsach=s.MaSach
+Declare TaoHDCursor Cursor for
+SELECT ne.soluong ,s.Soluong,s.MaSach
 FROM INSERTED ne,Sach s
 WHERE ne.MaSach = s.MaSach
-IF(@new >@rest)
-	ROLLBACK;
-ELSE
-BEGIN
-	UPDATE Sach
-	set soluong=SoLuong-@new
-	where MaSach=@idsach
-END
-GO
+begin
+	Open TaoHDCursor
+	Fetch next from TaoHDCursor into @new, @rest,@idsach
+	while @@FETCH_STATUS = 0
+	BEGIN
+		IF(@new >@rest)
+		begin
+			Rollback
+			Close TaoHDCursor
+		end
+		ELSE
+			UPDATE Sach
+			set soluong=SoLuong-@new
+			where MaSach=@idsach
+	Fetch next from TaoHDCursor into @new, @rest,@idsach
+	End
+	Close TaoHDCursor
+	Deallocate TaoHDCursor
+end
+
+go
 -- Trigger thêm quyền tự động cho user khi khách hàng đăng kí tự thêm quyền vào luôn trừ admin đã được thêm trước
 Create Trigger ThemQuyen On KhachHang
 After Insert 
@@ -161,10 +212,47 @@ Begin
 	
 	Fetch next from KhachHangCursor into @maKH, @quyen
 	End
-Close KhachHangCursor
-Deallocate KhachHangCursor
-
+	Close KhachHangCursor
+	Deallocate KhachHangCursor
 End
+
+go
+
+-- View
+CREATE VIEW Gio AS
+	SELECT MaHD,s.MaSach,hd.SoLuong,ThanhTien,HinhAnh 
+	FROM ChiTietHoaDon as hd,Sach as s
+	WHERE hd.MaSach=s.MaSach
+Go
+
+CREATE VIEW view_thongtinKH AS
+	SELECT DonHang.MaKH, HovaTen, SoDienThoai, MaDH
+	FROM KhachHang, DonHang
+	WHERE DonHang.MaKH=KhachHang.MaKH;
+GO
+
+--tinhtien--
+CREATE TRIGGER TinhTien ON ChitietHoaDon
+AFTER insert AS
+DECLARE @MaHD INT ,@Tien money,@MaSach varchar(20)
+Declare TinhTienCursor Cursor for
+	SELECT MaHD,s.GiaBan,ne.MaSach 
+	FROM Sach s,inserted ne
+	WHERE ne.MaSach=s.MaSach
+BEGIN
+	open TinhTienCursor
+	Fetch next from TinhTienCursor into @MaHD, @Tien,@MaSach
+	while @@FETCH_STATUS=0
+	begin
+		UPDATE ChiTietHoaDon
+		SET ThanhTien=SoLuong*@Tien
+		where MaHD=@MaHD and MaSach=@MaSach
+	Fetch next from TinhTienCursor into @MaHD, @Tien,@MaSach
+	end
+	Close TinhTienCursor
+	Deallocate TinhTienCursor
+END
+GO
 -- Trigger tính Tổng hóa đơn trong Đơn Hàng
 Create Function SumMoney(
 	@MaHD INT 
@@ -205,92 +293,6 @@ Deallocate TotalCursor
 END
 GO
 
--- Trigger tính thành tiền trong chi tiết hóa đơn
-CREATE TRIGGER TinhTien ON ChiTietHoaDon
-AFTER INSERT, UPDATE
-AS
-	DECLARE @cost MONEY, @maHD varchar(20)
-BEGIN
-	Declare  TinhTienCursor Cursor for
-
-	Select ct.MaHD,s.GiaBan  from ChiTietHoaDon as ct, Sach as s, inserted as i 
-	Where ct.MaSach = s.MaSach and ct.MaHD = i.MaHD
-	
-	Open TinhTienCursor
-
-	Fetch next from TinhTienCursor into @maHD, @cost
-	while @@FETCH_STATUS = 0
-	Begin
-		if(@maHD IS NOT NULL)
-			begin
-				Update ChiTietHoaDon Set ThanhTien = SoLuong * @cost Where MaHD = @maHD 
-			end
-	
-	Fetch next from TinhTienCursor into @maHD, @cost
-	End
-Close TinhTienCursor
-Deallocate TinhTienCursor
-END;
-GO
-
--- Trigger tạo user và phân quyền
-
-Create Trigger PhanQuyen On KhachHang
-After Insert
-As
-	Declare @maKH int,@gmail varchar(50) , @quyen nvarchar(20), @password varchar(20)
-Begin
-	Declare  KhachHangCursor Cursor for
-	Select  kh.MaKH,kh.Quyen, kh.Gmail, kh.PassWord  from KhachHang as kh inner join inserted as i On kh.MaKH = i.MaKH
-	
-	Open KhachHangCursor
-	Fetch next from KhachHangCursor into @maKH, @quyen, @gmail, @password
-	while @@FETCH_STATUS = 0
-	Begin
-		if( @gmail is not null and @password is not null)
-			begin
-			Exec sp_addlogin @gmail, @password
-			Exec sp_adduser @gmail, @password
-			
-				if(@quyen = 'User')
-					begin
-					
-						Grant select on KhachHang to  @gmail
-						Grant select on Sach to @gmail
-						Grant select on NhaXuatBan to @gmail
-						Grant select on NguoiQuanLy to @gmail
-					end
-				 else
-					if( @quyen = 'Admin')
-						Begin
-							Grant select, insert, update on KhachHang to @gmail
-							Grant all on Sach to @gmail
-							Grant all on NhaXuatBan to @gmail
-							Grant all on NguoiQuanLy to @gmail
-						end
-				end
-	
-		Fetch next from KhachHangCursor into @maKH, @quyen, @gmail, @password
-	End
-Close KhachHangCursor
-Deallocate KhachHangCursor
-
-End;
--- View
-CREATE VIEW DatHang AS
-	SELECT MaDH,HovaTen,NgayDat,ThanhTien 
-	FROM DonHang,KhachHang
-	WHERE DonHang.MaKH=KhachHang.MaKH
-Go
-
-CREATE VIEW view_thongtinKH AS
-	SELECT DonHang.MaKH, HovaTen, SoDienThoai, DiaChi, MaDH
-	FROM KhachHang, DonHang
-	WHERE DonHang.MaKH=KhachHang.MaKH;
-GO
-
-
-
 /*NXB*/
 INSERT INTO NhaXuatBan(MaNXB, TenNXB) VALUES
 ('NXB0001', N'NXB Kim Đồng');
@@ -310,23 +312,23 @@ GO
 
 /*KH*/
 
-INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail) VALUES
-(N'Trần An Bình', '0909244322' ,N'61 Tô Hiến Thành, Quận 10, TP HCM','333333' ,'Binh@gmail.com');
+INSERT INTO KhachHang( HovaTen, SoDienThoai, PassWord, Gmail) VALUES
+(N'Trần An Bình', '0909244322', '333333', 'Binh@gmail.com');
 GO
-INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail) VALUES
-( N'Đinh Khánh An', '0345217892',N'61 Võ Văn Ngân, TP Thủ Đức', '444444', 'An@gmail.com');
+INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail) VALUES
+( N'Đinh Khánh An', '0345217892', '444444', 'An@gmail.com');
 GO
-INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail,Quyen) VALUES
-(N'Trần Quốc Tuấn', '0943071252',N'Mũi Côn Đại, Phước Hiệp, Củ Chi, TP HCM', 'quoctuan', 'tranquoctuan@gmail.com','admin');
+INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail,Quyen) VALUES
+(N'Trần Quốc Tuấn', '0943071252', 'quoctuan', 'tranquoctuan@gmail.com','admin');
 GO
-INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail,Quyen) VALUES
-(N'Nguyễn Lâm Sơn', '0478348347',N'Đồng Nai', 'lamson', 'lamson@gmail.com','admin');
+INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail,Quyen) VALUES
+(N'Nguyễn Lâm Sơn', '0478348347', 'lamson', 'lamson@gmail.com','admin');
 GO
-INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail,Quyen) VALUES
-(N'Trần Phát Đạt', '0478348347',N'Long An','phatdat', 'phatdat@gmail.com','admin');
+INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail,Quyen) VALUES
+(N'Trần Phát Đạt', '0478348347', 'phatdat', 'phatdat@gmail.com','admin');
 GO
-INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail,Quyen) VALUES
-(N'Trần Công Tuấn Mạnh', '0478348347',N'1 Võ Văn Ngân, TP Thủ Đức','tuanmanh', 'tuanmanh@gmail.com','admin');
+INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail,Quyen) VALUES
+(N'Trần Công Tuấn Mạnh', '0478348347', 'tuanmanh', 'tuanmanh@gmail.com','admin');
 GO
 
 /*Sach*/
@@ -391,17 +393,6 @@ INSERT INTO Sach(MaSach, TenSach, TenTacGia,MaNXB, TheLoai, SoLuong, GiaBan, Hin
 INSERT INTO Sach(MaSach, TenSach, TenTacGia,MaNXB, TheLoai, SoLuong, GiaBan, HinhAnh) values('S0026', N'Thám Tử Lừng Danh Conan', N'Gosho Aoyama','NXB0004', N'Trinh Thám',18,35.000,'https://cdn0.fahasa.com/media/catalog/product/cache/1/small_image/600x600/9df78eab33525d08d6e5fb8d27136e95/i/m/image_195509_1_561.jpg')
 INSERT INTO Sach(MaSach, TenSach, TenTacGia,MaNXB, TheLoai, SoLuong, GiaBan, HinhAnh) values('S0027', N'Phía Sau Nghi Can X', N'Higashino Keigo','NXB0004', N'Trinh Thám',16,109.000,'https://salt.tikicdn.com/cache/400x400/ts/product/23/56/86/a538698ead7dc2f693d1e9778417317d.jpg.webp')
 
---KyNangSong--
-
-INSERT INTO Sach(MaSach, TenSach, TenTacGia,MaNXB, TheLoai, SoLuong, GiaBan, HinhAnh) values( 'S0012', N'Đắc nhân tâm', N'Dale Carnegie','NXB0003', N'Kỹ năng sống',59,99.500,'https://firstnews.com.vn/public/uploads/products/dac-nhan-tam-biamem2019-76k-bia1.jpg')
-
-INSERT INTO Sach(MaSach, TenSach, TenTacGia,MaNXB, TheLoai, SoLuong, GiaBan, HinhAnh) values( 'S0013', N'Bài học diệu kỳ từ chiếc xe rác', N' David J.Pollay','NXB0005', N'Kỹ năng sống',29,100.700,'https://www.vanphongit.com/wp-content/uploads/2019/04/bai-hoc-dieu-ky-tu-chiec-xe-rac-ebook.gif')
-
-INSERT INTO Sach(MaSach, TenSach, TenTacGia,MaNXB, TheLoai, SoLuong, GiaBan, HinhAnh) values( 'S0014', N'Khéo ăn nói sẽ có được thiên hạ', N'Trác Nhã','NXB0005', N'Kỹ năng sống',23,150.700,'https://timsachdoc.com/wp-content/uploads/2020/11/kheo_an_noi_se_co_duoc_thien_ha-1.jpg')
-
-INSERT INTO Sach(MaSach, TenSach, TenTacGia,MaNXB, TheLoai, SoLuong, GiaBan, HinhAnh) values( 'S0015', N'Kỹ năng lãnh đạo', N'John C. Maxwell','NXB0005', N'Kỹ năng sống',109,100.700,'https://salt.tikicdn.com/cache/400x400/ts/product/41/a5/17/ee35e671d62e43e796a6700c40b11d9d.png')
-
-
 /*NguoiQuanLy*/
 INSERT INTO NguoiQuanLy( MaKH) VALUES
 (3);
@@ -417,22 +408,9 @@ INSERT INTO NguoiQuanLy(MaKH) VALUES
 GO
 
 
-/*Chi tiet don hang
-	MaHD INT NOT NULL,
-	MaSach VARCHAR(20)	 NOT NULL,
-	SoLuong INT NOT NULL,
-	ThanhTien MONEY NULL,*/
-	----------------- Tính tiền tự động
-INSERT INTO ChiTietHoaDon(MaHD,MaSach,SoLuong) VALUES (2,'S0001',2)
+/*DonHang*/
+
 GO
-
-select * from ChiTietHoaDon
-select * from DonHang
-GO
-
-
-INSERT INTO DonHang( MaKH, NgayDat, NgayNhan) VALUES(3,'2021-11-7','2021-11-15') -- Tạo hóa đơn trước tự cập nhật thay đổi
-------------------------------
 -- Procedure cho chức năng tìm kiếm
 Create Procedure searchBook
 @tenSach nvarchar(200)
@@ -442,7 +420,7 @@ Begin
 End
 
 
-
+go
 --Procedure cho danh mục--
 
 create procedure recommend 
@@ -453,19 +431,85 @@ select * from Sach
 where TheLoai Like @theloai end
 GO
 
--- Procedure cho xem Hóa Đơn.
-Create Proc xem
-@ma varchar(20)
-AS
+---- Procedure cho xem Hóa Đơn.
+--Create Proc xem
+--@ma varchar(20)
+--AS
+--Begin
+--	select count(MaSach) as SL, sum(ThanhTien) as ThanhTien, MaSach, MaKH from DonHang
+--	Group by NgayDat,MaKH, MaSach
+--	Having MaKH = @ma
+--End
+----Go
+--exec xem 'kh0001'
+go
+create view View_KH
+as
+select HovaTen,SoDienThoai,Gmail
+from KhachHang
+
+go
+
+--TongTien
+create proc TongTien 
+@MaKH int
+as
+Declare @Tien money,@MaDH int,@HD int
+Select @MaDH=MaDH from DonHang where MaKH=@MaKH and NgayNhan is null
 Begin
-	select count(MaSach) as SL, sum(ThanhTien) as ThanhTien, MaSach, MaKH from DonHang
-	Group by NgayDat,MaKH, MaSach
-	Having MaKH = @ma
-End
-Go
+	Select @HD=MaHD,@Tien=sum(ThanhTien) from ChiTietHoaDon group by MaHD Having MaHD=@MaDH
+	update DonHang set TongTien=@Tien where MaDH=@HD
+end
 
-exec xem 'kh0001'
+go
+-- Thêm sách vào giỏ hàng
+-- Thứ 3 thêm Khách hàng 1 mua 2 quyển S004
+exec Don 2,'2021-11-8','S0004',3
+
+-- Tổng tiền Hóa Đơn sẽ tự cập nhập
+select * from DonHang
+-- TỰ ĐỘNG CẬP NHẬT TIỀN TỔNG
+-- Xem bảng chi tiết hóa đơn
+select * from ChiTietHoaDon
+delete ChiTietHoaDon where MaSach = 'S0004'
+select * from Sach
+-- Check 526.68 + 440 + 123.4
+-- Kiểm tra chi tiết hóa đơn
+
+--Tao chitietdonhang
+Create proc Don
+@MaKH int,@NgayDat Date,@MaSach VARCHAR(20),@SoLuong int
+as
+Declare @MaDH int
+Select * from DonHang
+begin tran
+if(@MaKH not in (select MaKH from DonHang where MaKH=@MaKH and NgayNhan is null))
+	insert into DonHang(MaKH,NgayDat) values (@MaKH,@NgayDat)
+select @MaDH=MaDH from DonHang where MaKH=@MaKH and  NgayNhan is null
+insert into ChiTietHoaDon(MaHD,MaSach,SoLuong) values (@MaDH,@MaSach,@SoLuong)
+if(@MaDH not in (Select MaHD from ChiTietHoaDon where MaHD=@MaDH and MaSach=@MaSach))
+	rollback
+commit
+
+go
+
+--commit
+go
 
 
-
-
+--Cái này là làm màu thôi thay vì so sánh "bằng" thì mình dùng transaction trong khi xóa đơn
+--TraTienDonHang
+create proc TraTien
+@MaKH int,@Tien money,@NgayNhan Date
+as
+Declare @MaHD int,@TongTien money
+select @MaHD=MaDH from DonHang where MaKH=@MaKH and NgayNhan is null
+Begin tran
+Select @TongTien=sum(ThanhTien),@MaHD=MaHD from ChiTietHoaDon group by MaHD having MaHD=@MaHD
+delete from ChiTietHoaDon where MaHD=@MaHD
+if(@Tien!=@TongTien)
+	rollback
+else
+	update DonHang set NgayNhan=@NgayNhan where MaDH=@MaHD
+	commit
+go
