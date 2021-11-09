@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Book.Models.ViewCart_Result>
+
+@{
+    ViewBag.Title = "View Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+    <div id="content">
+
+
+        <div class="cart-background">
+            <h2 class="cart__title">Giỏ hàng</h2>
+            <div class="cart-background__content">
+                @foreach (var item in Model)
+                {
+
+                    <div class="cart">
+
+                        <form action="/Gios/Delete" method="post">
+                            @Html.AntiForgeryToken()
+                            <input style="display:none" type="text" name="MaHD" value=@Html.DisplayFor(modelItem => item.MaHD) />
+                            <input style="display:none" type="text" name="MaSach" value=@Html.DisplayFor(modelItem => item.MaSach) />
+                            <button class="cart__delete">
+                                <i class="far fa-times-circle cart__delete-icon"></i>
+                            </button>
+
+                        </form>
+                        <img src=@Html.DisplayFor(modelItem => item.HinhAnh) alt="Book" class="cart__img">
+                        <div class="cart-infor">
+                            <h4 class="cart-infor__name"> @Html.DisplayFor(modelItem => item.TenSach)</h4>
+                            <h5 class="cart-infor__cost"> @Html.DisplayFor(modelItem => item.GiaBan) đ</h5>
+                            <h5 style="display:none" class="cart-infor__cost-old">25 000 đ</h5>
+                        </div>
+                        <div class="cart-detail">
+                            <div class="cart-quantity">
+                                <span class="cart-quantity__change">-</span>
+                                <span class="cart-quantity__text">@Html.DisplayFor(modelItem => item.SoLuong)</span>
+                                <span class="cart-quantity__change">+</span>
+                            </div>
+                            <div class="cart-sum">
+                                <span class="cart-sum__text">Thành tiền</span>
+                                <span class="cart-sum__cost">@Html.DisplayFor(modelItem => item.ThanhTien)</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                }
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+</body>
+</html>

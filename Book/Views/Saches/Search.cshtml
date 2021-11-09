@@ -36,7 +36,7 @@
                         {
                             <!-- giao diện sách -->
                             <div class="col-lg-3 col-md-4 col-sm-6">
-                                <a href="#" class="item__book">
+                                <a href=@Url.Action("Details", "Saches", new { id = item.MaSach }) class="item__book">
                                     <div class="item-div">
                                         <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
                                     </div>
@@ -44,7 +44,7 @@
                                         @Html.DisplayFor(modelItem => item.TenSach)
                                     </div>
                                     <div class="item-div__infor-book">
-                                        @Html.DisplayFor(modelItem => item.GiaBan) Đồng
+                                        @Html.DisplayFor(modelItem => item.GiaBan)đ
                                     </div>
                                     <div class="item-div">
                                         <nav action="">
@@ -60,7 +60,7 @@
                                             <label class="star star-1" for="star-1"></label>
                                         </nav>
                                     </div>
-                                    <div>
+                                    <div class="item-div__book-basket">
                                         <button class="item-atb">Add To Basket</button>
                                     </div>
                                 </a>

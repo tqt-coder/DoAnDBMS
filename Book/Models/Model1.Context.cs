@@ -29,10 +29,14 @@ namespace Book.Models
     
         public virtual DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public virtual DbSet<DonHang> DonHangs { get; set; }
-        public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<NguoiQuanLy> NguoiQuanLies { get; set; }
         public virtual DbSet<NhaXuatBan> NhaXuatBans { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
+        public virtual DbSet<View_KH> View_KH { get; set; }
+        public virtual DbSet<view_thongtinKH> view_thongtinKH { get; set; }
+        public virtual DbSet<KhachHang> KhachHangs { get; set; }
+        public virtual DbSet<DatHang> DatHangs { get; set; }
+        public virtual DbSet<Gio> Gios { get; set; }
     
         [DbFunction("DoAnEntities1", "SumMoney")]
         public virtual IQueryable<SumMoney_Result> SumMoney(Nullable<int> maHD)
@@ -60,6 +64,75 @@ namespace Book.Models
                 new ObjectParameter("tenSach", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<searchBook_Result>("searchBook", tenSachParameter);
+        }
+    
+        public virtual int TongTien(Nullable<int> maKH)
+        {
+            var maKHParameter = maKH.HasValue ?
+                new ObjectParameter("MaKH", maKH) :
+                new ObjectParameter("MaKH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TongTien", maKHParameter);
+        }
+    
+        public virtual int TraTien(Nullable<int> maKH, Nullable<decimal> tien, Nullable<System.DateTime> ngayNhan)
+        {
+            var maKHParameter = maKH.HasValue ?
+                new ObjectParameter("MaKH", maKH) :
+                new ObjectParameter("MaKH", typeof(int));
+    
+            var tienParameter = tien.HasValue ?
+                new ObjectParameter("Tien", tien) :
+                new ObjectParameter("Tien", typeof(decimal));
+    
+            var ngayNhanParameter = ngayNhan.HasValue ?
+                new ObjectParameter("NgayNhan", ngayNhan) :
+                new ObjectParameter("NgayNhan", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TraTien", maKHParameter, tienParameter, ngayNhanParameter);
+        }
+    
+        public virtual ObjectResult<Don_Result> Don(Nullable<int> maKH, Nullable<System.DateTime> ngayDat, string maSach, Nullable<int> soLuong)
+        {
+            var maKHParameter = maKH.HasValue ?
+                new ObjectParameter("MaKH", maKH) :
+                new ObjectParameter("MaKH", typeof(int));
+    
+            var ngayDatParameter = ngayDat.HasValue ?
+                new ObjectParameter("NgayDat", ngayDat) :
+                new ObjectParameter("NgayDat", typeof(System.DateTime));
+    
+            var maSachParameter = maSach != null ?
+                new ObjectParameter("MaSach", maSach) :
+                new ObjectParameter("MaSach", typeof(string));
+    
+            var soLuongParameter = soLuong.HasValue ?
+                new ObjectParameter("SoLuong", soLuong) :
+                new ObjectParameter("SoLuong", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Don_Result>("Don", maKHParameter, ngayDatParameter, maSachParameter, soLuongParameter);
+        }
+    
+        public virtual int XoaHoaDon(Nullable<int> maHD, string maSach)
+        {
+            var maHDParameter = maHD.HasValue ?
+                new ObjectParameter("MaHD", maHD) :
+                new ObjectParameter("MaHD", typeof(int));
+    
+            var maSachParameter = maSach != null ?
+                new ObjectParameter("MaSach", maSach) :
+                new ObjectParameter("MaSach", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaHoaDon", maHDParameter, maSachParameter);
+        }
+    
+        public virtual ObjectResult<ViewCart_Result> ViewCart(Nullable<int> maKH)
+        {
+            var maKHParameter = maKH.HasValue ?
+                new ObjectParameter("MaKH", maKH) :
+                new ObjectParameter("MaKH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ViewCart_Result>("ViewCart", maKHParameter);
         }
     }
 }

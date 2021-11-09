@@ -17,7 +17,7 @@
     <Property Name="MaDH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MaKH" Type="int" Nullable="false" />
     <Property Name="NgayDat" Type="date" Nullable="false" />
-    <Property Name="NgayNhan" Type="date" Nullable="false" />
+    <Property Name="NgayNhan" Type="date" />
     <Property Name="TongTien" Type="money" />
   </EntityType>
   <EntityType Name="KhachHang">
@@ -59,6 +59,59 @@
     <Property Name="SoLuong" Type="int" />
     <Property Name="GiaBan" Type="money" />
     <Property Name="HinhAnh" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DoAn.dbo.DatHang' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DatHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaDH" Type="int" Nullable="false" />
+    <Property Name="MaKH" Type="int" Nullable="false" />
+    <Property Name="HovaTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="TongTien" Type="money" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DoAn.dbo.Gio' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Gio">
+    <Key>
+      <PropertyRef Name="MaHD" />
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="MaSach" />
+      <PropertyRef Name="SoLuong" />
+      <PropertyRef Name="HinhAnh" />
+    </Key>
+    <Property Name="MaHD" Type="int" Nullable="false" />
+    <Property Name="MaKH" Type="int" Nullable="false" />
+    <Property Name="TenSach" Type="nvarchar" MaxLength="50" />
+    <Property Name="GiaBan" Type="money" />
+    <Property Name="MaSach" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="ThanhTien" Type="money" />
+    <Property Name="HinhAnh" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DoAn.dbo.View_KH' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_KH">
+    <Key>
+      <PropertyRef Name="Gmail" />
+    </Key>
+    <Property Name="HovaTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
+    <Property Name="Gmail" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="view_thongtinKH">
+    <Key>
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaKH" Type="int" Nullable="false" />
+    <Property Name="HovaTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
+    <Property Name="MaDH" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="fk_ctdh_dh">
     <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
@@ -126,6 +179,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="Don" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaKH" Type="int" Mode="In" />
+    <Parameter Name="NgayDat" Type="date" Mode="In" />
+    <Parameter Name="MaSach" Type="varchar" Mode="In" />
+    <Parameter Name="SoLuong" Type="int" Mode="In" />
+  </Function>
   <Function Name="recommend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="theloai" Type="nvarchar" Mode="In" />
   </Function>
@@ -142,6 +201,21 @@
       </CollectionType>
     </ReturnType>
   </Function>
+  <Function Name="TongTien" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaKH" Type="int" Mode="In" />
+  </Function>
+  <Function Name="TraTien" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaKH" Type="int" Mode="In" />
+    <Parameter Name="Tien" Type="money" Mode="In" />
+    <Parameter Name="NgayNhan" Type="date" Mode="In" />
+  </Function>
+  <Function Name="ViewCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaKH" Type="int" Mode="In" />
+  </Function>
+  <Function Name="XoaHoaDon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaHD" Type="int" Mode="In" />
+    <Parameter Name="MaSach" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="DoAnModelStoreContainer">
     <EntitySet Name="ChiTietHoaDon" EntityType="Self.ChiTietHoaDon" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
@@ -149,6 +223,41 @@
     <EntitySet Name="NguoiQuanLy" EntityType="Self.NguoiQuanLy" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhaXuatBan" EntityType="Self.NhaXuatBan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DatHang" EntityType="Self.DatHang" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DatHang].[MaDH] AS [MaDH], 
+    [DatHang].[MaKH] AS [MaKH], 
+    [DatHang].[HovaTen] AS [HovaTen], 
+    [DatHang].[TongTien] AS [TongTien]
+    FROM [dbo].[DatHang] AS [DatHang]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Gio" EntityType="Self.Gio" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Gio].[MaHD] AS [MaHD], 
+    [Gio].[MaKH] AS [MaKH], 
+    [Gio].[TenSach] AS [TenSach], 
+    [Gio].[GiaBan] AS [GiaBan], 
+    [Gio].[MaSach] AS [MaSach], 
+    [Gio].[SoLuong] AS [SoLuong], 
+    [Gio].[ThanhTien] AS [ThanhTien], 
+    [Gio].[HinhAnh] AS [HinhAnh]
+    FROM [dbo].[Gio] AS [Gio]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_KH" EntityType="Self.View_KH" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_KH].[HovaTen] AS [HovaTen], 
+    [View_KH].[SoDienThoai] AS [SoDienThoai], 
+    [View_KH].[Gmail] AS [Gmail]
+    FROM [dbo].[View_KH] AS [View_KH]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="view_thongtinKH" EntityType="Self.view_thongtinKH" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [view_thongtinKH].[MaKH] AS [MaKH], 
+    [view_thongtinKH].[HovaTen] AS [HovaTen], 
+    [view_thongtinKH].[SoDienThoai] AS [SoDienThoai], 
+    [view_thongtinKH].[MaDH] AS [MaDH]
+    FROM [dbo].[view_thongtinKH] AS [view_thongtinKH]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="fk_ctdh_dh" Association="Self.fk_ctdh_dh">
       <End Role="DonHang" EntitySet="DonHang" />
       <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDon" />

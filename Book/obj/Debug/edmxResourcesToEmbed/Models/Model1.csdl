@@ -22,24 +22,10 @@
     <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MaKH" Type="Int32" Nullable="false" />
     <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="NgayNhan" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="NgayNhan" Type="DateTime" Precision="0" />
     <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
     <NavigationProperty Name="ChiTietHoaDons" Relationship="Self.fk_ctdh_dh" FromRole="DonHang" ToRole="ChiTietHoaDon" />
-    <NavigationProperty Name="KhachHang" Relationship="Self.fk_dh_kh" FromRole="DonHang" ToRole="KhachHang" />
-  </EntityType>
-  <EntityType Name="KhachHang">
-    <Key>
-      <PropertyRef Name="MaKH" />
-    </Key>
-    <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="PassWord" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Quyen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="DonHangs" Relationship="Self.fk_dh_kh" FromRole="KhachHang" ToRole="DonHang" />
-    <NavigationProperty Name="NguoiQuanLies" Relationship="Self.fk_nql_sach" FromRole="KhachHang" ToRole="NguoiQuanLy" />
-    <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="KhachHang" Relationship="DoAnModel.fk_dh_kh" FromRole="DonHang" ToRole="KhachHang" />
   </EntityType>
   <EntityType Name="NguoiQuanLy">
     <Key>
@@ -48,7 +34,7 @@
     <Property Name="MaNQL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="MaKH" Type="Int32" />
-    <NavigationProperty Name="KhachHang" Relationship="Self.fk_nql_sach" FromRole="NguoiQuanLy" ToRole="KhachHang" />
+    <NavigationProperty Name="KhachHang" Relationship="DoAnModel.fk_nql_sach" FromRole="NguoiQuanLy" ToRole="KhachHang" />
   </EntityType>
   <EntityType Name="NhaXuatBan">
     <Key>
@@ -97,34 +83,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_dh_kh">
-    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="KhachHang">
-        <PropertyRef Name="MaKH" />
-      </Principal>
-      <Dependent Role="DonHang">
-        <PropertyRef Name="MaKH" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_nql_sach">
-    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="NguoiQuanLy" Type="Self.NguoiQuanLy" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="KhachHang">
-        <PropertyRef Name="MaKH" />
-      </Principal>
-      <Dependent Role="NguoiQuanLy">
-        <PropertyRef Name="MaKH" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_s_nxb">
     <End Role="NhaXuatBan" Type="Self.NhaXuatBan" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -142,7 +100,6 @@
   <EntityContainer Name="DoAnEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ChiTietHoaDons" EntityType="Self.ChiTietHoaDon" />
     <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
-    <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
     <EntitySet Name="NguoiQuanLies" EntityType="Self.NguoiQuanLy" />
     <EntitySet Name="NhaXuatBans" EntityType="Self.NhaXuatBan" />
     <EntitySet Name="Saches" EntityType="Self.Sach" />
@@ -153,14 +110,6 @@
     <AssociationSet Name="fk_ctdh_sach" Association="Self.fk_ctdh_sach">
       <End Role="Sach" EntitySet="Saches" />
       <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
-    </AssociationSet>
-    <AssociationSet Name="fk_dh_kh" Association="Self.fk_dh_kh">
-      <End Role="KhachHang" EntitySet="KhachHangs" />
-      <End Role="DonHang" EntitySet="DonHangs" />
-    </AssociationSet>
-    <AssociationSet Name="fk_nql_sach" Association="Self.fk_nql_sach">
-      <End Role="KhachHang" EntitySet="KhachHangs" />
-      <End Role="NguoiQuanLy" EntitySet="NguoiQuanLies" />
     </AssociationSet>
     <AssociationSet Name="fk_s_nxb" Association="Self.fk_s_nxb">
       <End Role="NhaXuatBan" EntitySet="NhaXuatBans" />
@@ -174,6 +123,40 @@
     </FunctionImport>
     <FunctionImport Name="searchBook" ReturnType="Collection(DoAnModel.searchBook_Result)">
       <Parameter Name="tenSach" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="View_KH" EntityType="DoAnModel.View_KH" />
+    <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
+    <FunctionImport Name="TongTien">
+      <Parameter Name="MaKH" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="TraTien">
+      <Parameter Name="MaKH" Mode="In" Type="Int32" />
+      <Parameter Name="Tien" Mode="In" Type="Decimal" />
+      <Parameter Name="NgayNhan" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <EntitySet Name="KhachHangs" EntityType="DoAnModel.KhachHang" />
+    <AssociationSet Name="fk_dh_kh" Association="DoAnModel.fk_dh_kh">
+      <End Role="KhachHang" EntitySet="KhachHangs" />
+      <End Role="DonHang" EntitySet="DonHangs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_nql_sach" Association="DoAnModel.fk_nql_sach">
+      <End Role="KhachHang" EntitySet="KhachHangs" />
+      <End Role="NguoiQuanLy" EntitySet="NguoiQuanLies" />
+    </AssociationSet>
+    <EntitySet Name="DatHangs" EntityType="DoAnModel.DatHang" />
+    <FunctionImport Name="Don" ReturnType="Collection(DoAnModel.Don_Result)">
+      <Parameter Name="MaKH" Mode="In" Type="Int32" />
+      <Parameter Name="NgayDat" Mode="In" Type="DateTime" />
+      <Parameter Name="MaSach" Mode="In" Type="String" />
+      <Parameter Name="SoLuong" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Gios" EntityType="DoAnModel.Gio" />
+    <FunctionImport Name="XoaHoaDon">
+      <Parameter Name="MaHD" Mode="In" Type="Int32" />
+      <Parameter Name="MaSach" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ViewCart" ReturnType="Collection(DoAnModel.ViewCart_Result)">
+      <Parameter Name="MaKH" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="recommend_Result">
@@ -194,6 +177,110 @@
     <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
     <Property Type="Int32" Name="SoLuong" Nullable="true" />
     <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
+    <Property Type="String" Name="HinhAnh" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="View_KH">
+    <Key>
+      <PropertyRef Name="Gmail" />
+    </Key>
+    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="view_thongtinKH">
+    <Key>
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaKH" Type="Int32" Nullable="false" />
+    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MaDH" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KhachHang">
+    <Key>
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PassWord" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Quyen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DonHangs" Relationship="DoAnModel.fk_dh_kh" FromRole="KhachHang" ToRole="DonHang" />
+    <NavigationProperty Name="NguoiQuanLies" Relationship="DoAnModel.fk_nql_sach" FromRole="KhachHang" ToRole="NguoiQuanLy" />
+  </EntityType>
+  <Association Name="fk_dh_kh">
+    <End Type="DoAnModel.KhachHang" Role="KhachHang" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DoAnModel.DonHang" Role="DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="MaKH" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="MaKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_nql_sach">
+    <End Type="DoAnModel.KhachHang" Role="KhachHang" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DoAnModel.NguoiQuanLy" Role="NguoiQuanLy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="MaKH" />
+      </Principal>
+      <Dependent Role="NguoiQuanLy">
+        <PropertyRef Name="MaKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DatHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaDH" Type="Int32" Nullable="false" />
+    <Property Name="MaKH" Type="Int32" Nullable="false" />
+    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <ComplexType Name="Don_Result">
+    <Property Type="Int32" Name="MaDH" Nullable="false" />
+    <Property Type="Int32" Name="MaKH" Nullable="false" />
+    <Property Type="DateTime" Name="NgayDat" Nullable="false" />
+    <Property Type="DateTime" Name="NgayNhan" Nullable="true" />
+    <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+  </ComplexType>
+  <EntityType Name="Gio">
+    <Key>
+      <PropertyRef Name="MaHD" />
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="MaSach" />
+      <PropertyRef Name="SoLuong" />
+      <PropertyRef Name="HinhAnh" />
+    </Key>
+    <Property Name="MaHD" Type="Int32" Nullable="false" />
+    <Property Name="MaKH" Type="Int32" Nullable="false" />
+    <Property Name="TenSach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaSach" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="HinhAnh" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="GiaBan" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <ComplexType Name="ViewCart_Result">
+    <Property Type="Int32" Name="MaHD" Nullable="false" />
+    <Property Type="Int32" Name="MaKH" Nullable="false" />
+    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
+    <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="SoLuong" Nullable="false" />
+    <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
   </ComplexType>
 </Schema>

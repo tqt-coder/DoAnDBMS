@@ -10,24 +10,13 @@
 namespace Book.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class DonHang
+    public partial class Don_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DonHang()
-        {
-            this.ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
-        }
-    
         public int MaDH { get; set; }
         public int MaKH { get; set; }
         public System.DateTime NgayDat { get; set; }
         public Nullable<System.DateTime> NgayNhan { get; set; }
         public Nullable<decimal> TongTien { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
-        public virtual KhachHang KhachHang { get; set; }
     }
 }

@@ -29,7 +29,22 @@ namespace Book.Controllers
             return View(saches.ToList());
         }
 
-   
+        // Post detail
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details([Bind(Include = "MaSach")] ChiTietHoaDon dt)
+        {
+            if (Session["UserID"] == null)
+            {
+                // Trả về trang login để đăng nhập
+                return RedirectToAction("Login", "KhachHangs");
+            }
+            int SoLuong = Convert.ToInt32(Request.Params.Get("SoLuong"));
+            String date = "2001-01-01";
+            db.Don(Convert.ToInt32(Session["ID"]), DateTime.Parse(date), dt.MaSach, SoLuong);
+            return RedirectToAction("", "Saches");
+        }
 
         // GET: Saches/Details/5
         public ActionResult Details(string id)
@@ -47,20 +62,6 @@ namespace Book.Controllers
         }
 
 
-        // Post detail
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Details(Sach sa)
-        {
-            if(Session["UserID"] == null)
-            {
-                // Trả về trang login để đăng nhập
-                return RedirectToAction("Login", "KhachHangs");
-            }
-            //return RedirectToAction("Pay","DonHangs");
-            return RedirectToAction("Details");
-        }
         // view Search
         public ActionResult Search(String sa)
         {

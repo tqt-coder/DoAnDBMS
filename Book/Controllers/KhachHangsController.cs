@@ -57,7 +57,8 @@ namespace Book.Controllers
                 {
                     Session["UserID"] = obj.Gmail.ToString();
                     Session["UserName"] = obj.Gmail.ToString();
-                    return RedirectToAction("UserDashBoard");
+                    Session["ID"] = obj.MaKH.ToString();
+                    return RedirectToAction("Index","Saches");
                 }
 
             }

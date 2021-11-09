@@ -2,11 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\Book",
+    "\\Book\\Content",
     "\\Book\\Controllers",
     "\\Book\\Models",
     "\\Book\\Views",
-    "\\Book\\Views\\KhachHangs"
+    "\\Book\\Views\\KhachHangs",
+    "\\Book\\Views\\Saches"
   ],
-  "SelectedNode": "\\Book\\Models\\Model1.edmx",
+  "SelectedNode": "\\Book\\Content\\style.css",
   "PreviewInSolutionExplorer": false
 }

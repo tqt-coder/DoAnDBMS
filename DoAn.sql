@@ -1,4 +1,5 @@
-﻿-- Dùng xóa nếu database đã tồn tại
+﻿
+-- Dùng xóa nếu database đã tồn tại
 use master
 GO
 IF DB_ID('DoAn') IS NOT NULL
@@ -67,6 +68,7 @@ CREATE TABLE KhachHang
 	MaKH INT IDENTITY(1,1),
 	HovaTen NVARCHAR(50),
 	SoDienThoai VARCHAR(10),
+	DiaChi NVARCHAR(100) NOT NULL,
 	PassWord varchar(20) NOT NULL,
 	Gmail varchar(50) NOT Null,
 	Quyen nvarchar(20) NULL,	
@@ -219,10 +221,12 @@ End
 go
 
 -- View
-CREATE VIEW Gio AS
-	SELECT MaHD,s.MaSach,hd.SoLuong,ThanhTien,HinhAnh 
-	FROM ChiTietHoaDon as hd,Sach as s
+Create VIEW Gio AS
+	SELECT hd.MaHD,kh.MaKH,s.TenSach,s.GiaBan,s.MaSach,hd.SoLuong,hd.ThanhTien,HinhAnh 
+	FROM ChiTietHoaDon as hd,Sach as s,DonHang dh,KhachHang kh
 	WHERE hd.MaSach=s.MaSach
+	and dh.MaDH=hd.MaHD
+	and kh.MaKH=dh.MaKH
 Go
 
 CREATE VIEW view_thongtinKH AS
@@ -231,9 +235,9 @@ CREATE VIEW view_thongtinKH AS
 	WHERE DonHang.MaKH=KhachHang.MaKH;
 GO
 
---tinhtien--
+--trigger tinhtien--
 CREATE TRIGGER TinhTien ON ChitietHoaDon
-AFTER insert AS
+AFTER insert,update AS
 DECLARE @MaHD INT ,@Tien money,@MaSach varchar(20)
 Declare TinhTienCursor Cursor for
 	SELECT MaHD,s.GiaBan,ne.MaSach 
@@ -253,6 +257,48 @@ BEGIN
 	Deallocate TinhTienCursor
 END
 GO
+--TongTien
+CREATE proc TongTien 
+@MaKH int
+as
+Declare @Tien money,@MaDH int,@HD int
+Select @MaDH=MaDH from DonHang where MaKH=@MaKH and NgayNhan is null
+Begin
+	Select @HD=MaHD,@Tien=sum(ThanhTien) from ChiTietHoaDon group by MaHD Having MaHD=@MaDH
+	if(@HD is null)
+		update DonHang set TongTien = 0 where MaKH = @MaKH
+	update DonHang set TongTien=@Tien where MaDH=@HD
+end
+
+go
+-- Trigger cập nhập lại hóa đơn khi xóa chi tiết hóa đơn
+Create Trigger XoaChiTietHoaDon On ChiTietHoaDon
+After Delete
+As
+	Declare @HD int, @MaKH int
+Begin 
+	
+Declare XoaChiTietHoaDonCursor Cursor For
+
+	Select deleted.MaHD  from deleted
+
+	Open XoaChiTietHoaDonCursor
+	Fetch next from XoaChiTietHoaDonCursor into @HD
+	While @@FETCH_STATUS = 0
+	Begin
+		if(@HD is not null)
+			begin
+				Select @MaKH = dh.MaKH from DonHang as dh Where dh.MaDH = @HD 
+				exec TongTien @MaKH
+			end
+
+	Fetch next from XoaChiTietHoaDonCursor into @HD
+	End
+	Close XoaChiTietHoaDonCursor
+	Deallocate XoaChiTietHoaDonCursor
+END
+GO
+
 -- Trigger tính Tổng hóa đơn trong Đơn Hàng
 Create Function SumMoney(
 	@MaHD INT 
@@ -266,7 +312,7 @@ return
 		Having dh.MaHD = @MaHD
 
 GO
-Create Trigger Total On ChiTietHoaDon
+CREATE Trigger Total On ChiTietHoaDon
 After Insert, Update
 As
 	Declare @ma INT, @cost MONEY
@@ -312,23 +358,24 @@ GO
 
 /*KH*/
 
-INSERT INTO KhachHang( HovaTen, SoDienThoai, PassWord, Gmail) VALUES
-(N'Trần An Bình', '0909244322', '333333', 'Binh@gmail.com');
+
+INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail) VALUES
+(N'Trần An Bình', '0909244322' ,N'61 Tô Hiến Thành, Quận 10, TP HCM','333333' ,'Binh@gmail.com');
 GO
-INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail) VALUES
-( N'Đinh Khánh An', '0345217892', '444444', 'An@gmail.com');
+INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail) VALUES
+( N'Đinh Khánh An', '0345217892',N'61 Võ Văn Ngân, TP Thủ Đức', '444444', 'An@gmail.com');
 GO
-INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail,Quyen) VALUES
-(N'Trần Quốc Tuấn', '0943071252', 'quoctuan', 'tranquoctuan@gmail.com','admin');
+INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail,Quyen) VALUES
+(N'Trần Quốc Tuấn', '0943071252',N'Mũi Côn Đại, Phước Hiệp, Củ Chi, TP HCM', 'quoctuan', 'tranquoctuan@gmail.com','admin');
 GO
-INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail,Quyen) VALUES
-(N'Nguyễn Lâm Sơn', '0478348347', 'lamson', 'lamson@gmail.com','admin');
+INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail,Quyen) VALUES
+(N'Nguyễn Lâm Sơn', '0478348347',N'Đồng Nai', 'lamson', 'lamson@gmail.com','admin');
 GO
-INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail,Quyen) VALUES
-(N'Trần Phát Đạt', '0478348347', 'phatdat', 'phatdat@gmail.com','admin');
+INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail,Quyen) VALUES
+(N'Trần Phát Đạt', '0478348347',N'Long An','phatdat', 'phatdat@gmail.com','admin');
 GO
-INSERT INTO KhachHang(HovaTen, SoDienThoai, PassWord, Gmail,Quyen) VALUES
-(N'Trần Công Tuấn Mạnh', '0478348347', 'tuanmanh', 'tuanmanh@gmail.com','admin');
+INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail,Quyen) VALUES
+(N'Trần Công Tuấn Mạnh', '0478348347',N'1 Võ Văn Ngân, TP Thủ Đức','tuanmanh', 'tuanmanh@gmail.com','admin');
 GO
 
 /*Sach*/
@@ -408,9 +455,6 @@ INSERT INTO NguoiQuanLy(MaKH) VALUES
 GO
 
 
-/*DonHang*/
-
-GO
 -- Procedure cho chức năng tìm kiếm
 Create Procedure searchBook
 @tenSach nvarchar(200)
@@ -431,18 +475,6 @@ select * from Sach
 where TheLoai Like @theloai end
 GO
 
----- Procedure cho xem Hóa Đơn.
---Create Proc xem
---@ma varchar(20)
---AS
---Begin
---	select count(MaSach) as SL, sum(ThanhTien) as ThanhTien, MaSach, MaKH from DonHang
---	Group by NgayDat,MaKH, MaSach
---	Having MaKH = @ma
---End
-----Go
---exec xem 'kh0001'
-go
 create view View_KH
 as
 select HovaTen,SoDienThoai,Gmail
@@ -450,33 +482,8 @@ from KhachHang
 
 go
 
---TongTien
-create proc TongTien 
-@MaKH int
-as
-Declare @Tien money,@MaDH int,@HD int
-Select @MaDH=MaDH from DonHang where MaKH=@MaKH and NgayNhan is null
-Begin
-	Select @HD=MaHD,@Tien=sum(ThanhTien) from ChiTietHoaDon group by MaHD Having MaHD=@MaDH
-	update DonHang set TongTien=@Tien where MaDH=@HD
-end
 
-go
--- Thêm sách vào giỏ hàng
--- Thứ 3 thêm Khách hàng 1 mua 2 quyển S004
-exec Don 2,'2021-11-8','S0004',3
-
--- Tổng tiền Hóa Đơn sẽ tự cập nhập
-select * from DonHang
--- TỰ ĐỘNG CẬP NHẬT TIỀN TỔNG
--- Xem bảng chi tiết hóa đơn
-select * from ChiTietHoaDon
-delete ChiTietHoaDon where MaSach = 'S0004'
-select * from Sach
--- Check 526.68 + 440 + 123.4
--- Kiểm tra chi tiết hóa đơn
-
---Tao chitietdonhang
+-- procedure dùng để thêm sản phảm vào giỏ hàng
 Create proc Don
 @MaKH int,@NgayDat Date,@MaSach VARCHAR(20),@SoLuong int
 as
@@ -496,9 +503,14 @@ go
 --commit
 go
 
-
---Cái này là làm màu thôi thay vì so sánh "bằng" thì mình dùng transaction trong khi xóa đơn
---TraTienDonHang
+--view dathang
+CREATE VIEW DatHang AS
+	SELECT MaDH,kh.MaKH,HovaTen,TongTien 
+	FROM DonHang,KhachHang kh
+	WHERE DonHang.MaKH=kh.MaKH
+	and NgayNhan is null
+Go
+--TraTienDonHang, tạo transaction
 create proc TraTien
 @MaKH int,@Tien money,@NgayNhan Date
 as
@@ -510,6 +522,31 @@ delete from ChiTietHoaDon where MaHD=@MaHD
 if(@Tien!=@TongTien)
 	rollback
 else
-	update DonHang set NgayNhan=@NgayNhan where MaDH=@MaHD
+	Begin
+		update DonHang set NgayNhan=@NgayNhan where MaDH=@MaHD
+
+	End
 	commit
 go
+-- procedure xóa chi tiết hóa đơn
+Create proc XoaHoaDon
+	@MaHD int, @MaSach nvarchar(20)
+As
+Begin
+	Delete ChiTietHoaDon Where MaHD = @MaHD and MaSach = @MaSach
+End;
+
+
+-- procedure xem giỏ hàng
+Create proc ViewCart
+	@MaKH int
+As
+Begin
+	SELECT hd.MaHD,kh.MaKH,s.TenSach,s.GiaBan,s.MaSach,hd.SoLuong,hd.ThanhTien,HinhAnh 
+	FROM ChiTietHoaDon as hd,Sach as s,DonHang dh,KhachHang kh
+	WHERE hd.MaSach=s.MaSach
+	and dh.MaDH=hd.MaHD
+	and kh.MaKH=dh.MaKH
+	and dh.MaKH = @MaKH
+End;
+

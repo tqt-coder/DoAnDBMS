@@ -23,7 +23,8 @@ namespace Book
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/base.css",
+                      "~/Content/base.css", 
+                      "~/Content/Cart.css",
                       "~/Content/style.css"));
         }
     }
