@@ -542,11 +542,6 @@ Create proc ViewCart
 	@MaKH int
 As
 Begin
-	SELECT hd.MaHD,kh.MaKH,s.TenSach,s.GiaBan,s.MaSach,hd.SoLuong,hd.ThanhTien,HinhAnh 
-	FROM ChiTietHoaDon as hd,Sach as s,DonHang dh,KhachHang kh
-	WHERE hd.MaSach=s.MaSach
-	and dh.MaDH=hd.MaHD
-	and kh.MaKH=dh.MaKH
-	and dh.MaKH = @MaKH
+	Select * from Gio Where  MaKH = @MaKH
 End;
 

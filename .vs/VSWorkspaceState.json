@@ -6,9 +6,10 @@
     "\\Book\\Controllers",
     "\\Book\\Models",
     "\\Book\\Views",
+    "\\Book\\Views\\Gios",
     "\\Book\\Views\\KhachHangs",
     "\\Book\\Views\\Saches"
   ],
-  "SelectedNode": "\\Book\\Content\\style.css",
+  "SelectedNode": "\\Book\\Controllers\\GiosController.cs",
   "PreviewInSolutionExplorer": false
 }
