@@ -1,7 +1,8 @@
 ﻿@model Book.Models.KhachHang
 
 @{
-    Layout = null;
+    ViewBag.Title = "Delete customer";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
 <!DOCTYPE html>
@@ -20,48 +21,49 @@
             <dt>
                 @Html.DisplayNameFor(model => model.HovaTen)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.HovaTen)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.SoDienThoai)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.SoDienThoai)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.PassWord)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.PassWord)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Gmail)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Gmail)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Quyen)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Quyen)
             </dd>
-    
+
         </dl>
-    
-        @using (Html.BeginForm()) {
+
+        @using (Html.BeginForm())
+        {
             @Html.AntiForgeryToken()
-    
+
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" /> |
                 @Html.ActionLink("Back to List", "Index")

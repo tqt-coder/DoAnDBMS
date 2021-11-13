@@ -131,8 +131,9 @@
     <Compile Include="Controllers\ChiTietHoaDonsController.cs" />
     <Compile Include="Controllers\DonHangsController.cs" />
     <Compile Include="Controllers\GiosController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangsController.cs" />
+    <Compile Include="Controllers\NguoiQuanLiesController.cs" />
+    <Compile Include="Controllers\NhaXuatBansController.cs" />
     <Compile Include="Controllers\SachesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -202,6 +203,7 @@
   <ItemGroup>
     <Content Include="Content\base.css" />
     <Content Include="Content\img\logo.png" />
+    <Content Include="Content\mystyle.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Cart.css" />
     <Content Include="favicon.ico" />
@@ -229,16 +231,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Saches\Create.cshtml" />
     <Content Include="Views\Saches\Delete.cshtml" />
     <Content Include="Views\Saches\Details.cshtml" />
     <Content Include="Views\Saches\Edit.cshtml" />
     <Content Include="Views\Saches\Catetogy.cshtml" />
     <Content Include="Views\Saches\Index.cshtml" />
-    <Content Include="Views\KhachHangs\Create.cshtml" />
     <Content Include="Views\KhachHangs\Delete.cshtml" />
     <Content Include="Views\KhachHangs\Details.cshtml" />
     <Content Include="Views\KhachHangs\Edit.cshtml" />
@@ -270,12 +268,22 @@
     <Content Include="Views\DonHangs\Details.cshtml" />
     <Content Include="Views\DonHangs\Edit.cshtml" />
     <Content Include="Views\DonHangs\Index.cshtml" />
-    <Content Include="Views\ChiTietHoaDons\Create.cshtml" />
-    <Content Include="Views\ChiTietHoaDons\Delete.cshtml" />
     <Content Include="Views\ChiTietHoaDons\Details.cshtml" />
     <Content Include="Views\ChiTietHoaDons\Edit.cshtml" />
     <Content Include="Views\ChiTietHoaDons\Index.cshtml" />
     <Content Include="Views\Gios\ViewCart.cshtml" />
+    <Content Include="Views\View.cshtml" />
+    <Content Include="Views\NguoiQuanLies\Create.cshtml" />
+    <Content Include="Views\NguoiQuanLies\Delete.cshtml" />
+    <Content Include="Views\NguoiQuanLies\Details.cshtml" />
+    <Content Include="Views\NguoiQuanLies\Edit.cshtml" />
+    <Content Include="Views\NguoiQuanLies\Index.cshtml" />
+    <Content Include="Views\NhaXuatBans\Create.cshtml" />
+    <Content Include="Views\NhaXuatBans\Delete.cshtml" />
+    <Content Include="Views\NhaXuatBans\Details.cshtml" />
+    <Content Include="Views\NhaXuatBans\Edit.cshtml" />
+    <Content Include="Views\NhaXuatBans\Index.cshtml" />
+    <Content Include="Views\Shared\ViewAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<Book.Models.ChiTietHoaDon>
 
 @{
-    Layout = null;
+    ViewBag.Title = "List bills";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
 <!DOCTYPE html>
@@ -12,11 +13,12 @@
     <title>Index</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaHD)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.SoLuong)
             </th>
@@ -31,29 +33,32 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoLuong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThanhTien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DonHang.MaDH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sach.TenSach)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaHD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoLuong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThanhTien)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DonHang.MaDH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sach.TenSach)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.MaHD, maSach = item.MaSach  }) |
+            @Html.ActionLink("Details", "Details", new { id = item.MaHD, maSach = item.MaSach })
+        </td>
+    </tr>
+        }
+
     </table>
 </body>
 </html>

@@ -1,32 +1,65 @@
 ﻿
 @{
-    Layout = null;
-    ViewBag.Title = "UserDashBoard";
+    ViewBag.Title = "Quản trị";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>UserDashBoard</title>
-</head>
-<body>
-    <div>
-        <fieldset>
-            <legend> User DashBoard </legend>
-           
+        <div class="container__wrap-content">
+            <div class="container-direct">
+                <div class="container-book">
+                    <div class="container-book__title">Quản lý sách</div>
+                    <div class="container-content">
+                        <a href="/Saches/Create" class="container-content__link">Thêm sách</a>
+                        <a href="/Saches/Index" class="container-content__link">Danh sách các đầu sách</a>
+                    </div>
+                </div>
+                <div class="container-book">
+                    <span class="container-book__title">Quản lý khách hàng</span>
+                    <div class="container-content">
+                        <a href="/KhachHangs/Register" class="container-content__link">Thêm khách hàng</a>
+                        <a href="/KhachHangs/Index" class="container-content__link">Danh sách khách hàng</a>
+                    </div>
+                </div>
+                <div class="container-book">
+                    <span class="container-book__title">Quản đơn hàng</span>
+                    <div class="container-content">
+                        <a href="/DonHangs/Index" class="container-content__link">Danh sách các đơn hàng hiện tại</a>
+                    </div>
+                </div>
 
-            @if (Session["UserName"] != null)
-            {
-                <text>
-                    Welcome @Session["UserName"].ToString() </text>
-            }
-        </fieldset>
+            </div>
 
-    </div>
-</body>
-</html>
+            <div class="container-direct">
+                <div class="container-book">
+                    <span class="container-book__title">Quản chi tiết đơn hàng</span>
+                    <div class="container-content">
+                        <a href="/ChiTietHoaDons/Index" class="container-content__link">Danh sách chi tiết</a>
+                    </div>
+                </div>
+                <div class="container-book">
+                    <span class="container-book__title">Người quản lý</span>
+                    <div class="container-content">
+                        <a href="/NguoiQuanLies/Create" class="container-content__link">Thêm người quản lý</a>
+                        <a href="/NguoiQuanLies/Index" class="container-content__link">Danh sách người quản lý</a>
+                    </div>
+                </div>
+                <div class="container-book">
+                    <span class="container-book__title">Quản lý nhà xuất bản</span>
+                    <div class="container-content">
+                        <a href="/NhaXuatBans/Create" class="container-content__link">Thêm nhà xuất bản</a>
+                        <a href="/NhaXuatBans/Inkdex" class="container-content__link">Danh sách nhà xuất bản</a>
+                    </div>
+                </div>
+
+                <div class="container-book">
+                    <a href="/Saches/index" class="container-book__title">Trang chủ</a>
+                </div>
+            </div>
+
+
+
+        </div>
 
 
 

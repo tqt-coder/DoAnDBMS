@@ -23,8 +23,9 @@ namespace Book.Controllers
 
         public ActionResult Catetogy(string li)
         {
+
             ViewBag.header = li;
-           var saches = db.Saches.Include(s => s.NhaXuatBan)
+            var saches = db.Saches.Include(s => s.NhaXuatBan)
                  .Where(s => s.TheLoai == li);
             return View(saches.ToList());
         }

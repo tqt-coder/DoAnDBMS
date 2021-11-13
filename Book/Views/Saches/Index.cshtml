@@ -7,78 +7,86 @@
 
 
 
-    <div id="content">
-        <div class="content-layout">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-2 col-md-4 col-sm-0" style="background-color: #0cb5db;">
-                        <div>
-                            <div class="block" data-view-id="search_filter_container" data-view-label="Danh mục sản phẩm">
+<div id="content">
+    <div class="content-layout">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-sm-0" style="background-color: #0cb5db;">
+                    <div>
+                        <div class="block" data-view-id="search_filter_container" data-view-label="Danh mục sản phẩm">
 
-                                <h4 class="content__title">Danh mục sản phẩm</h4>
-                                <div class="list collapsed">
-                                    <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Lịch sử" })>Sách về lịch sử</a>
-                                    <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Trinh thám" })>Sách trinh thám</a>
-                                    <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Kiến thức - Bách khoa" })>
-                                        Kiến thức - Bách khoa
-                                    </a>
-                                    <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Tiểu thuyết" })>Tiểu thuyết</a>
-                                    <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Khoa học" })>Sách về khoa học</a>
-                                    <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Ngoại ngữ" })>Sách ngoại ngữ</a>
-                                    <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Kỹ năng sống" })>Sách về kỹ năng sống</a>
-                                    <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Thiếu nhi" })>Sách thiếu nhi</a>
-                                </div>
+                            <h4 class="content__title">Danh mục sản phẩm</h4>
+                            <div class="list collapsed">
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Lịch sử" })>Sách về lịch sử</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Trinh thám" })>Sách trinh thám</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Kiến thức - Bách khoa" })>
+                                    Kiến thức - Bách khoa
+                                </a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Tiểu thuyết" })>Tiểu thuyết</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Khoa học" })>Sách về khoa học</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Ngoại ngữ" })>Sách ngoại ngữ</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Kỹ năng sống" })>Sách về kỹ năng sống</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Thiếu nhi" })>Sách thiếu nhi</a>
                             </div>
-
                         </div>
+
                     </div>
-                    <div class="col-lg-10 col-md-8 col-sm-12 " style="background-color: #fff;">
-                        <div class="row">
-                            @foreach (var item in Model)
-                            {
-                                <!-- giao diện sách -->
-                                <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <a href=@Url.Action("Details", "Saches", new { id = item.MaSach }) class="item__book">
-                                        <div class="item-div">
-                                            <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
-                                        </div>
-                                        <div class="item-div__infor-book-name">
-                                            @Html.DisplayFor(modelItem => item.TenSach)
-                                        </div>
-                                        <div class="item-div__infor-book">
-                                            @Html.DisplayFor(modelItem => item.GiaBan)đ
-                                        </div>
-                                        <div class="item-div">
-                                            <nav action="">
-                                                <input class="star star-5" id="star-5" type="radio" name="star" />
-                                                <label class="star star-5" for="star-5"></label>
-                                                <input class="star star-4" id="star-4" type="radio" name="star" />
-                                                <label class="star star-4" for="star-4"></label>
-                                                <input class="star star-3" id="star-3" type="radio" name="star" />
-                                                <label class="star star-3" for="star-3"></label>
-                                                <input class="star star-2" id="star-2" type="radio" name="star" />
-                                                <label class="star star-2" for="star-2"></label>
-                                                <input class="star star-1" id="star-1" type="radio" name="star" />
-                                                <label class="star star-1" for="star-1"></label>
-                                            </nav>
-                                        </div>
-                                        <div class="item-div__book-basket">
-                                            <button class="item-atb">Add To Basket</button>
-                                        </div>
-                                    </a>
+                </div>
+                <div class="col-lg-10 col-md-8 col-sm-12 " style="background-color: #fff;">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <!-- giao diện sách -->
+                            <div class="col-lg-3 col-md-4 col-sm-6 book__container">
+                                @if (Session["ad"] != null)
+                                {
+
+                                <a href=@Url.Action("Delete", "Saches", new { id = item.MaSach })>
+
+                                    <i class="fa fa-times-circle book__icon-delete"></i>
+                                </a>
+                                }
+                                <a href=@Url.Action("Details", "Saches", new { id = item.MaSach }) class="item__book">
+                                    <div class="item-div">
+                                        <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
+                                    </div>
+                                    <div class="item-div__infor-book-name">
+                                        @Html.DisplayFor(modelItem => item.TenSach)
+                                    </div>
+                                    <div class="item-div__infor-book">
+                                        @Html.DisplayFor(modelItem => item.GiaBan)đ
+                                    </div>
+                                    <div class="item-div">
+                                        <nav action="">
+                                            <input class="star star-5" id="star-5" type="radio" name="star" />
+                                            <label class="star star-5" for="star-5"></label>
+                                            <input class="star star-4" id="star-4" type="radio" name="star" />
+                                            <label class="star star-4" for="star-4"></label>
+                                            <input class="star star-3" id="star-3" type="radio" name="star" />
+                                            <label class="star star-3" for="star-3"></label>
+                                            <input class="star star-2" id="star-2" type="radio" name="star" />
+                                            <label class="star star-2" for="star-2"></label>
+                                            <input class="star star-1" id="star-1" type="radio" name="star" />
+                                            <label class="star star-1" for="star-1"></label>
+                                        </nav>
+                                    </div>
+                                    <div class="item-div__book-basket">
+                                        <button class="item-atb">Add To Basket</button>
+                                    </div>
+                                </a>
 
 
-                                </div>
-                            }
-                                <!-- end -->
                             </div>
-
-
+                        }
+                        <!-- end -->
                     </div>
 
 
                 </div>
+
+
             </div>
         </div>
     </div>
+</div>
 

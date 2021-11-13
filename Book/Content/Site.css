@@ -1,6 +1,58 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --header-color: #f8f8f8;
+    --focus-color: #EEEEEE;
+    --border-color: #e0e0e0;
+    --text-color: #333;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-size: 62.5%;
+    line-height: 1.6em;
+    font-family: 'Roboto', sans-serif;
+}
+.form-control.text-box.single-line {
+    padding: 0.5rem 2rem;
+    margin: 2rem 0;
+    width: 50rem;
+    font-size: 1.6rem;
+    border-radius: 0.4rem;
+    border: 0.2rem solid #666
+}
+.form-horizontal {
+    padding: 1rem 2rem;
+}
+.form-group{
+    margin: 1rem 3rem;
+}
+input.btn.btn-default {
+    background-color: #ffd43b;
+    padding: 0.4rem 2rem;
+    margin: 0 2rem;
+    width: 20rem;
+    height: 4rem;
+    border: 0.2rem solid #999;
+    outline: none;
+    font-size: 1.6rem;
+    border-radius: 0.5rem;
+}
+td,th{
+    padding: 1rem 2rem;
+}
+tr{
+    padding: 1rem;
+}
+dd {
+    padding: 0.4rem 1rem 1rem;
+    margin-left: 3rem;
 }
 
 /* Set padding to keep content from hitting the edges */

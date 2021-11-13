@@ -18,23 +18,17 @@
 <body>
     <div class="main">
         <div class="header">
-            <!-- <p>Thẻ header </p> -->
-            <!--    <div class="wrap-contact100">  <p>Thẻ nền trắng</p> v-->
             <div class="header-top-banner" style="background-color:#7fc310">
                 <div class="top-banner-block">
                 </div>
                 <div class="navbar_logo">
-                    <!-- <p>Thẻ logo con chó </p> -->
                     <a href="/Saches/index" class="navbar_logo-link">
-                        <!-- <p>link hình vào logo </p> -->
                         <img class="navbar_logo__icon" src="~/Content/img/logo.png" />
                     </a>
                 </div>
 
                 <nav class="navbar">
-                    <!-- <p>Thẻ thanh navbar hiển thi</p> -->
                     <ul class="navbar_list">
-                        <!-- <p>Thẻ thanh navbar hiển thi ist home jobs contact -->
 
                         <form method="post" class="form_search" action="/Saches/Search">
                             @Html.AntiForgeryToken()
@@ -43,18 +37,26 @@
                         </form>
 
                         <p class="navbar_item">
-                            <!-- <p>Thẻ thanh navbar hiển thi HOME hoặc JOBS hoặc CONTACT</p> -->
                             <a href class="navbar_link">THÔNG BÁO</a>
-                            <!-- <p>Thẻ HOME  </p> -->
                         </p>
                         <p class="navbar_item">
                             <a href="/Gios/ViewCart" class="navbar_link">GIỎ HÀNG</a>
-                            <!-- <p>Thẻ JOBS</p> -->
                         </p>
-                        <p class="navbar_item">
-                            <a href="/KhachHangs/Login" class="navbar_link">ĐĂNG NHẬP</a>
-                            <!-- <p>Thẻ CONTACT</p> -->
-                        </p>
+                        <div class="navbar_item">
+                            @if (Session["UserName"] == null)
+                            {
+                                <a href="/KhachHangs/Login" class="navbar_link">ĐĂNG NHẬP</a>
+                            }
+                            @if (Session["UserName"] != null)
+                            {
+                                <a href="/KhachHangs/Login" class="navbar_link">ĐĂNG XUẤT</a>
+                            }
+                            @if (Session["UserName"] != null && Session["ad"] != null)
+                            {
+                                <a href="/KhachHangs/UserDashBoard" class="navbar_link">QUẢN TRỊ</a>
+                            }
+                            
+                        </div>
                     </ul>
                 </nav>
 

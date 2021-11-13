@@ -8,8 +8,9 @@
     "\\Book\\Views",
     "\\Book\\Views\\Gios",
     "\\Book\\Views\\KhachHangs",
-    "\\Book\\Views\\Saches"
+    "\\Book\\Views\\Saches",
+    "\\Book\\Views\\Shared"
   ],
-  "SelectedNode": "\\Book\\Controllers\\SachesController.cs",
+  "SelectedNode": "\\Book\\Content\\mystyle.css",
   "PreviewInSolutionExplorer": false
 }

@@ -22,18 +22,18 @@ namespace Book.Controllers
         }
 
         // GET: ChiTietHoaDons/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, String maSach)
         {
-            if (id == null)
+            if (id == null || maSach == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChiTietHoaDon chiTietHoaDon = db.ChiTietHoaDons.Find(id);
-            if (chiTietHoaDon == null)
+            ChiTietHoaDon hd = db.ChiTietHoaDons.Where(s => s.MaHD == id && s.MaSach == maSach).SingleOrDefault();
+            if (hd == null)
             {
                 return HttpNotFound();
             }
-            return View(chiTietHoaDon);
+            return View(hd);
         }
 
         // GET: ChiTietHoaDons/Create
@@ -64,20 +64,22 @@ namespace Book.Controllers
         }
 
         // GET: ChiTietHoaDons/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, String maSach)
         {
-            if (id == null)
+            if (id == null || maSach == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChiTietHoaDon chiTietHoaDon = db.ChiTietHoaDons.Find(id);
-            if (chiTietHoaDon == null)
+            ChiTietHoaDon hd = db.ChiTietHoaDons.Where(s => s.MaHD == id && s.MaSach == maSach).SingleOrDefault();
+            if (hd == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaHD = new SelectList(db.DonHangs, "MaDH", "MaDH", chiTietHoaDon.MaHD);
-            ViewBag.MaSach = new SelectList(db.Saches, "MaSach", "TenSach", chiTietHoaDon.MaSach);
-            return View(chiTietHoaDon);
+            return View(hd);
+        
+            ViewBag.MaHD = new SelectList(db.DonHangs, "MaDH", "MaDH", hd.MaHD);
+            ViewBag.MaSach = new SelectList(db.Saches, "MaSach", "TenSach", hd.MaSach);
+            return View(hd);
         }
 
         // POST: ChiTietHoaDons/Edit/5

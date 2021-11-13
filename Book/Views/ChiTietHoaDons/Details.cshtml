@@ -1,7 +1,8 @@
 ﻿@model Book.Models.ChiTietHoaDon
 
 @{
-    Layout = null;
+    ViewBag.Title = "Detail bill";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
 <!DOCTYPE html>
@@ -19,39 +20,39 @@
             <dt>
                 @Html.DisplayNameFor(model => model.SoLuong)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.SoLuong)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.ThanhTien)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.ThanhTien)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.DonHang.MaDH)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.DonHang.MaDH)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Sach.TenSach)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Sach.TenSach)
             </dd>
-    
+
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Edit", "Edit", new { id = @Html.DisplayFor(model => model.DonHang.MaDH), maSach = @Html.DisplayFor(model => model.Sach.MaSach) }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
 </body>

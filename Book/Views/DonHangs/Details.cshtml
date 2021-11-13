@@ -1,9 +1,9 @@
 ﻿@model Book.Models.DonHang
 
 @{
-    Layout = null;
+    ViewBag.Title = "Detail order";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
-
 <!DOCTYPE html>
 
 <html>
@@ -19,35 +19,35 @@
             <dt>
                 @Html.DisplayNameFor(model => model.NgayDat)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.NgayDat)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.NgayNhan)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.NgayNhan)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.TongTien)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.TongTien)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.KhachHang.HovaTen)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.KhachHang.HovaTen)
             </dd>
-    
+
         </dl>
     </div>
     <p>

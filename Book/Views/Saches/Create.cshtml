@@ -1,17 +1,17 @@
 ﻿@model Book.Models.Sach
 
 @{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Create Book";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Sach</h4>
         <hr />

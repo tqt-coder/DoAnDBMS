@@ -27,7 +27,7 @@ namespace Book.Controllers
         }
         public ActionResult UserDashBoard()
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && Session["ad"].ToString() == "manager")
             {
                 return View();
             }
@@ -55,9 +55,16 @@ namespace Book.Controllers
                 var obj = db.KhachHangs.Where(a => a.Gmail.Equals(user.Gmail) && a.PassWord.Equals(user.PassWord)).FirstOrDefault();
                 if (obj != null)
                 {
+                    
                     Session["UserID"] = obj.Gmail.ToString();
                     Session["UserName"] = obj.Gmail.ToString();
                     Session["ID"] = obj.MaKH.ToString();
+                    Session["ad"] = null;
+                    if (obj.Quyen.ToString() == "admin")
+                    {
+                        Session["ad"] = "manager";
+                        return RedirectToAction("UserDashBoard");
+                    }
                     return RedirectToAction("Index","Saches");
                 }
 

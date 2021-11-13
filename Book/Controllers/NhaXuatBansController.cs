@@ -10,105 +10,109 @@ using Book.Models;
 
 namespace Book.Controllers
 {
-    public class GiosController : Controller
+    public class NhaXuatBansController : Controller
     {
         private DoAnEntities1 db = new DoAnEntities1();
 
-        // GET: Gios
-        public ActionResult ViewCart()
+        // GET: NhaXuatBans
+        public ActionResult Index()
         {
-            if (Session["UserID"] != null)
-            {
-                int maKH = Convert.ToInt32(Session["ID"]);
-                var cart = db.Database.SqlQuery<ViewCart_Result>("ViewCart " + maKH);
-                return View(cart.ToList());
-            }
-            else
-            {
-                return RedirectToAction("Login","KhachHangs");
-            }
-           
-           
+            return View(db.NhaXuatBans.ToList());
         }
 
-        // GET: Gios/Details/5
-        public ActionResult Details(int? id)
+        // GET: NhaXuatBans/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Gio gio = db.Gios.Find(id);
-            if (gio == null)
+            NhaXuatBan nhaXuatBan = db.NhaXuatBans.Find(id);
+            if (nhaXuatBan == null)
             {
                 return HttpNotFound();
             }
-            return View(gio);
+            return View(nhaXuatBan);
         }
 
-        // GET: Gios/Create
+        // GET: NhaXuatBans/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Gios/Create
+        // POST: NhaXuatBans/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaHD,MaSach,SoLuong,ThanhTien,HinhAnh,MaKH")] Gio gio)
+        public ActionResult Create([Bind(Include = "MaNXB,TenNXB")] NhaXuatBan nhaXuatBan)
         {
             if (ModelState.IsValid)
             {
-                db.Gios.Add(gio);
+                db.NhaXuatBans.Add(nhaXuatBan);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(gio);
+            return View(nhaXuatBan);
         }
 
-        // GET: Gios/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: NhaXuatBans/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Gio gio = db.Gios.Find(id);
-            if (gio == null)
+            NhaXuatBan nhaXuatBan = db.NhaXuatBans.Find(id);
+            if (nhaXuatBan == null)
             {
                 return HttpNotFound();
             }
-            return View(gio);
+            return View(nhaXuatBan);
         }
 
-        // POST: Gios/Edit/5
+        // POST: NhaXuatBans/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaHD,MaSach,SoLuong,ThanhTien,HinhAnh,MaKH")] Gio gio)
+        public ActionResult Edit([Bind(Include = "MaNXB,TenNXB")] NhaXuatBan nhaXuatBan)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(gio).State = EntityState.Modified;
+                db.Entry(nhaXuatBan).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(gio);
+            return View(nhaXuatBan);
         }
 
-       
-        // POST: Gios/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int? MaHD, string MaSach)
+        // GET: NhaXuatBans/Delete/5
+        public ActionResult Delete(string id)
         {
-            db.XoaHoaDon(MaHD, MaSach);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            NhaXuatBan nhaXuatBan = db.NhaXuatBans.Find(id);
+            if (nhaXuatBan == null)
+            {
+                return HttpNotFound();
+            }
+            return View(nhaXuatBan);
+        }
+
+        // POST: NhaXuatBans/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            NhaXuatBan nhaXuatBan = db.NhaXuatBans.Find(id);
+            db.NhaXuatBans.Remove(nhaXuatBan);
             db.SaveChanges();
-            return RedirectToAction("ViewCart");
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

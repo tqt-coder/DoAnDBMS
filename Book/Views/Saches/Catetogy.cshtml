@@ -35,38 +35,46 @@
                         @foreach (var item in Model)
                         {
                             <!-- giao diện sách -->
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <a href=@Url.Action("Details", "Saches", new { id = item.MaSach }) class="item__book">
-                                    <div class="item-div">
-                                        <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
-                                    </div>
-                                    <div class="item-div__infor-book-name">
-                                        @Html.DisplayFor(modelItem => item.TenSach)
-                                    </div>
-                                    <div class="item-div__infor-book">
-                                        @Html.DisplayFor(modelItem => item.GiaBan)đ
-                                    </div>
-                                    <div class="item-div">
-                                        <nav action="">
-                                            <input class="star star-5" id="star-5" type="radio" name="star" />
-                                            <label class="star star-5" for="star-5"></label>
-                                            <input class="star star-4" id="star-4" type="radio" name="star" />
-                                            <label class="star star-4" for="star-4"></label>
-                                            <input class="star star-3" id="star-3" type="radio" name="star" />
-                                            <label class="star star-3" for="star-3"></label>
-                                            <input class="star star-2" id="star-2" type="radio" name="star" />
-                                            <label class="star star-2" for="star-2"></label>
-                                            <input class="star star-1" id="star-1" type="radio" name="star" />
-                                            <label class="star star-1" for="star-1"></label>
-                                        </nav>
-                                    </div>
-                                    <div class="item-div__book-basket">
-                                        <button class="item-atb">Add To Basket</button>
-                                    </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 book__container">
+                            @if (Session["ad"] != null)
+                            {
+
+                                <a href=@Url.Action("Delete", "Saches", new { id = item.MaSach })>
+
+                                    <i class="fa fa-times-circle book__icon-delete"></i>
                                 </a>
+                            }
+                            <a href=@Url.Action("Details", "Saches", new { id = item.MaSach }) class="item__book">
+                                <div class="item-div">
+                                    <img class="item-div__book" src=@Html.DisplayFor(modelItem => item.HinhAnh)>
+                                </div>
+                                <div class="item-div__infor-book-name">
+                                    @Html.DisplayFor(modelItem => item.TenSach)
+                                </div>
+                                <div class="item-div__infor-book">
+                                    @Html.DisplayFor(modelItem => item.GiaBan)đ
+                                </div>
+                                <div class="item-div">
+                                    <nav action="">
+                                        <input class="star star-5" id="star-5" type="radio" name="star" />
+                                        <label class="star star-5" for="star-5"></label>
+                                        <input class="star star-4" id="star-4" type="radio" name="star" />
+                                        <label class="star star-4" for="star-4"></label>
+                                        <input class="star star-3" id="star-3" type="radio" name="star" />
+                                        <label class="star star-3" for="star-3"></label>
+                                        <input class="star star-2" id="star-2" type="radio" name="star" />
+                                        <label class="star star-2" for="star-2"></label>
+                                        <input class="star star-1" id="star-1" type="radio" name="star" />
+                                        <label class="star star-1" for="star-1"></label>
+                                    </nav>
+                                </div>
+                                <div class="item-div__book-basket">
+                                    <button class="item-atb">Add To Basket</button>
+                                </div>
+                            </a>
 
 
-                            </div>
+                        </div>
                         }
                         <!-- end -->
                     </div>

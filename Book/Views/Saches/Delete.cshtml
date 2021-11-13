@@ -1,9 +1,12 @@
 ﻿@model Book.Models.Sach
 
 @{
-    ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Delete Books";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
+<body style="font-size: 1.6rem; padding: 1rem 3rem">
+    <link rel="stylesheet" href="~/Content/Site.css">
+</body>
 
 <h2>Delete</h2>
 
@@ -70,7 +73,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
