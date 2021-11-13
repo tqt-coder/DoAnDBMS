@@ -13,7 +13,7 @@ namespace Book.Controllers
     public class KhachHangsController : Controller
     {
         private DoAnEntities1 db = new DoAnEntities1();
-     
+
 
         // GET: KhachHangs
         public ActionResult Index()
@@ -27,147 +27,160 @@ namespace Book.Controllers
         }
         public ActionResult UserDashBoard()
         {
-            if (Session["UserID"] != null && Session["ad"].ToString() == "manager")
+            if (Session["UserID"] != null)
             {
-                return View();
+                if (Session["ad"].ToString() == "manager")
+                {
+                    
+
+                        return View();
+                   
+
+                }
+                else
+                {
+
+                    return RedirectToAction("Login");
+                }
             }
             else
             {
-             
+
                 return RedirectToAction("Login");
+
             }
-        }
+        } 
 
 
-        // Login
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(KhachHang user)
-        {
-            if (ModelState.IsValid)
+            // Login
+            public ActionResult Login()
             {
+                return View();
+            }
 
-                var obj = db.KhachHangs.Where(a => a.Gmail.Equals(user.Gmail) && a.PassWord.Equals(user.PassWord)).FirstOrDefault();
-                if (obj != null)
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult Login(KhachHang user)
+            {
+                if (ModelState.IsValid)
                 {
-                    
-                    Session["UserID"] = obj.Gmail.ToString();
-                    Session["UserName"] = obj.Gmail.ToString();
-                    Session["ID"] = obj.MaKH.ToString();
-                    Session["ad"] = null;
-                    if (obj.Quyen.ToString() == "admin")
+
+                    var obj = db.KhachHangs.Where(a => a.Gmail.Equals(user.Gmail) && a.PassWord.Equals(user.PassWord)).FirstOrDefault();
+                    if (obj != null)
                     {
-                        Session["ad"] = "manager";
-                        return RedirectToAction("UserDashBoard");
+
+                        Session["UserID"] = obj.Gmail.ToString();
+                        Session["UserName"] = obj.Gmail.ToString();
+                        Session["ID"] = obj.MaKH.ToString();
+                        Session["ad"] = null;
+                        if (obj.Quyen.ToString() == "admin")
+                        {
+                            Session["ad"] = "manager";
+                            return RedirectToAction("UserDashBoard");
+                        }
+                        return RedirectToAction("Index", "Saches");
                     }
-                    return RedirectToAction("Index","Saches");
+
+                }
+                ViewBag.error = "Login failed";
+                return View(user);
+            }
+
+
+            // GET: KhachHangs/Details/5
+            public ActionResult Details(int? id)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                KhachHang khachHang = db.KhachHangs.Find(id);
+                if (khachHang == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(khachHang);
+            }
+
+            // GET: KhachHangs/Create
+            public ActionResult Register()
+            {
+                return View();
+            }
+
+            // POST: KhachHangs/Create
+            // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+            // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult Register([Bind(Include = "MaKH,HovaTen,SoDienThoai,DiaChi,PassWord,Gmail,Quyen")] KhachHang khachHang)
+            {
+                if (ModelState.IsValid)
+                {
+                    db.KhachHangs.Add(khachHang);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
 
+                return View(khachHang);
             }
-           ViewBag.error = "Login failed";
-            return View(user);
-        }
 
-      
-        // GET: KhachHangs/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
+            // GET: KhachHangs/Edit/5
+            public ActionResult Edit(int? id)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                KhachHang khachHang = db.KhachHangs.Find(id);
+                if (khachHang == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(khachHang);
             }
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
+
+            // POST: KhachHangs/Edit/5
+            // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+            // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public ActionResult Edit([Bind(Include = "MaKH,HovaTen,SoDienThoai,DiaChi,PassWord,Gmail,Quyen")] KhachHang khachHang)
             {
-                return HttpNotFound();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(khachHang).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(khachHang);
             }
-            return View(khachHang);
-        }
 
-        // GET: KhachHangs/Create
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        // POST: KhachHangs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "MaKH,HovaTen,SoDienThoai,DiaChi,PassWord,Gmail,Quyen")] KhachHang khachHang)
-        {
-            if (ModelState.IsValid)
+            // GET: KhachHangs/Delete/5
+            public ActionResult Delete(int? id)
             {
-                db.KhachHangs.Add(khachHang);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                KhachHang khachHang = db.KhachHangs.Find(id);
+                if (khachHang == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(khachHang);
+            }
+
+            // POST: KhachHangs/Delete/5
+            [HttpPost, ActionName("Delete")]
+            [ValidateAntiForgeryToken]
+            public ActionResult DeleteConfirmed(int? id)
+            {
+                KhachHang khachHang = db.KhachHangs.Find(id);
+                db.KhachHangs.Remove(khachHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(khachHang);
-        }
-
-        // GET: KhachHangs/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
-        }
-
-        // POST: KhachHangs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKH,HovaTen,SoDienThoai,DiaChi,PassWord,Gmail,Quyen")] KhachHang khachHang)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(khachHang).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(khachHang);
-        }
-
-        // GET: KhachHangs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
-        }
-
-        // POST: KhachHangs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? id)
-        {
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            db.KhachHangs.Remove(khachHang);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

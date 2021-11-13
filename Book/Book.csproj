@@ -201,11 +201,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\base.css" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\mystyle.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\Cart.css" />
+    <Content Include="Content\cart.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

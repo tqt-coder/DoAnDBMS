@@ -3,14 +3,14 @@
     "",
     "\\Book",
     "\\Book\\Content",
-    "\\Book\\Controllers",
     "\\Book\\Models",
     "\\Book\\Views",
+    "\\Book\\Views\\ChiTietHoaDons",
     "\\Book\\Views\\Gios",
     "\\Book\\Views\\KhachHangs",
     "\\Book\\Views\\Saches",
     "\\Book\\Views\\Shared"
   ],
-  "SelectedNode": "\\Book\\Content\\mystyle.css",
+  "SelectedNode": "\\Book\\Content\\style.css",
   "PreviewInSolutionExplorer": false
 }

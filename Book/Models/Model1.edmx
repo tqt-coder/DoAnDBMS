@@ -412,8 +412,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <FunctionImport Name="searchBook" ReturnType="Collection(DoAnModel.searchBook_Result)">
           <Parameter Name="tenSach" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="View_KH" EntityType="DoAnModel.View_KH" />
-          <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
           <FunctionImport Name="TongTien">
           <Parameter Name="MaKH" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -431,7 +429,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <End Role="KhachHang" EntitySet="KhachHangs" />
             <End Role="NguoiQuanLy" EntitySet="NguoiQuanLies" />
           </AssociationSet>
-          <EntitySet Name="DatHangs" EntityType="DoAnModel.DatHang" />
           <FunctionImport Name="Don" ReturnType="Collection(DoAnModel.Don_Result)">
             <Parameter Name="MaKH" Mode="In" Type="Int32" />
             <Parameter Name="NgayDat" Mode="In" Type="DateTime" />
@@ -446,6 +443,9 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <FunctionImport Name="ViewCart" ReturnType="Collection(DoAnModel.ViewCart_Result)">
           <Parameter Name="MaKH" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="DatHangs" EntityType="DoAnModel.DatHang" />
+          <EntitySet Name="View_KH" EntityType="DoAnModel.View_KH" />
+          <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
         </EntityContainer>
         <ComplexType Name="recommend_Result">
           <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -467,24 +467,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
           <Property Type="String" Name="HinhAnh" Nullable="false" />
         </ComplexType>
-        <EntityType Name="View_KH">
-          <Key>
-            <PropertyRef Name="Gmail" />
-          </Key>
-          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="view_thongtinKH">
-          <Key>
-            <PropertyRef Name="MaKH" />
-            <PropertyRef Name="MaDH" />
-          </Key>
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MaDH" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="KhachHang">
           <Key>
             <PropertyRef Name="MaKH" />
@@ -527,16 +509,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="DatHang">
-          <Key>
-            <PropertyRef Name="MaDH" />
-            <PropertyRef Name="MaKH" />
-          </Key>
-          <Property Name="MaDH" Type="Int32" Nullable="false" />
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
         <ComplexType Name="Don_Result">
           <Property Type="Int32" Name="MaDH" Nullable="false" />
           <Property Type="Int32" Name="MaKH" Nullable="false" />
@@ -571,6 +543,34 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
           <Property Type="String" Name="HinhAnh" Nullable="false" />
         </ComplexType>
+        <EntityType Name="DatHang">
+          <Key>
+            <PropertyRef Name="MaDH" />
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaDH" Type="Int32" Nullable="false" />
+          <Property Name="MaKH" Type="Int32" Nullable="false" />
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="View_KH">
+          <Key>
+            <PropertyRef Name="Gmail" />
+          </Key>
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="view_thongtinKH">
+          <Key>
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="MaDH" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" />
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaDH" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -664,25 +664,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="View_KH">
-            <EntityTypeMapping TypeName="DoAnModel.View_KH">
-              <MappingFragment StoreEntitySet="View_KH">
-                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="view_thongtinKH">
-            <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
-              <MappingFragment StoreEntitySet="view_thongtinKH">
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="TongTien" FunctionName="DoAnModel.Store.TongTien" />
           <FunctionImportMapping FunctionImportName="TraTien" FunctionName="DoAnModel.Store.TraTien" />
           <EntitySetMapping Name="KhachHangs">
@@ -695,16 +676,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
                 <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
                 <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DatHangs">
-            <EntityTypeMapping TypeName="DoAnModel.DatHang">
-              <MappingFragment StoreEntitySet="DatHang">
-                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -748,6 +719,35 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="DatHangs">
+            <EntityTypeMapping TypeName="DoAnModel.DatHang">
+              <MappingFragment StoreEntitySet="DatHang">
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_KH">
+            <EntityTypeMapping TypeName="DoAnModel.View_KH">
+              <MappingFragment StoreEntitySet="View_KH">
+                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_thongtinKH">
+            <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
+              <MappingFragment StoreEntitySet="view_thongtinKH">
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

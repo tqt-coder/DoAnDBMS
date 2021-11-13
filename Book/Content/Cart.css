@@ -1,5 +1,11 @@
 ﻿.cart-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background-color: #f0f0f0;
+    height: 100%;
     padding: 4rem 0;
 }
 
@@ -29,18 +35,19 @@
 }
 
 .cart__delete {
-    border-color: transparent;
     margin: auto 1rem;
     text-decoration: none;
     color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
-    display: block;
     background-color: transparent;
-    width: 100%;
+    border: none;
 }
 
 .cart__delete-icon {
-    font-size: 3rem;
+    font-size: 2.6rem;
 }
 
 .cart__img {
@@ -94,6 +101,10 @@
 
 .cart-quantity__text {
     font-size: 2rem;
+    border: none;
+    width: 2.6rem;
+    text-align: center;
+    outline: none;
 }
 
 .cart-sum {
@@ -108,4 +119,48 @@
 .cart-sum__cost {
     font-weight: 400;
     color: #F7941E;
+}
+
+.cart__bill {
+    position: fixed;
+    width: 30rem;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #2d89d4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart__bill-btn {
+    margin: 3rem auto;
+    width: 25rem;
+    height: 4.4rem;
+    background-color: #c92127;
+    color: #fff;
+    font-weight: bold;
+    outline: none;
+    border-color: transparent;
+    border-radius: 2rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.form__cart-bill {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart__bill-text {
+    padding: 1rem 0;
+    font-size: 2.2rem;
+}
+
+.cart__bill-cost {
+    font-weight: bold;
+    color: #d8ce0b;
+    font-size: 2.4rem;
 }

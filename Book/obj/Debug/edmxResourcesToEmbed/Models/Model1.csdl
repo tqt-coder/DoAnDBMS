@@ -124,8 +124,6 @@
     <FunctionImport Name="searchBook" ReturnType="Collection(DoAnModel.searchBook_Result)">
       <Parameter Name="tenSach" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="View_KH" EntityType="DoAnModel.View_KH" />
-    <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
     <FunctionImport Name="TongTien">
       <Parameter Name="MaKH" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -143,7 +141,6 @@
       <End Role="KhachHang" EntitySet="KhachHangs" />
       <End Role="NguoiQuanLy" EntitySet="NguoiQuanLies" />
     </AssociationSet>
-    <EntitySet Name="DatHangs" EntityType="DoAnModel.DatHang" />
     <FunctionImport Name="Don" ReturnType="Collection(DoAnModel.Don_Result)">
       <Parameter Name="MaKH" Mode="In" Type="Int32" />
       <Parameter Name="NgayDat" Mode="In" Type="DateTime" />
@@ -158,6 +155,9 @@
     <FunctionImport Name="ViewCart" ReturnType="Collection(DoAnModel.ViewCart_Result)">
       <Parameter Name="MaKH" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="DatHangs" EntityType="DoAnModel.DatHang" />
+    <EntitySet Name="View_KH" EntityType="DoAnModel.View_KH" />
+    <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
   </EntityContainer>
   <ComplexType Name="recommend_Result">
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -179,24 +179,6 @@
     <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
   </ComplexType>
-  <EntityType Name="View_KH">
-    <Key>
-      <PropertyRef Name="Gmail" />
-    </Key>
-    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="view_thongtinKH">
-    <Key>
-      <PropertyRef Name="MaKH" />
-      <PropertyRef Name="MaDH" />
-    </Key>
-    <Property Name="MaKH" Type="Int32" Nullable="false" />
-    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="MaDH" Type="Int32" Nullable="false" />
-  </EntityType>
   <EntityType Name="KhachHang">
     <Key>
       <PropertyRef Name="MaKH" />
@@ -239,16 +221,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="DatHang">
-    <Key>
-      <PropertyRef Name="MaDH" />
-      <PropertyRef Name="MaKH" />
-    </Key>
-    <Property Name="MaDH" Type="Int32" Nullable="false" />
-    <Property Name="MaKH" Type="Int32" Nullable="false" />
-    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
-  </EntityType>
   <ComplexType Name="Don_Result">
     <Property Type="Int32" Name="MaDH" Nullable="false" />
     <Property Type="Int32" Name="MaKH" Nullable="false" />
@@ -283,4 +255,32 @@
     <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
   </ComplexType>
+  <EntityType Name="DatHang">
+    <Key>
+      <PropertyRef Name="MaDH" />
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaDH" Type="Int32" Nullable="false" />
+    <Property Name="MaKH" Type="Int32" Nullable="false" />
+    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="View_KH">
+    <Key>
+      <PropertyRef Name="Gmail" />
+    </Key>
+    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="view_thongtinKH">
+    <Key>
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaKH" Type="Int32" Nullable="false" />
+    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MaDH" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

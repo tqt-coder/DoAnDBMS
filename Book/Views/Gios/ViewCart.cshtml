@@ -5,70 +5,165 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+=
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
+<div id="content">
+    <div class="cart-background">
+        <h2 class="cart__title">Giỏ hàng</h2>
+        <div class="cart__bill">
+            <form class="form__cart-bill" action="">
+                @Html.AntiForgeryToken()
+                <h2 class="cart__bill-text">Tổng số tiền</h2>
+                <h2 class="cart__bill-cost"></h2>
+                <button type="submit" class="cart__bill-btn">Thanh toán</button>
+            </form>
+        </div>
+        <div class="cart-background__content">
 
-    <div id="content">
+            @foreach (var item in Model)
+            {
 
+                <div class="cart">
 
-        <div class="cart-background">
-            <h2 class="cart__title">Giỏ hàng</h2>
-            <div class="cart-background__content">
-                <form action="#" method="post">
-                    @Html.AntiForgeryToken()
-                    <button type="submit" class="cart-background__content-paid">Thanh toán</button>
-                </form>
-                    @foreach (var item in Model)
-                    {
+                    <form action="/Gios/Delete" method="post">
+                        @Html.AntiForgeryToken()
+                        <input style="display:none" type="text" name="MaHD" value=@Html.DisplayFor(modelItem => item.MaHD) />
+                        <input style="display:none" type="text" name="MaSach" value=@Html.DisplayFor(modelItem => item.MaSach) />
+                        <button class="cart__delete">
+                            <i class="far fa-times-circle cart__delete-icon"></i>
+                        </button>
 
-                        <div class="cart">
-
-                            <form action="/Gios/Delete" method="post">
-                                @Html.AntiForgeryToken()
-                                <input style="display:none" type="text" name="MaHD" value=@Html.DisplayFor(modelItem => item.MaHD) />
-                                <input style="display:none" type="text" name="MaSach" value=@Html.DisplayFor(modelItem => item.MaSach) />
-                                <button class="cart__delete">
-                                    <i class="far fa-times-circle cart__delete-icon"></i>
-                                </button>
-
-                            </form>
-                            <img src=@Html.DisplayFor(modelItem => item.HinhAnh) alt="Book" class="cart__img">
-                            <div class="cart-infor">
-                                <h4 class="cart-infor__name"> @Html.DisplayFor(modelItem => item.TenSach)</h4>
-                                <h5 class="cart-infor__cost"> @Html.DisplayFor(modelItem => item.GiaBan) đ</h5>
-                                <h5 style="display:none" class="cart-infor__cost-old">25 000 đ</h5>
-                            </div>
-                            <div class="cart-detail">
-                                <div class="cart-quantity">
-                                    <span class="cart-quantity__change">-</span>
-                                    <span class="cart-quantity__text">@Html.DisplayFor(modelItem => item.SoLuong)</span>
-                                    <span class="cart-quantity__change">+</span>
-                                </div>
-                                <div class="cart-sum">
-                                    <span class="cart-sum__text">Thành tiền</span>
-                                    <span class="cart-sum__cost">@Html.DisplayFor(modelItem => item.ThanhTien)</span>
-                                </div>
-                            </div>
-
+                    </form>
+                    <img src=@Html.DisplayFor(modelItem => item.HinhAnh) alt="Book" class="cart__img">
+                    <div class="cart-infor">
+                        <h4 class="cart-infor__name"> @Html.DisplayFor(modelItem => item.TenSach)</h4>
+                        <h5 class="cart-infor__cost"> @Html.DisplayFor(modelItem => item.GiaBan) đ</h5>
+                        <h5 style="display:none" class="cart-infor__cost-old">25 000 đ</h5>
+                    </div>
+                    <div class="cart-detail">
+                        <form name="formItem_@Html.DisplayFor(modelItem => item.MaKH)_@Html.DisplayFor(modelItem => item.MaSach)" class="cart-quantity">
+                            <span class="cart-quantity__change cart-quantity__change-subtract">-</span>
+                            <input name="SoLuong" class="cart-quantity__text" value=@Html.DisplayFor(modelItem => item.SoLuong)>
+                            <span class="cart-quantity__change cart-quantity__change-plus">+</span>
+                            <input style="display:none" type="text" name="MaHD" value=@Html.DisplayFor(modelItem => item.MaHD) />
+                            <input style="display:none" type="text" name="MaSach" value=@Html.DisplayFor(modelItem => item.MaSach) />
+                        </form>
+                        <div class="cart-sum">
+                            <span class="cart-sum__text">Thành tiền</span>
+                            <span class="cart-sum__cost">@Html.DisplayFor(modelItem => item.ThanhTien)</span>
                         </div>
+                    </div>
+
+                </div>
 
 
-                    }
-
-            </div>
+            }
 
         </div>
 
-
-
-
     </div>
 
-</body>
-</html>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    //window.setTimeout(function () {
+    //    window.location.reload();
+    //}, 30000);
+    var coins = document.querySelectorAll('.cart-sum__cost');
+    var total = document.querySelector('.cart__bill-cost');
+    var arrValue = document.querySelectorAll('.cart-quantity__text');
+    var sum = 0;
+    [...coins].forEach((coin, index) => {
+        sum = parseFloat(coin.textContent) + sum;
+    });
+    total.textContent = sum;
+
+    // thay đổi số lượng
+    var subArr = document.querySelectorAll('.cart-quantity__change-subtract');
+    var plusArr = document.querySelectorAll('.cart-quantity__change-plus');
+    Array.from(plusArr).forEach((plus) => {
+        plus.onclick = (event) => {
+
+            if (event.target.parentElement.matches('.cart-quantity')) {
+                var parentCart = event.target.parentElement;
+                var quantityText = parentCart.querySelector('.cart-quantity__text');
+                var quantity = parseInt(quantityText.value) + 1;
+                quantityText.value = quantity;
+                sendInfo(event);
+            }
+
+        }
+    });
+
+    Array.from(subArr).forEach((sub) => {
+        sub.onclick = (event) => {
+
+            if (event.target.parentElement.matches('.cart-quantity')) {
+                var parentCart = event.target.parentElement;
+                var quantityText = parentCart.querySelector('.cart-quantity__text');
+                var quantity = parseInt(quantityText.value) - 1;
+                if (quantity <= 1) {
+                    quantity = 1;
+                }
+                quantityText.value = quantity;
+                sendInfo(event);
+            }
+
+        }
+    });
+    // Ajax để thay update số lượng database
+    //var request;
+    //var method = 'POST';
+
+    function sendInfo(event) {
+        var formItem = event.target.parentElement;
+
+        var soluong = formItem.querySelector('input[name="SoLuong"]').value;
+        var masach = formItem.querySelector('input[name="MaSach"]').value;
+        var thanhtien = null;
+        var mahd = formItem.querySelector('input[name="MaHD"]').value;
+
+        var serviceURL = `/ChiTietHoaDons/Update`;
+        var model = {
+            MaHD: mahd,
+            MaSach: masach,
+            SoLuong: soluong,
+            ThanhTien: thanhtien };
+        $.ajax({
+            type: "POST",
+            url: serviceURL,
+            data: JSON.stringify(model),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'html',
+            success: function (data) {
+                $('#content').load("/Gios/ViewCart");
+            },
+            error: function (data, errorThrown) {
+                alert(errorThrown);
+            }
+           
+        })
+
+        function successFunc(data, status) {
+            alert(data);
+        }
+
+        function errorFunc() {
+            alert('error');
+        }
+       
+
+        function getInfo(data) {
+          
+                var val = data.responseText;
+
+                document.getElementById('content').innerHTML = "...Loading";
+
+                setTimeout(function () {
+                    document.getElementById('content').innerHTML = val;
+                }, 5000);
+            }
+        }
+</script>
+

@@ -75,13 +75,18 @@ namespace Book.Controllers
             {
                 return HttpNotFound();
             }
-            return View(hd);
         
             ViewBag.MaHD = new SelectList(db.DonHangs, "MaDH", "MaDH", hd.MaHD);
             ViewBag.MaSach = new SelectList(db.Saches, "MaSach", "TenSach", hd.MaSach);
             return View(hd);
         }
 
+        public ActionResult Update(ChiTietHoaDon hd)
+        {
+            db.Entry(hd).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index","Saches");
+        }
         // POST: ChiTietHoaDons/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

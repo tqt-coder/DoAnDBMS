@@ -32,11 +32,11 @@ namespace Book.Models
         public virtual DbSet<NguoiQuanLy> NguoiQuanLies { get; set; }
         public virtual DbSet<NhaXuatBan> NhaXuatBans { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
+        public virtual DbSet<KhachHang> KhachHangs { get; set; }
+        public virtual DbSet<Gio> Gios { get; set; }
+        public virtual DbSet<DatHang> DatHangs { get; set; }
         public virtual DbSet<View_KH> View_KH { get; set; }
         public virtual DbSet<view_thongtinKH> view_thongtinKH { get; set; }
-        public virtual DbSet<KhachHang> KhachHangs { get; set; }
-        public virtual DbSet<DatHang> DatHangs { get; set; }
-        public virtual DbSet<Gio> Gios { get; set; }
     
         [DbFunction("DoAnEntities1", "SumMoney")]
         public virtual IQueryable<SumMoney_Result> SumMoney(Nullable<int> maHD)

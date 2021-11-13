@@ -240,7 +240,7 @@ C:\DoAnDBMS\Book\bin\System.Web.WebPages.Razor.xml
 C:\DoAnDBMS\Book\bin\Newtonsoft.Json.xml
 C:\DoAnDBMS\Book\bin\Antlr3.Runtime.pdb
 C:\DoAnDBMS\Book\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\DoAnDBMS\Book\obj\Debug\Book.csproj.AssemblyReference.cache
 C:\DoAnDBMS\Book\obj\Debug\Book.csproj.CoreCompileInputs.cache
 C:\DoAnDBMS\Book\obj\Debug\Book.dll
 C:\DoAnDBMS\Book\obj\Debug\Book.pdb
+C:\DoAnDBMS\Book\obj\Debug\Book.csproj.AssemblyReference.cache

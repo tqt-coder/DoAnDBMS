@@ -13,13 +13,13 @@
         <AssociationConnector Association="DoAnModel.fk_ctdh_dh" ManuallyRouted="false" />
         <AssociationConnector Association="DoAnModel.fk_ctdh_sach" ManuallyRouted="false" />
         <AssociationConnector Association="DoAnModel.fk_s_nxb" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DoAnModel.View_KH" Width="1.5" PointX="0.875" PointY="7.125" />
-        <EntityTypeShape EntityType="DoAnModel.view_thongtinKH" Width="1.5" PointX="3.75" PointY="8.25" />
         <EntityTypeShape EntityType="DoAnModel.KhachHang" Width="1.5" PointX="3" PointY="4.75" />
         <AssociationConnector Association="DoAnModel.fk_dh_kh" />
         <AssociationConnector Association="DoAnModel.fk_nql_sach" />
-        <EntityTypeShape EntityType="DoAnModel.DatHang" Width="1.5" PointX="8.625" PointY="7" />
         <EntityTypeShape EntityType="DoAnModel.Gio" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DoAnModel.DatHang" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DoAnModel.View_KH" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="DoAnModel.view_thongtinKH" Width="1.5" PointX="4.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
