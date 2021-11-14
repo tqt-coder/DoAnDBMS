@@ -1,4 +1,27 @@
-﻿.cart-background {
+﻿
+
+.hidden-infor {
+    display: none;
+}
+
+.cart-background__empty.hidden-infor {
+    display: none;
+}
+
+.cart-background__empty {
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+}
+
+.cart-background__empty-img {
+    height: 30rem;
+    object-fit: cover;
+}
+.cart-background {
     position: absolute;
     top: 0;
     right: 0;
@@ -33,6 +56,7 @@
     padding: 2rem;
     font-weight: 500;
     text-align: center;
+    margin-top: 5rem;
 }
 
 .cart__delete {

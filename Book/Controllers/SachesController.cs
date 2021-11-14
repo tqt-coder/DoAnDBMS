@@ -17,7 +17,7 @@ namespace Book.Controllers
         // GET: Saches
         public ActionResult Index()
         {
-            var saches = db.Saches.Include(s => s.NhaXuatBan).Take(10);
+            var saches = db.Saches.Include(s => s.NhaXuatBan).Where(s => s.SoLuong > 1).Take(10);
             return View(saches.ToList());
         }
 

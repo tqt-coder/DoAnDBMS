@@ -2,9 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Book",
+    "\\Book\\Controllers",
     "\\Book\\Views",
+    "\\Book\\Views\\Gios",
     "\\Book\\Views\\Saches"
   ],
-  "SelectedNode": "\\Book\\Views\\Saches\\Create.cshtml",
+  "SelectedNode": "\\Book\\Controllers\\SachesController.cs",
   "PreviewInSolutionExplorer": false
 }

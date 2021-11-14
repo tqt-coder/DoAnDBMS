@@ -38,7 +38,7 @@ CREATE TABLE DonHang(
 )
 GO
 
-CREATE TABLE ChiTietHoaDon(
+CREATE TABLE ChiTietHoaDon (
 	MaHD INT NOT NULL,
 	MaSach VARCHAR(20) NOT NULL,
 	SoLuong INT NOT NULL,
@@ -162,7 +162,12 @@ BEGIN
 	Deallocate TenNguoiQuanLyCursor
 END;
 GO
-
+/*
+select * from Sach
+select * from ChiTietHoaDon
+Delete ChiTietHoaDon
+exec Don 4,'2021-11-14','S0010',29
+update ChiTietHoaDon set SoLuong = 29 where MaSach = 'S0010'*/
 --Trigger đặt sách 
 CREATE TRIGGER t_themdh ON ChiTietHoaDon
 AFTER INSERT AS
@@ -176,7 +181,7 @@ begin
 	Fetch next from TaoHDCursor into @new, @rest,@idsach
 	while @@FETCH_STATUS = 0
 	BEGIN
-		IF(@new >@rest)
+		IF(@new > @rest)
 		begin
 			Rollback
 			Close TaoHDCursor
@@ -238,7 +243,7 @@ GO
 
 --trigger tinhtien--
 CREATE TRIGGER TinhTien ON ChitietHoaDon
-AFTER insert,update AS
+for insert,update AS
 DECLARE @MaHD INT ,@Tien money,@MaSach varchar(20)
 Declare TinhTienCursor Cursor for
 	SELECT MaHD,s.GiaBan,ne.MaSach 
@@ -313,6 +318,7 @@ return
 		Having dh.MaHD = @MaHD
 
 GO
+
 CREATE Trigger Total On ChiTietHoaDon
 After Insert, Update
 As
@@ -473,7 +479,9 @@ create procedure recommend
 as 
 begin 
 select * from Sach 
-where TheLoai Like @theloai end
+where TheLoai Like @theloai and SoLuong > 1
+
+End
 GO
 
 create view View_KH
@@ -501,8 +509,6 @@ commit
 
 go
 
---commit
-go
 
 --view dathang
 CREATE VIEW DatHang AS
@@ -537,7 +543,7 @@ Begin
 	Delete ChiTietHoaDon Where MaHD = @MaHD and MaSach = @MaSach
 End;
 
-
+Go
 -- procedure xem giỏ hàng
 Create proc ViewCart
 	@MaKH int
@@ -546,8 +552,4 @@ Begin
 	Select * from Gio Where  MaKH = @MaKH
 End;
 
-/*update DonHang set NgayNhan = '2021-11-14' where MaDH = 3
-select * from DonHang
-select * from ChiTietHoaDon
-Exec ViewCart 3
-*/
+Go

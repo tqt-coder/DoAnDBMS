@@ -60,6 +60,9 @@
             }
 
         </div>
+        <div class="cart-background__empty hidden-infor">
+            <img class="cart-background__empty-img" src="~/Content/img/empty cart.png" alt="Empty cart">
+        </div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -72,7 +75,12 @@
     [...coins].forEach((coin, index) => {
         sum = parseFloat(coin.textContent) + sum;
     });
-    total.textContent = sum.toFixed(3);;
+    if (sum === 0) {
+        total.textContent = sum;
+    }
+    else {
+        total.textContent = sum.toFixed(3);
+    }
 
     // thay đổi số lượng
     var subArr = document.querySelectorAll('.cart-quantity__change-subtract');
@@ -197,11 +205,28 @@
         btnPaid.onclick = (event) => {
             event.preventDefault();
             totalBill();
+           
             btnPaid.textContent = 'Đã thanh toán';
+
             alert(`
                   Thanh toán thành công
                     Cảm ơn quý khách`);
         }
+    }
+
+    //Check emty cart
+    var cartBill = document.querySelector('.cart__bill');
+    var cartTitle = document.querySelector('.cart__title');
+    var cartImg = document.querySelector('.cart-background__empty');
+    if (sum === 0) {
+        cartBill.style.display= 'none';
+        cartTitle.textContent = 'Giỏ hàng trống';
+        cartTitle.style.color = 'red';
+        cartImg.classList.remove('hidden-infor');
+    } else {
+        cartBill.classList.remove('hidden-infor')
+        cartTitle.textContent = 'Giỏ hàng';
+
     }
 
 </script>
