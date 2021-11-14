@@ -5,8 +5,9 @@
     bottom: 0;
     left: 0;
     background-color: #f0f0f0;
-    height: 100%;
+    max-height: 80rem;
     padding: 4rem 0;
+    overflow-y: auto;
 }
 
 .cart-background__content {
@@ -122,6 +123,7 @@
 }
 
 .cart__bill {
+    height: 76vh;
     position: fixed;
     width: 30rem;
     top: 0;
@@ -131,7 +133,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
+
 
 .cart__bill-btn {
     margin: 3rem auto;

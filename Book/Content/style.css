@@ -83,7 +83,7 @@
     background-color: black;
     color: white;
 }
-input[type=password],
+input[name=PassWord],
 input[type=text] {
     width: 100% ;
     padding: 12px 20px ;
@@ -186,9 +186,12 @@ form.form_search::after {
     }
 
 #footer {
+   /* z-index: 1;
     bottom: 0;
     left: 0;
     right: 0;
+    position: relative;
+    top: 100vh;*/
 }
 
 .footer-text__infor {

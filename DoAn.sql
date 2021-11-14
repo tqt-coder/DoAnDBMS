@@ -221,12 +221,13 @@ End
 go
 
 -- View
-Create VIEW Gio AS
+CREATE VIEW Gio AS
 	SELECT hd.MaHD,kh.MaKH,s.TenSach,s.GiaBan,s.MaSach,hd.SoLuong,hd.ThanhTien,HinhAnh 
 	FROM ChiTietHoaDon as hd,Sach as s,DonHang dh,KhachHang kh
 	WHERE hd.MaSach=s.MaSach
 	and dh.MaDH=hd.MaHD
 	and kh.MaKH=dh.MaKH
+	and dh.NgayNhan is null
 Go
 
 CREATE VIEW view_thongtinKH AS
@@ -545,3 +546,8 @@ Begin
 	Select * from Gio Where  MaKH = @MaKH
 End;
 
+/*update DonHang set NgayNhan = '2021-11-14' where MaDH = 3
+select * from DonHang
+select * from ChiTietHoaDon
+Exec ViewCart 3
+*/

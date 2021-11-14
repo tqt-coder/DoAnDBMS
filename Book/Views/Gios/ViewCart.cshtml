@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-=
 
 <div id="content">
     <div class="cart-background">
@@ -16,6 +15,8 @@
                 <h2 class="cart__bill-text">Tổng số tiền</h2>
                 <h2 class="cart__bill-cost"></h2>
                 <button type="submit" class="cart__bill-btn">Thanh toán</button>
+                <input style="display:none" type="text" name="MaKH" value=@Session["ID"] />
+
             </form>
         </div>
         <div class="cart-background__content">
@@ -45,7 +46,7 @@
                             <span class="cart-quantity__change cart-quantity__change-subtract">-</span>
                             <input name="SoLuong" class="cart-quantity__text" value=@Html.DisplayFor(modelItem => item.SoLuong)>
                             <span class="cart-quantity__change cart-quantity__change-plus">+</span>
-                            <input style="display:none" type="text" name="MaHD" value=@Html.DisplayFor(modelItem => item.MaHD) />
+                            <input style="display:none" type="text" class="item__MaHD" name="MaHD" value=@Html.DisplayFor(modelItem => item.MaHD) />
                             <input style="display:none" type="text" name="MaSach" value=@Html.DisplayFor(modelItem => item.MaSach) />
                         </form>
                         <div class="cart-sum">
@@ -56,20 +57,14 @@
 
                 </div>
 
-
             }
 
         </div>
-
     </div>
-
-
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-    //window.setTimeout(function () {
-    //    window.location.reload();
-    //}, 30000);
+
     var coins = document.querySelectorAll('.cart-sum__cost');
     var total = document.querySelector('.cart__bill-cost');
     var arrValue = document.querySelectorAll('.cart-quantity__text');
@@ -77,7 +72,7 @@
     [...coins].forEach((coin, index) => {
         sum = parseFloat(coin.textContent) + sum;
     });
-    total.textContent = sum;
+    total.textContent = sum.toFixed(3);;
 
     // thay đổi số lượng
     var subArr = document.querySelectorAll('.cart-quantity__change-subtract');
@@ -115,6 +110,47 @@
     // Ajax để thay update số lượng database
     //var request;
     //var method = 'POST';
+    // MaDH = MaHD,MaKH,NgayDat,NgayNhan,TongTien
+    Date.prototype.addDays = function (days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date.toLocaleDateString();
+    }
+
+
+
+    function totalBill() {
+        var formBill = document.querySelector('.form__cart-bill');
+        var maKH = formBill.querySelector('input[name="MaKH"]').value;
+        var date = new Date();
+        var ngaydat = date.toLocaleDateString();
+        var ngaynhan = date.addDays(5);
+        var tongtien = total.textContent.trim();
+        var mahd = document.querySelector('.item__MaHD').value;
+
+        var serviceURL = `/DonHangs/Update`;
+        var model = {
+            MaDH: mahd,
+            MaKH: maKH,
+            NgayDat: ngaydat,
+            NgayNhan: ngaynhan,
+            TongTien: tongtien
+        };
+        $.ajax({
+            type: "POST",
+            url: serviceURL,
+            data: JSON.stringify(model),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'html',
+            success: function (data) {
+
+                $('#content').load("/Gios/ViewCart");
+            },
+            error: function (data, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
 
     function sendInfo(event) {
         var formItem = event.target.parentElement;
@@ -129,7 +165,8 @@
             MaHD: mahd,
             MaSach: masach,
             SoLuong: soluong,
-            ThanhTien: thanhtien };
+            ThanhTien: thanhtien
+        };
         $.ajax({
             type: "POST",
             url: serviceURL,
@@ -137,33 +174,35 @@
             contentType: "application/json; charset=utf-8",
             dataType: 'html',
             success: function (data) {
+
                 $('#content').load("/Gios/ViewCart");
             },
             error: function (data, errorThrown) {
                 alert(errorThrown);
             }
-           
-        })
 
-        function successFunc(data, status) {
-            alert(data);
-        }
+        });
 
         function errorFunc() {
             alert('error');
         }
-       
+    }
 
-        function getInfo(data) {
-          
-                var val = data.responseText;
+    var btnPaid = document.querySelector('.cart__bill-btn');
+    var contentBtn = btnPaid.textContent;
+    if (contentBtn.trim() === 'Đã thanh toán') {
 
-                document.getElementById('content').innerHTML = "...Loading";
-
-                setTimeout(function () {
-                    document.getElementById('content').innerHTML = val;
-                }, 5000);
-            }
+    }
+    else {
+        btnPaid.onclick = (event) => {
+            event.preventDefault();
+            totalBill();
+            btnPaid.textContent = 'Đã thanh toán';
+            alert(`
+                  Thanh toán thành công
+                    Cảm ơn quý khách`);
         }
+    }
+
 </script>
 

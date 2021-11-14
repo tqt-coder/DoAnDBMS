@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<Book.Models.NhaXuatBan>
 
 @{
-    Layout = null;
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
 <!DOCTYPE html>
@@ -22,20 +23,21 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenNXB)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.MaNXB }) |
-                @Html.ActionLink("Details", "Details", new { id=item.MaNXB }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.MaNXB })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenNXB)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaNXB }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MaNXB }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaNXB })
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>

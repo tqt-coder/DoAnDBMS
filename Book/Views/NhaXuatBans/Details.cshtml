@@ -1,7 +1,8 @@
 ﻿@model Book.Models.NhaXuatBan
 
 @{
-    Layout = null;
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
 <!DOCTYPE html>
@@ -19,11 +20,11 @@
             <dt>
                 @Html.DisplayNameFor(model => model.TenNXB)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.TenNXB)
             </dd>
-    
+
         </dl>
     </div>
     <p>

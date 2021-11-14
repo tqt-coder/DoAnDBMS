@@ -204,11 +204,11 @@
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\mystyle.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\cart.css" />
+    <Content Include="Content\CartStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\base.css" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>

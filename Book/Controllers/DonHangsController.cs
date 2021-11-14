@@ -20,6 +20,13 @@ namespace Book.Controllers
             var donHangs = db.DonHangs.Include(d => d.KhachHang);
             return View(donHangs.ToList());
         }
+        // Update cập nhật mua hàng
+        public ActionResult Update(DonHang dh)
+        {
+            db.Entry(dh).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Saches");
+        }
 
         // GET: DonHangs/Details/5
         public ActionResult Details(int? id)

@@ -2,15 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Book",
-    "\\Book\\Content",
-    "\\Book\\Models",
     "\\Book\\Views",
-    "\\Book\\Views\\ChiTietHoaDons",
-    "\\Book\\Views\\Gios",
-    "\\Book\\Views\\KhachHangs",
-    "\\Book\\Views\\Saches",
-    "\\Book\\Views\\Shared"
+    "\\Book\\Views\\Saches"
   ],
-  "SelectedNode": "\\Book\\Content\\style.css",
+  "SelectedNode": "\\Book\\Views\\Saches\\Create.cshtml",
   "PreviewInSolutionExplorer": false
 }
