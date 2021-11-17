@@ -108,16 +108,6 @@
     <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
-  <EntityType Name="view_thongtinKH">
-    <Key>
-      <PropertyRef Name="MaKH" />
-      <PropertyRef Name="MaDH" />
-    </Key>
-    <Property Name="MaKH" Type="Int32" Nullable="false" />
-    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="MaDH" Type="Int32" Nullable="false" />
-  </EntityType>
   <Association Name="fk_ctdh_dh">
     <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
     <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
@@ -194,7 +184,6 @@
     <EntitySet Name="DatHangs" EntityType="Self.DatHang" />
     <EntitySet Name="Gios" EntityType="Self.Gio" />
     <EntitySet Name="View_KH" EntityType="Self.View_KH" />
-    <EntitySet Name="view_thongtinKH" EntityType="Self.view_thongtinKH" />
     <AssociationSet Name="fk_ctdh_dh" Association="Self.fk_ctdh_dh">
       <End Role="DonHang" EntitySet="DonHangs" />
       <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
@@ -261,6 +250,7 @@
       <Parameter Name="login" Mode="In" Type="String" />
       <Parameter Name="db" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
   </EntityContainer>
   <ComplexType Name="recommend_Result">
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -292,4 +282,16 @@
     <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
   </ComplexType>
+  <EntityType Name="view_thongtinKH">
+    <Key>
+      <PropertyRef Name="NgayDat" />
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="NgayNhan" Type="DateTime" Precision="0" />
+    <Property Name="TenSach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MaKH" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

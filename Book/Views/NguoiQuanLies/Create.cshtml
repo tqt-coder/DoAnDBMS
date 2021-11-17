@@ -14,7 +14,7 @@
             <h4>NguoiQuanLy</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
+            <div style="display:none" class="form-group">
                 @Html.LabelFor(model => model.Ten, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "form-control" } })
@@ -22,8 +22,8 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.MaKH, "MaKH", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="form-group" style="margin: 1rem 0.4rem 2rem">
+                @Html.LabelFor(model => model.MaKH, "Tên người quản lý", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("MaKH", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })

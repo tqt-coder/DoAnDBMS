@@ -135,6 +135,7 @@
     <Compile Include="Controllers\NguoiQuanLiesController.cs" />
     <Compile Include="Controllers\NhaXuatBansController.cs" />
     <Compile Include="Controllers\SachesController.cs" />
+    <Compile Include="Controllers\view_thongtinKHController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -281,6 +282,11 @@
     <Content Include="Views\NhaXuatBans\Edit.cshtml" />
     <Content Include="Views\NhaXuatBans\Index.cshtml" />
     <Content Include="Views\Shared\ViewAdmin.cshtml" />
+    <Content Include="Views\view_thongtinKH\Create.cshtml" />
+    <Content Include="Views\view_thongtinKH\Delete.cshtml" />
+    <Content Include="Views\view_thongtinKH\Details.cshtml" />
+    <Content Include="Views\view_thongtinKH\Edit.cshtml" />
+    <Content Include="Views\view_thongtinKH\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

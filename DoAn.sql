@@ -355,12 +355,13 @@ CREATE VIEW Gio AS
 	and dh.NgayNhan is null
 Go
 
-CREATE VIEW view_thongtinKH AS
-	SELECT DonHang.MaKH, HovaTen, SoDienThoai, MaDH
-	FROM KhachHang, DonHang
-	WHERE DonHang.MaKH=KhachHang.MaKH;
-GO
 
+Create VIEW view_thongtinKH AS
+	SELECT  kh.HovaTen,dh.NgayDat,dh.NgayNhan,s.TenSach,dh.TongTien,dh.MaKH
+	FROM KhachHang as kh, DonHang as dh,ChiTietHoaDon as ct, Sach as s
+	WHERE dh.MaKH=kh.MaKh and dh.MaDH = ct.MaHD and dh.NgayNhan is not null and s.MaSach = ct.MaSach
+GO
+--select * from view_thongtinKH where view_thongtinKH.MaKH = 3
 --trigger tinhtien--
 CREATE TRIGGER TinhTien ON ChitietHoaDon
 for insert,update AS
