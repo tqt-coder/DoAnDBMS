@@ -1,15 +1,8 @@
 ﻿
-
-
-
-/***************/
 .navbar {
     display: flex;
-    /* Hiển thị khối flex */
     align-items: flex-end;
-    /* Chuyển thanh navbar sang phải */
     justify-content: right;
-    /* Chuyển thanh nội dung sang phải */
 }
 
 #content {
@@ -566,12 +559,15 @@ label.float-l {
 }
 
     .detail-item > .button > button {
-        font-size: 20px;
-        padding: 10px;
+        padding: 10px 5rem;
         border-radius: 10px;
-        width: 40%;
+        width: 100%;
         margin: 10px;
         margin-top: 5%;
+        color: #fff;
+        font-size: 2rem;
+        border-color: transparent;
+        line-height: 2.2rem;
     }
 
 .detail-item > div > input {

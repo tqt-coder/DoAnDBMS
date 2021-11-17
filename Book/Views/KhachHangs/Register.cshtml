@@ -10,7 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Register</title>
-    <link rel="stylesheet" href="~/Content/style.css">
+    <link rel="stylesheet" href="~/Content/StyleBook.css">
     <link rel="stylesheet" href="~/Content/base.css">
 
 
@@ -27,28 +27,28 @@
 
             <div class="login">
 
-                <h4>KhachHang</h4>
+                <h4 style="margin-bottom:1rem">Đăng ký thành viên</h4>
                 <hr>
 
                 <br>
-                <label class="float-l" for="HovaTen">HovaTen</label>
+                <label class="float-l" for="HovaTen">Họ và tên</label>
 
                 <input class="form-login__input" id="HovaTen" name="HovaTen" type="text" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="HovaTen" data-valmsg-replace="true"></span>
 
 
-                <label class="float-l" for="SoDienThoai">SoDienThoai</label>
+                <label class="float-l" for="SoDienThoai">Số điện thoại</label>
 
                 <input class="form-login__input" id="SoDienThoai" name="SoDienThoai" type="text" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="SoDienThoai" data-valmsg-replace="true"></span>
 
-                <label class="float-l" for="DiaChi">DiaChi</label>
+                <label class="float-l" for="DiaChi">Địa chỉ</label>
 
                 <input class="form-login__input" id="DiaChi" name="DiaChi" type="text" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="DiaChi" data-valmsg-replace="true"></span>
 
 
-                <label class=" float-l" for="PassWord">PassWord</label>
+                <label class=" float-l" for="PassWord">Mật khẩu</label>
 
                 <input class="form-login__input" id="PassWord" name="PassWord" type="password" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="PassWord" data-valmsg-replace="true"></span>
@@ -65,15 +65,19 @@
                 <input style="display:none" class="form-login__input" id="Quyen" name="Quyen" type="text" value="">
                 <span class="field-validation-valid text-danger" data-valmsg-for="Quyen" data-valmsg-replace="true"></span>
 
-                <button type="submit" class="login__button">Create</button>
+                <button type="submit" class="login__button">Đăng kí</button>
 
             </div>
 
         </form>
         <div class="form__login-url">
-            @Html.ActionLink("Back to List", "Index")
-     
-            @Html.ActionLink("Login", "Login")
+            @if (Session["UserName"] != null && Session["ad"] != null)
+            {
+                @Html.ActionLink("Back to List", "Index")
+            }
+
+
+            @Html.ActionLink("Đăng nhập", "Login")
         </div>
 
     </div>

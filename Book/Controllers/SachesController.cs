@@ -43,7 +43,7 @@ namespace Book.Controllers
             }
             int SoLuong = Convert.ToInt32(Request.Params.Get("SoLuong"));
             String date = "2001-01-01";
-            db.Don(Convert.ToInt32(Session["ID"]), DateTime.Parse(date), dt.MaSach, SoLuong);
+            db.Don(Convert.ToInt32(Session["ID"].ToString()), DateTime.Parse(date), dt.MaSach, SoLuong);
             return RedirectToAction("ViewCart", "Gios");
         }
 

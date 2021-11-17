@@ -29,12 +29,12 @@ namespace Book.Models
     
         public virtual DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public virtual DbSet<DonHang> DonHangs { get; set; }
+        public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<NguoiQuanLy> NguoiQuanLies { get; set; }
         public virtual DbSet<NhaXuatBan> NhaXuatBans { get; set; }
         public virtual DbSet<Sach> Saches { get; set; }
-        public virtual DbSet<KhachHang> KhachHangs { get; set; }
-        public virtual DbSet<Gio> Gios { get; set; }
         public virtual DbSet<DatHang> DatHangs { get; set; }
+        public virtual DbSet<Gio> Gios { get; set; }
         public virtual DbSet<View_KH> View_KH { get; set; }
         public virtual DbSet<view_thongtinKH> view_thongtinKH { get; set; }
     
@@ -46,6 +46,53 @@ namespace Book.Models
                 new ObjectParameter("MaHD", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SumMoney_Result>("[DoAnEntities1].[SumMoney](@MaHD)", maHDParameter);
+        }
+    
+        public virtual int Don(Nullable<int> maKH, Nullable<System.DateTime> ngayDat, string maSach, Nullable<int> soLuong)
+        {
+            var maKHParameter = maKH.HasValue ?
+                new ObjectParameter("MaKH", maKH) :
+                new ObjectParameter("MaKH", typeof(int));
+    
+            var ngayDatParameter = ngayDat.HasValue ?
+                new ObjectParameter("NgayDat", ngayDat) :
+                new ObjectParameter("NgayDat", typeof(System.DateTime));
+    
+            var maSachParameter = maSach != null ?
+                new ObjectParameter("MaSach", maSach) :
+                new ObjectParameter("MaSach", typeof(string));
+    
+            var soLuongParameter = soLuong.HasValue ?
+                new ObjectParameter("SoLuong", soLuong) :
+                new ObjectParameter("SoLuong", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Don", maKHParameter, ngayDatParameter, maSachParameter, soLuongParameter);
+        }
+    
+        public virtual int PhanQuyenAdmin(string login, string db)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var dbParameter = db != null ?
+                new ObjectParameter("db", db) :
+                new ObjectParameter("db", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PhanQuyenAdmin", loginParameter, dbParameter);
+        }
+    
+        public virtual int PhanQuyenUser(string login, string db)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var dbParameter = db != null ?
+                new ObjectParameter("db", db) :
+                new ObjectParameter("db", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PhanQuyenUser", loginParameter, dbParameter);
         }
     
         public virtual ObjectResult<recommend_Result> recommend(string theloai)
@@ -92,25 +139,13 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TraTien", maKHParameter, tienParameter, ngayNhanParameter);
         }
     
-        public virtual ObjectResult<Don_Result> Don(Nullable<int> maKH, Nullable<System.DateTime> ngayDat, string maSach, Nullable<int> soLuong)
+        public virtual ObjectResult<ViewCart_Result> ViewCart(Nullable<int> maKH)
         {
             var maKHParameter = maKH.HasValue ?
                 new ObjectParameter("MaKH", maKH) :
                 new ObjectParameter("MaKH", typeof(int));
     
-            var ngayDatParameter = ngayDat.HasValue ?
-                new ObjectParameter("NgayDat", ngayDat) :
-                new ObjectParameter("NgayDat", typeof(System.DateTime));
-    
-            var maSachParameter = maSach != null ?
-                new ObjectParameter("MaSach", maSach) :
-                new ObjectParameter("MaSach", typeof(string));
-    
-            var soLuongParameter = soLuong.HasValue ?
-                new ObjectParameter("SoLuong", soLuong) :
-                new ObjectParameter("SoLuong", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Don_Result>("Don", maKHParameter, ngayDatParameter, maSachParameter, soLuongParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ViewCart_Result>("ViewCart", maKHParameter);
         }
     
         public virtual int XoaHoaDon(Nullable<int> maHD, string maSach)
@@ -126,13 +161,30 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaHoaDon", maHDParameter, maSachParameter);
         }
     
-        public virtual ObjectResult<ViewCart_Result> ViewCart(Nullable<int> maKH)
+        public virtual int XoaQuyenAdmin(string login, string db)
         {
-            var maKHParameter = maKH.HasValue ?
-                new ObjectParameter("MaKH", maKH) :
-                new ObjectParameter("MaKH", typeof(int));
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ViewCart_Result>("ViewCart", maKHParameter);
+            var dbParameter = db != null ?
+                new ObjectParameter("db", db) :
+                new ObjectParameter("db", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaQuyenAdmin", loginParameter, dbParameter);
+        }
+    
+        public virtual int XoaQuyenUser(string login, string db)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var dbParameter = db != null ?
+                new ObjectParameter("db", db) :
+                new ObjectParameter("db", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaQuyenUser", loginParameter, dbParameter);
         }
     }
 }

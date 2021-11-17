@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietHoaDon">
           <Key>
             <PropertyRef Name="MaHD" />
@@ -190,6 +190,14 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Parameter Name="MaSach" Type="varchar" Mode="In" />
           <Parameter Name="SoLuong" Type="int" Mode="In" />
         </Function>
+        <Function Name="PhanQuyenAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="db" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PhanQuyenUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="db" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="recommend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="theloai" Type="nvarchar" Mode="In" />
         </Function>
@@ -220,6 +228,14 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
         <Function Name="XoaHoaDon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MaHD" Type="int" Mode="In" />
           <Parameter Name="MaSach" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="XoaQuyenAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="db" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="XoaQuyenUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="db" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="DoAnModelStoreContainer">
           <EntitySet Name="ChiTietHoaDon" EntityType="Self.ChiTietHoaDon" Schema="dbo" store:Type="Tables" />
@@ -284,7 +300,8 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <End Role="Sach" EntitySet="Sach" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DoAnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -313,7 +330,21 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Property Name="NgayNhan" Type="DateTime" Precision="0" />
           <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="ChiTietHoaDons" Relationship="Self.fk_ctdh_dh" FromRole="DonHang" ToRole="ChiTietHoaDon" />
-          <NavigationProperty Name="KhachHang" Relationship="DoAnModel.fk_dh_kh" FromRole="DonHang" ToRole="KhachHang" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.fk_dh_kh" FromRole="DonHang" ToRole="KhachHang" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassWord" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Quyen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DonHangs" Relationship="Self.fk_dh_kh" FromRole="KhachHang" ToRole="DonHang" />
+          <NavigationProperty Name="NguoiQuanLies" Relationship="Self.fk_nql_sach" FromRole="KhachHang" ToRole="NguoiQuanLy" />
         </EntityType>
         <EntityType Name="NguoiQuanLy">
           <Key>
@@ -322,7 +353,7 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Property Name="MaNQL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaKH" Type="Int32" />
-          <NavigationProperty Name="KhachHang" Relationship="DoAnModel.fk_nql_sach" FromRole="NguoiQuanLy" ToRole="KhachHang" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.fk_nql_sach" FromRole="NguoiQuanLy" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="NhaXuatBan">
           <Key>
@@ -346,6 +377,51 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="ChiTietHoaDons" Relationship="Self.fk_ctdh_sach" FromRole="Sach" ToRole="ChiTietHoaDon" />
           <NavigationProperty Name="NhaXuatBan" Relationship="Self.fk_s_nxb" FromRole="Sach" ToRole="NhaXuatBan" />
+        </EntityType>
+        <EntityType Name="DatHang">
+          <Key>
+            <PropertyRef Name="MaDH" />
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaDH" Type="Int32" Nullable="false" />
+          <Property Name="MaKH" Type="Int32" Nullable="false" />
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Gio">
+          <Key>
+            <PropertyRef Name="MaHD" />
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="MaSach" />
+            <PropertyRef Name="SoLuong" />
+            <PropertyRef Name="HinhAnh" />
+          </Key>
+          <Property Name="MaHD" Type="Int32" Nullable="false" />
+          <Property Name="MaKH" Type="Int32" Nullable="false" />
+          <Property Name="TenSach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GiaBan" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MaSach" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SoLuong" Type="Int32" Nullable="false" />
+          <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="View_KH">
+          <Key>
+            <PropertyRef Name="Gmail" />
+          </Key>
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="view_thongtinKH">
+          <Key>
+            <PropertyRef Name="MaKH" />
+            <PropertyRef Name="MaDH" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" />
+          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MaDH" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="fk_ctdh_dh">
           <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
@@ -371,6 +447,34 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_dh_kh">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_nql_sach">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NguoiQuanLy" Type="Self.NguoiQuanLy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="NguoiQuanLy">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_s_nxb">
           <End Role="NhaXuatBan" Type="Self.NhaXuatBan" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -388,9 +492,14 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
         <EntityContainer Name="DoAnEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ChiTietHoaDons" EntityType="Self.ChiTietHoaDon" />
           <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
+          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
           <EntitySet Name="NguoiQuanLies" EntityType="Self.NguoiQuanLy" />
           <EntitySet Name="NhaXuatBans" EntityType="Self.NhaXuatBan" />
           <EntitySet Name="Saches" EntityType="Self.Sach" />
+          <EntitySet Name="DatHangs" EntityType="Self.DatHang" />
+          <EntitySet Name="Gios" EntityType="Self.Gio" />
+          <EntitySet Name="View_KH" EntityType="Self.View_KH" />
+          <EntitySet Name="view_thongtinKH" EntityType="Self.view_thongtinKH" />
           <AssociationSet Name="fk_ctdh_dh" Association="Self.fk_ctdh_dh">
             <End Role="DonHang" EntitySet="DonHangs" />
             <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
@@ -399,53 +508,64 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <End Role="Sach" EntitySet="Saches" />
             <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
           </AssociationSet>
+          <AssociationSet Name="fk_dh_kh" Association="Self.fk_dh_kh">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="DonHang" EntitySet="DonHangs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_nql_sach" Association="Self.fk_nql_sach">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="NguoiQuanLy" EntitySet="NguoiQuanLies" />
+          </AssociationSet>
           <AssociationSet Name="fk_s_nxb" Association="Self.fk_s_nxb">
             <End Role="NhaXuatBan" EntitySet="NhaXuatBans" />
             <End Role="Sach" EntitySet="Saches" />
           </AssociationSet>
           <FunctionImport Name="SumMoney" IsComposable="true" ReturnType="Collection(DoAnModel.SumMoney_Result)">
-          <Parameter Name="MaHD" Mode="In" Type="Int32" />
+            <Parameter Name="MaHD" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Don">
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+            <Parameter Name="NgayDat" Mode="In" Type="DateTime" />
+            <Parameter Name="MaSach" Mode="In" Type="String" />
+            <Parameter Name="SoLuong" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PhanQuyenAdmin">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="db" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PhanQuyenUser">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="db" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="recommend" ReturnType="Collection(DoAnModel.recommend_Result)">
-          <Parameter Name="theloai" Mode="In" Type="String" />
+            <Parameter Name="theloai" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="searchBook" ReturnType="Collection(DoAnModel.searchBook_Result)">
-          <Parameter Name="tenSach" Mode="In" Type="String" />
+            <Parameter Name="tenSach" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="TongTien">
-          <Parameter Name="MaKH" Mode="In" Type="Int32" />
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="TraTien">
             <Parameter Name="MaKH" Mode="In" Type="Int32" />
             <Parameter Name="Tien" Mode="In" Type="Decimal" />
             <Parameter Name="NgayNhan" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <EntitySet Name="KhachHangs" EntityType="DoAnModel.KhachHang" />
-          <AssociationSet Name="fk_dh_kh" Association="DoAnModel.fk_dh_kh">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="DonHang" EntitySet="DonHangs" />
-          </AssociationSet>
-          <AssociationSet Name="fk_nql_sach" Association="DoAnModel.fk_nql_sach">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="NguoiQuanLy" EntitySet="NguoiQuanLies" />
-          </AssociationSet>
-          <FunctionImport Name="Don" ReturnType="Collection(DoAnModel.Don_Result)">
+          <FunctionImport Name="ViewCart" ReturnType="Collection(DoAnModel.ViewCart_Result)">
             <Parameter Name="MaKH" Mode="In" Type="Int32" />
-            <Parameter Name="NgayDat" Mode="In" Type="DateTime" />
-            <Parameter Name="MaSach" Mode="In" Type="String" />
-            <Parameter Name="SoLuong" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Gios" EntityType="DoAnModel.Gio" />
           <FunctionImport Name="XoaHoaDon">
             <Parameter Name="MaHD" Mode="In" Type="Int32" />
             <Parameter Name="MaSach" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="ViewCart" ReturnType="Collection(DoAnModel.ViewCart_Result)">
-          <Parameter Name="MaKH" Mode="In" Type="Int32" />
+          <FunctionImport Name="XoaQuyenAdmin">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="db" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="DatHangs" EntityType="DoAnModel.DatHang" />
-          <EntitySet Name="View_KH" EntityType="DoAnModel.View_KH" />
-          <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
+          <FunctionImport Name="XoaQuyenUser">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="db" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="recommend_Result">
           <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -467,72 +587,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
           <Property Type="String" Name="HinhAnh" Nullable="false" />
         </ComplexType>
-        <EntityType Name="KhachHang">
-          <Key>
-            <PropertyRef Name="MaKH" />
-          </Key>
-          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PassWord" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Quyen" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DonHangs" Relationship="DoAnModel.fk_dh_kh" FromRole="KhachHang" ToRole="DonHang" />
-          <NavigationProperty Name="NguoiQuanLies" Relationship="DoAnModel.fk_nql_sach" FromRole="KhachHang" ToRole="NguoiQuanLy" />
-        </EntityType>
-        <Association Name="fk_dh_kh">
-          <End Type="DoAnModel.KhachHang" Role="KhachHang" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DoAnModel.DonHang" Role="DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_nql_sach">
-          <End Type="DoAnModel.KhachHang" Role="KhachHang" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DoAnModel.NguoiQuanLy" Role="NguoiQuanLy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachHang">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="NguoiQuanLy">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="Don_Result">
-          <Property Type="Int32" Name="MaDH" Nullable="false" />
-          <Property Type="Int32" Name="MaKH" Nullable="false" />
-          <Property Type="DateTime" Name="NgayDat" Nullable="false" />
-          <Property Type="DateTime" Name="NgayNhan" Nullable="true" />
-          <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
-        </ComplexType>
-        <EntityType Name="Gio">
-          <Key>
-            <PropertyRef Name="MaHD" />
-            <PropertyRef Name="MaKH" />
-            <PropertyRef Name="MaSach" />
-            <PropertyRef Name="SoLuong" />
-            <PropertyRef Name="HinhAnh" />
-          </Key>
-          <Property Name="MaHD" Type="Int32" Nullable="false" />
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <Property Name="TenSach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaSach" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="SoLuong" Type="Int32" Nullable="false" />
-          <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="HinhAnh" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="GiaBan" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
         <ComplexType Name="ViewCart_Result">
           <Property Type="Int32" Name="MaHD" Nullable="false" />
           <Property Type="Int32" Name="MaKH" Nullable="false" />
@@ -543,34 +597,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
           <Property Type="String" Name="HinhAnh" Nullable="false" />
         </ComplexType>
-        <EntityType Name="DatHang">
-          <Key>
-            <PropertyRef Name="MaDH" />
-            <PropertyRef Name="MaKH" />
-          </Key>
-          <Property Name="MaDH" Type="Int32" Nullable="false" />
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="View_KH">
-          <Key>
-            <PropertyRef Name="Gmail" />
-          </Key>
-          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="view_thongtinKH">
-          <Key>
-            <PropertyRef Name="MaKH" />
-            <PropertyRef Name="MaDH" />
-          </Key>
-          <Property Name="MaKH" Type="Int32" Nullable="false" />
-          <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MaDH" Type="Int32" Nullable="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -595,6 +621,19 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
                 <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
                 <ScalarProperty Name="NgayNhan" ColumnName="NgayNhan" />
                 <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="DoAnModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -629,6 +668,49 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DatHangs">
+            <EntityTypeMapping TypeName="DoAnModel.DatHang">
+              <MappingFragment StoreEntitySet="DatHang">
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gios">
+            <EntityTypeMapping TypeName="DoAnModel.Gio">
+              <MappingFragment StoreEntitySet="Gio">
+                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_KH">
+            <EntityTypeMapping TypeName="DoAnModel.View_KH">
+              <MappingFragment StoreEntitySet="View_KH">
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_thongtinKH">
+            <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
+              <MappingFragment StoreEntitySet="view_thongtinKH">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionName="DoAnModel.Store.SumMoney" FunctionImportName="SumMoney">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DoAnModel.SumMoney_Result">
@@ -636,6 +718,9 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Don" FunctionName="DoAnModel.Store.Don" />
+          <FunctionImportMapping FunctionImportName="PhanQuyenAdmin" FunctionName="DoAnModel.Store.PhanQuyenAdmin" />
+          <FunctionImportMapping FunctionImportName="PhanQuyenUser" FunctionName="DoAnModel.Store.PhanQuyenUser" />
           <FunctionImportMapping FunctionImportName="recommend" FunctionName="DoAnModel.Store.recommend">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DoAnModel.recommend_Result">
@@ -666,45 +751,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="TongTien" FunctionName="DoAnModel.Store.TongTien" />
           <FunctionImportMapping FunctionImportName="TraTien" FunctionName="DoAnModel.Store.TraTien" />
-          <EntitySetMapping Name="KhachHangs">
-            <EntityTypeMapping TypeName="DoAnModel.KhachHang">
-              <MappingFragment StoreEntitySet="KhachHang">
-                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
-                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Don" FunctionName="DoAnModel.Store.Don">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DoAnModel.Don_Result">
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-                <ScalarProperty Name="NgayNhan" ColumnName="NgayNhan" />
-                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="Gios">
-            <EntityTypeMapping TypeName="DoAnModel.Gio">
-              <MappingFragment StoreEntitySet="Gio">
-                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
-                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="XoaHoaDon" FunctionName="DoAnModel.Store.XoaHoaDon" />
           <FunctionImportMapping FunctionImportName="ViewCart" FunctionName="DoAnModel.Store.ViewCart">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DoAnModel.ViewCart_Result">
@@ -719,35 +765,9 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="DatHangs">
-            <EntityTypeMapping TypeName="DoAnModel.DatHang">
-              <MappingFragment StoreEntitySet="DatHang">
-                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="View_KH">
-            <EntityTypeMapping TypeName="DoAnModel.View_KH">
-              <MappingFragment StoreEntitySet="View_KH">
-                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="view_thongtinKH">
-            <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
-              <MappingFragment StoreEntitySet="view_thongtinKH">
-                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-                <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="XoaHoaDon" FunctionName="DoAnModel.Store.XoaHoaDon" />
+          <FunctionImportMapping FunctionImportName="XoaQuyenAdmin" FunctionName="DoAnModel.Store.XoaQuyenAdmin" />
+          <FunctionImportMapping FunctionImportName="XoaQuyenUser" FunctionName="DoAnModel.Store.XoaQuyenUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

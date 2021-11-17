@@ -88,10 +88,10 @@ GO
 ALTER TABLE NguoiQuanLy ADD CONSTRAINT fk_nql_sach FOREIGN KEY (MaKH) REFERENCES KhachHang (MaKH) ON DELETE CASCADE
 GO
 -- Trigger xóa sách khi số lượng bằng 0
-CREATE TRIGGER ChangeQuantity On Sach
+Create TRIGGER ChangeQuantity On Sach
 AFTER Insert , Update 
 As
-	Declare @SoLuong int, @MaSach nvarchar(20)
+	Declare @SoLuong int, @MaSach nvarchar(20), @quantity int
 Begin
 	Declare  ChangeQuantityCursor Cursor for
 	Select s.MaSach, i.SoLuong  From inserted as i, Sach as s Where s.MaSach = i.MaSach
@@ -99,10 +99,21 @@ Begin
 	Fetch next from ChangeQuantityCursor into @MaSach, @SoLuong
 	while @@FETCH_STATUS = 0
 	Begin
-		if( @SoLuong = 0)
+		Select @quantity = count(*) from DonHang as dh, ChiTietHoaDon as ct 
+		where dh.MaDH = ct.MaHD and dh.NgayNhan is null and ct.MaSach = @MaSach
+
+		if( @SoLuong <= 0)
 			Begin
+			    Begin tran
+				Delete ChiTietHoaDon where MaSach = @MaSach 
 				Delete Sach Where MaSach = @MaSach
-			End;
+				if(@quantity > 0)
+					rollback
+				
+			end
+		if( @SoLuong = 1)
+			print(N'Sách có mã là: ' + @MaSach + N' sắp hêt')
+		
 
 	Fetch next from ChangeQuantityCursor into @MaSach, @SoLuong
 	End
@@ -111,7 +122,149 @@ Begin
 END
 
 Go
--- Trigger hủy chi tiết hàng và trả lại số lượng sách trong kho
+
+Create procedure PhanQuyenUser
+        @login varchar(50),
+        @db varchar(100)
+as
+declare @new_login varchar(50), @new_pass varchar(50)
+	Set @new_login = REPLACE(@login,'.com','')
+	Set @new_pass = REPLACE(@login,'@gmail.com','')
+declare @sql nvarchar(max)
+set @sql = 'use ' + @db + ';' +
+           'create login ' + @new_login + 
+               ' with password = ''' + @new_pass + '''; ' +
+           'create user '+ + @new_login + ' from login ' + @new_login + ';'
+		   +'Grant select on KhachHang to '+@new_login+';'
+		   +'Grant select on Sach to '+@new_login+';'
+exec (@sql)
+go
+
+Create procedure PhanQuyenAdmin
+			@login varchar(50),
+			@db varchar(100)
+	as
+	declare @new_login varchar(50), @new_pass varchar(50)
+	Set @new_login = REPLACE(@login,'.com','')
+	Set @new_pass = REPLACE(@login,'@gmail.com','')
+
+	declare @sql nvarchar(max)
+	set @sql = 'use ' + @db + ';' +
+			   'create login ' + @new_login + 
+				   ' with password = ''' + @new_pass + '''; ' +
+			   'create user '+ + @new_login + ' from login ' + @new_login + ';'
+			   +'Grant select on KhachHang to '+@new_login+' with grant option;'
+			   +'Grant select,insert,update on Sach to '+@new_login+' with grant option;'
+				+'Grant select,insert,update on DonHang to '+@new_login+';'
+			   +'Grant select,insert,update on NguoiQuanLy to '+@new_login+';'
+				+'Grant select,insert,update on NhaXuatBan to '+@new_login+';'
+			   +'Grant select,insert,update on ChiTietHoaDon to '+@new_login+';'
+	exec (@sql)
+go
+
+Create Proc XoaQuyenUser
+	@login varchar(50),
+    @db varchar(100)
+As
+	declare @new_login varchar(50)
+	Set @new_login = REPLACE(@login,'.com','')
+	declare @sql nvarchar(max)
+		set @sql = 'use ' + @db + ';' 
+			   +'revoke select on KhachHang from '+@new_login+';'
+			   +'revoke select,insert,update on Sach from '+@new_login+';'
+			   +'drop user ' + @new_login + '; '
+			   +'drop login ' + @new_login + '; '
+	exec (@sql)
+GO
+
+Create Proc XoaQuyenAdmin
+	@login varchar(50),
+    @db varchar(100)
+As
+	declare @new_login varchar(50)
+	Set @new_login = REPLACE(@login,'.com','')
+	declare @sql nvarchar(max)
+		set @sql = 'use ' + @db + ';' 
+			   +'revoke select on KhachHang from '+@new_login+' cascade;'
+			   +'revoke select,insert,update on Sach from '+@new_login+' cascade;'
+			   +'revoke select,insert,update on DonHang from '+@new_login+';'
+			   +'revoke select,insert,update on NguoiQuanLy from '+@new_login+';'
+			   +'revoke select,insert,update on NhaXuatBan from '+@new_login+';'
+			   +'revoke select,insert,update on ChiTietHoaDon from '+@new_login+';'
+			   +'drop user ' + @new_login +'; '
+			   +'drop login ' + @new_login + '; '
+	exec (@sql)
+GO
+
+CREATE Trigger ThemQuyen on KhachHang
+After Insert,Update
+As
+	Declare @maKH varchar(20), @gmail varchar(50),@quyen nvarchar(20)
+Begin
+	Declare ThemQuyenUserCursor Cursor For
+
+	Select i.MaKH,i.Gmail,i.Quyen  from Inserted as i
+
+	Open ThemQuyenUserCursor
+	Fetch next from ThemQuyenUserCursor into @maKH, @gmail,@quyen
+	While @@FETCH_STATUS = 0
+	Begin
+		Begin tran
+		if((@maKH is not null ) and @quyen = 'User' )
+			begin
+				exec PhanQuyenUser @gmail, 'DoAn'
+			end
+		else
+			if((@maKH is not null ) and @quyen = 'admin')
+				begin
+					exec PhanQuyenAdmin @gmail, 'DoAn'
+				end
+		commit
+
+	Fetch next from ThemQuyenUserCursor into @maKH, @gmail,@quyen
+	End
+	Close ThemQuyenUserCursor
+	Deallocate ThemQuyenUserCursor
+
+End
+
+Go
+
+-- Xóa quyền
+CREATE Trigger XoaQuyen on KhachHang
+After Delete
+As
+	Declare @maKH varchar(20), @gmail varchar(50),@quyen nvarchar(20)
+Begin
+	Declare XoaQuyenCursor Cursor For
+
+	Select d.MaKH,d.Gmail,d.Quyen  from deleted as d
+
+	Open XoaQuyenCursor
+	Fetch next from XoaQuyenCursor into @maKH, @gmail,@quyen
+	While @@FETCH_STATUS = 0
+	Begin
+		Begin tran
+		if(@quyen = 'User' )
+			begin
+				exec XoaQuyenUser @gmail, 'DoAn'
+			end
+		else
+			if(@quyen = 'admin')
+				begin
+					exec XoaQuyenAdmin @gmail, 'DoAn'
+				end
+		commit
+
+	Fetch next from XoaQuyenCursor into @maKH, @gmail,@quyen
+	End
+	Close XoaQuyenCursor
+	Deallocate XoaQuyenCursor
+
+End
+
+Go
+
 CREATE TRIGGER t_huydon ON ChiTietHoaDon AFTER DELETE
 AS
 Declare @MaSach VARCHAR(20), @SoLuong int
@@ -162,43 +315,10 @@ BEGIN
 	Deallocate TenNguoiQuanLyCursor
 END;
 GO
-/*
-select * from Sach
-select * from ChiTietHoaDon
-Delete ChiTietHoaDon
-exec Don 4,'2021-11-14','S0010',29
-update ChiTietHoaDon set SoLuong = 29 where MaSach = 'S0010'*/
---Trigger đặt sách 
-CREATE TRIGGER t_themdh ON ChiTietHoaDon
-AFTER INSERT AS
-DECLARE @new INT,@rest INT,@idsach nvarchar(20)
-Declare TaoHDCursor Cursor for
-SELECT ne.soluong ,s.Soluong,s.MaSach
-FROM INSERTED ne,Sach s
-WHERE ne.MaSach = s.MaSach
-begin
-	Open TaoHDCursor
-	Fetch next from TaoHDCursor into @new, @rest,@idsach
-	while @@FETCH_STATUS = 0
-	BEGIN
-		IF(@new > @rest)
-		begin
-			Rollback
-			Close TaoHDCursor
-		end
-		ELSE
-			UPDATE Sach
-			set soluong=SoLuong-@new
-			where MaSach=@idsach
-	Fetch next from TaoHDCursor into @new, @rest,@idsach
-	End
-	Close TaoHDCursor
-	Deallocate TaoHDCursor
-end
 
-go
+
 -- Trigger thêm quyền tự động cho user khi khách hàng đăng kí tự thêm quyền vào luôn trừ admin đã được thêm trước
-Create Trigger ThemQuyen On KhachHang
+Create Trigger ThemQuyenUser On KhachHang
 After Insert 
 As
 	Declare @maKH varchar(20), @quyen nvarchar(20)
@@ -244,20 +364,25 @@ GO
 --trigger tinhtien--
 CREATE TRIGGER TinhTien ON ChitietHoaDon
 for insert,update AS
-DECLARE @MaHD INT ,@Tien money,@MaSach varchar(20)
+DECLARE @MaHD INT ,@Tien money,@MaSach varchar(20), @SoLuong int
 Declare TinhTienCursor Cursor for
-	SELECT MaHD,s.GiaBan,ne.MaSach 
+	SELECT MaHD,s.GiaBan,ne.MaSach,ne.SoLuong 
 	FROM Sach s,inserted ne
 	WHERE ne.MaSach=s.MaSach
 BEGIN
 	open TinhTienCursor
-	Fetch next from TinhTienCursor into @MaHD, @Tien,@MaSach
+	Fetch next from TinhTienCursor into @MaHD, @Tien,@MaSach,@SoLuong
 	while @@FETCH_STATUS=0
 	begin
+		Begin Transaction TinhTien
 		UPDATE ChiTietHoaDon
 		SET ThanhTien=SoLuong*@Tien
 		where MaHD=@MaHD and MaSach=@MaSach
-	Fetch next from TinhTienCursor into @MaHD, @Tien,@MaSach
+
+		UPDATE Sach SET SoLuong = SoLuong - @SoLuong 
+		Where MaSach=@MaSach
+		commit Transaction
+	Fetch next from TinhTienCursor into @MaHD, @Tien,@MaSach,@SoLuong
 	end
 	Close TinhTienCursor
 	Deallocate TinhTienCursor
@@ -365,6 +490,22 @@ GO
 
 /*KH*/
 
+/*
+Drop login Binh@gmail
+Drop user phatdat@gmail
+Drop login An@gmail
+Drop login tranquoctuan@gmail
+Drop user tuanmanh@gmail
+Drop user lamson@gmail
+
+delete KhachHang where Gmail = 'An@gmail.com';
+delete KhachHang where Gmail = 'Binh@gmail.com' 
+delete KhachHang where Gmail = 'tranquoctuan@gmail.com';
+delete KhachHang where Gmail = 'phatdat@gmail.com' 
+delete KhachHang where Gmail = 'tuanmanh@gmail.com'
+delete KhachHang where Gmail = 'lamson@gmail.com'
+go
+*/
 
 INSERT INTO KhachHang( HovaTen, SoDienThoai,DiaChi ,PassWord, Gmail) VALUES
 (N'Trần An Bình', '0909244322' ,N'61 Tô Hiến Thành, Quận 10, TP HCM','333333' ,'Binh@gmail.com');
@@ -469,18 +610,15 @@ AS
 Begin
 	Select * from Sach Where Sach.TenSach like @tenSach
 End
-
-
-go
+Go
 --Procedure cho danh mục--
 
 create procedure recommend 
 @theloai nvarchar(50) 
 as 
 begin 
-select * from Sach 
-where TheLoai Like @theloai and SoLuong > 1
-
+	select * from Sach 
+	where TheLoai Like @theloai and SoLuong > 1
 End
 GO
 
@@ -492,12 +630,11 @@ from KhachHang
 go
 
 
--- procedure dùng để thêm sản phảm vào giỏ hàng
+-- procedure dùng để thêm sản phảm vào giỏ hàng và transaction
 Create proc Don
 @MaKH int,@NgayDat Date,@MaSach VARCHAR(20),@SoLuong int
 as
 Declare @MaDH int
-Select * from DonHang
 begin tran
 if(@MaKH not in (select MaKH from DonHang where MaKH=@MaKH and NgayNhan is null))
 	insert into DonHang(MaKH,NgayDat) values (@MaKH,@NgayDat)
@@ -517,6 +654,7 @@ CREATE VIEW DatHang AS
 	WHERE DonHang.MaKH=kh.MaKH
 	and NgayNhan is null
 Go
+
 --TraTienDonHang, tạo transaction
 create proc TraTien
 @MaKH int,@Tien money,@NgayNhan Date
@@ -553,3 +691,5 @@ Begin
 End;
 
 Go
+
+

@@ -3,9 +3,11 @@
     "",
     "\\Book",
     "\\Book\\Controllers",
+    "\\Book\\Models",
     "\\Book\\Views",
     "\\Book\\Views\\Gios",
-    "\\Book\\Views\\Saches"
+    "\\Book\\Views\\Saches",
+    "\\Book\\Views\\Shared"
   ],
   "SelectedNode": "\\Book\\Controllers\\SachesController.cs",
   "PreviewInSolutionExplorer": false

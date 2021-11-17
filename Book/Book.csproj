@@ -147,9 +147,6 @@
     <Compile Include="Models\DonHang.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Don_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Gio.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -204,7 +201,7 @@
     <Content Include="Content\img\empty cart.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\mystyle.css" />
-    <Content Include="Content\style.css" />
+    <Content Include="Content\StyleBook.css" />
     <Content Include="Content\Cart.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

@@ -17,10 +17,10 @@ namespace Book.Models
         public int MaHD { get; set; }
         public int MaKH { get; set; }
         public string TenSach { get; set; }
+        public Nullable<decimal> GiaBan { get; set; }
         public string MaSach { get; set; }
         public int SoLuong { get; set; }
         public Nullable<decimal> ThanhTien { get; set; }
         public string HinhAnh { get; set; }
-        public Nullable<decimal> GiaBan { get; set; }
     }
 }

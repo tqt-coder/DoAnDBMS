@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <title>Login page</title>
     <link rel="stylesheet" href="~/Content/base.css">
-    <link rel="stylesheet" href="~/Content/style.css">
+    <link rel="stylesheet" href="~/Content/StyleBook.css">
 </head>
 
 
@@ -29,13 +29,15 @@
             @Html.AntiForgeryToken()
 
             <div class="login">
-                <h2 class="login__title">Please Sign In</h2>
+                <h2 class="login__title">Đăng nhập</h2>
+                <p style="float: left; padding: 2rem 0.5rem 0.4rem">Nhập Gmail</p>
                 <input class="form-login__input m-t-20" type="text" placeholder="E-mail" name="Gmail"> <br>
+                <p style="float: left; padding: 2rem 0.5rem 0.4rem">Nhập password</p>
                 <input class="form-login__input" type="password" placeholder="Password" name="PassWord">
                 <br>
 
-                <button class="login__button">Login</button>
-                <a class="login__link" href="/KhachHangs/register"> Click here to Register </a>
+                <button class="login__button">Đăng nhập</button>
+                <a class="login__link" href="/KhachHangs/register"> Đăng ký </a>
             </div>
         </form>
     </div>

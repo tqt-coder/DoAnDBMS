@@ -22,6 +22,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="KhachHangs">
+      <EntityTypeMapping TypeName="DoAnModel.KhachHang">
+        <MappingFragment StoreEntitySet="KhachHang">
+          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+          <ScalarProperty Name="Quyen" ColumnName="Quyen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="NguoiQuanLies">
       <EntityTypeMapping TypeName="DoAnModel.NguoiQuanLy">
         <MappingFragment StoreEntitySet="NguoiQuanLy">
@@ -53,6 +66,49 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DatHangs">
+      <EntityTypeMapping TypeName="DoAnModel.DatHang">
+        <MappingFragment StoreEntitySet="DatHang">
+          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gios">
+      <EntityTypeMapping TypeName="DoAnModel.Gio">
+        <MappingFragment StoreEntitySet="Gio">
+          <ScalarProperty Name="MaHD" ColumnName="MaHD" />
+          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_KH">
+      <EntityTypeMapping TypeName="DoAnModel.View_KH">
+        <MappingFragment StoreEntitySet="View_KH">
+          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="view_thongtinKH">
+      <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
+        <MappingFragment StoreEntitySet="view_thongtinKH">
+          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <FunctionImportMapping FunctionName="DoAnModel.Store.SumMoney" FunctionImportName="SumMoney">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DoAnModel.SumMoney_Result">
@@ -60,6 +116,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Don" FunctionName="DoAnModel.Store.Don" />
+    <FunctionImportMapping FunctionImportName="PhanQuyenAdmin" FunctionName="DoAnModel.Store.PhanQuyenAdmin" />
+    <FunctionImportMapping FunctionImportName="PhanQuyenUser" FunctionName="DoAnModel.Store.PhanQuyenUser" />
     <FunctionImportMapping FunctionImportName="recommend" FunctionName="DoAnModel.Store.recommend">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DoAnModel.recommend_Result">
@@ -90,45 +149,6 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="TongTien" FunctionName="DoAnModel.Store.TongTien" />
     <FunctionImportMapping FunctionImportName="TraTien" FunctionName="DoAnModel.Store.TraTien" />
-    <EntitySetMapping Name="KhachHangs">
-      <EntityTypeMapping TypeName="DoAnModel.KhachHang">
-        <MappingFragment StoreEntitySet="KhachHang">
-          <ScalarProperty Name="Quyen" ColumnName="Quyen" />
-          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
-          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="Don" FunctionName="DoAnModel.Store.Don">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="DoAnModel.Don_Result">
-          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-          <ScalarProperty Name="NgayNhan" ColumnName="NgayNhan" />
-          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <EntitySetMapping Name="Gios">
-      <EntityTypeMapping TypeName="DoAnModel.Gio">
-        <MappingFragment StoreEntitySet="Gio">
-          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
-          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
-          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-          <ScalarProperty Name="MaHD" ColumnName="MaHD" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="XoaHoaDon" FunctionName="DoAnModel.Store.XoaHoaDon" />
     <FunctionImportMapping FunctionImportName="ViewCart" FunctionName="DoAnModel.Store.ViewCart">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DoAnModel.ViewCart_Result">
@@ -143,34 +163,8 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="DatHangs">
-      <EntityTypeMapping TypeName="DoAnModel.DatHang">
-        <MappingFragment StoreEntitySet="DatHang">
-          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="View_KH">
-      <EntityTypeMapping TypeName="DoAnModel.View_KH">
-        <MappingFragment StoreEntitySet="View_KH">
-          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="view_thongtinKH">
-      <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
-        <MappingFragment StoreEntitySet="view_thongtinKH">
-          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="XoaHoaDon" FunctionName="DoAnModel.Store.XoaHoaDon" />
+    <FunctionImportMapping FunctionImportName="XoaQuyenAdmin" FunctionName="DoAnModel.Store.XoaQuyenAdmin" />
+    <FunctionImportMapping FunctionImportName="XoaQuyenUser" FunctionName="DoAnModel.Store.XoaQuyenUser" />
   </EntityContainerMapping>
 </Mapping>

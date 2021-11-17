@@ -185,6 +185,14 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
     <Parameter Name="MaSach" Type="varchar" Mode="In" />
     <Parameter Name="SoLuong" Type="int" Mode="In" />
   </Function>
+  <Function Name="PhanQuyenAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="db" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="PhanQuyenUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="db" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="recommend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="theloai" Type="nvarchar" Mode="In" />
   </Function>
@@ -215,6 +223,14 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
   <Function Name="XoaHoaDon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MaHD" Type="int" Mode="In" />
     <Parameter Name="MaSach" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="XoaQuyenAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="db" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="XoaQuyenUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="login" Type="varchar" Mode="In" />
+    <Parameter Name="db" Type="varchar" Mode="In" />
   </Function>
   <EntityContainer Name="DoAnModelStoreContainer">
     <EntitySet Name="ChiTietHoaDon" EntityType="Self.ChiTietHoaDon" Schema="dbo" store:Type="Tables" />
