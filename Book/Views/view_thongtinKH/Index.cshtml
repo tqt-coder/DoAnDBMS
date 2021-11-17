@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<Book.Models.view_thongtinKH>
 
 @{
+<<<<<<< HEAD
     Layout = "~/Views/Shared/ViewAdmin.cshtml";
+=======
+    Layout = "~/Views/Shared/_Layout.cshtml";
+>>>>>>> 4e476ba05ccde6dfe595d44dc2e9f6770c07ff0a
 }
 
 <!DOCTYPE html>
@@ -12,7 +16,13 @@
     <title>Index</title>
 </head>
 <body>
+<<<<<<< HEAD
 
+=======
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+>>>>>>> 4e476ba05ccde6dfe595d44dc2e9f6770c07ff0a
     <table class="table">
         <tr>
             <th>
@@ -27,6 +37,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.TongTien)
             </th>
+<<<<<<< HEAD
         </tr>
 
         @foreach (var item in Model)
@@ -47,6 +58,29 @@
             </tr>
         }
 
+=======
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HovaTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayNhan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSach)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongTien)
+            </td>
+            
+        </tr>
+    }
+    
+>>>>>>> 4e476ba05ccde6dfe595d44dc2e9f6770c07ff0a
     </table>
 </body>
 </html>

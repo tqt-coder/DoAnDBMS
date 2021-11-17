@@ -8,8 +8,13 @@
     "\\Book\\Views\\Gios",
     "\\Book\\Views\\NguoiQuanLies",
     "\\Book\\Views\\Saches",
-    "\\Book\\Views\\Shared"
+    "\\Book\\Views\\Shared",
+    "\\Book\\Views\\view_thongtinKH"
   ],
+<<<<<<< HEAD
   "SelectedNode": "\\Book\\Views\\Gios\\ViewCart.cshtml",
+=======
+  "SelectedNode": "\\Book\\Views\\_ViewStart.cshtml",
+>>>>>>> 4e476ba05ccde6dfe595d44dc2e9f6770c07ff0a
   "PreviewInSolutionExplorer": false
 }

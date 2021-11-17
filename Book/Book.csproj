@@ -282,8 +282,16 @@
     <Content Include="Views\NhaXuatBans\Edit.cshtml" />
     <Content Include="Views\NhaXuatBans\Index.cshtml" />
     <Content Include="Views\Shared\ViewAdmin.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\view_thongtinKH\Index.cshtml" />
     <Content Include="Views\Saches\Home.cshtml" />
+=======
+    <Content Include="Views\view_thongtinKH\Create.cshtml" />
+    <Content Include="Views\view_thongtinKH\Delete.cshtml" />
+    <Content Include="Views\view_thongtinKH\Details.cshtml" />
+    <Content Include="Views\view_thongtinKH\Edit.cshtml" />
+    <Content Include="Views\view_thongtinKH\Index.cshtml" />
+>>>>>>> 4e476ba05ccde6dfe595d44dc2e9f6770c07ff0a
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
