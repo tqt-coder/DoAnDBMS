@@ -6,9 +6,10 @@
     "\\Book\\Models",
     "\\Book\\Views",
     "\\Book\\Views\\Gios",
+    "\\Book\\Views\\NguoiQuanLies",
     "\\Book\\Views\\Saches",
     "\\Book\\Views\\Shared"
   ],
-  "SelectedNode": "\\Book\\Controllers\\SachesController.cs",
+  "SelectedNode": "\\Book\\Views\\Gios\\ViewCart.cshtml",
   "PreviewInSolutionExplorer": false
 }

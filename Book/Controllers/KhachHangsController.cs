@@ -82,7 +82,7 @@ namespace Book.Controllers
                 }
 
             }
-            ViewBag.error = "Login failed";
+            ViewBag.error = "Tên tài khoản hoặc mật khẩu không chính xác";
             return View(user);
         }
 

@@ -135,6 +135,7 @@
     <Compile Include="Controllers\NguoiQuanLiesController.cs" />
     <Compile Include="Controllers\NhaXuatBansController.cs" />
     <Compile Include="Controllers\SachesController.cs" />
+    <Compile Include="Controllers\view_thongtinKHController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,7 +201,7 @@
   <ItemGroup>
     <Content Include="Content\img\empty cart.png" />
     <Content Include="Content\img\logo.png" />
-    <Content Include="Content\mystyle.css" />
+    <Content Include="Content\MyStyle.css" />
     <Content Include="Content\StyleBook.css" />
     <Content Include="Content\Cart.css" />
     <Content Include="favicon.ico" />
@@ -281,6 +282,8 @@
     <Content Include="Views\NhaXuatBans\Edit.cshtml" />
     <Content Include="Views\NhaXuatBans\Index.cshtml" />
     <Content Include="Views\Shared\ViewAdmin.cshtml" />
+    <Content Include="Views\view_thongtinKH\Index.cshtml" />
+    <Content Include="Views\Saches\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -14,9 +14,11 @@ namespace Book.Models
     
     public partial class view_thongtinKH
     {
-        public int MaKH { get; set; }
         public string HovaTen { get; set; }
-        public string SoDienThoai { get; set; }
-        public int MaDH { get; set; }
+        public System.DateTime NgayDat { get; set; }
+        public Nullable<System.DateTime> NgayNhan { get; set; }
+        public string TenSach { get; set; }
+        public Nullable<decimal> TongTien { get; set; }
+        public int MaKH { get; set; }
     }
 }

@@ -97,3 +97,10 @@ a.container__title-link {
     .container-content__link:nth-child(2n+1) {
         border-bottom: 0.2rem solid var(--border-color);
     }
+    .container-content__link:nth-child(2n) {
+        border-bottom: 0.2rem solid var(--border-color);
+    }
+
+    .container-content__link:last-child {
+        border-bottom-color: transparent;
+    }

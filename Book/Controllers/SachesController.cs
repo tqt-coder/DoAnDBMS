@@ -21,12 +21,17 @@ namespace Book.Controllers
             return View(saches.ToList());
         }
 
+        public ActionResult Home()
+        {
+            var saches = db.Saches.Include(s => s.NhaXuatBan);
+            return View(saches.ToList());
+        }
         public ActionResult Catetogy(string li)
         {
 
             ViewBag.header = li;
-            var saches = db.Saches.Include(s => s.NhaXuatBan)
-                 .Where(s => s.TheLoai == li);
+            var saches = db.Database.SqlQuery<recommend_Result>("recommend N'%"+li+"%'");
+
             return View(saches.ToList());
         }
 
@@ -42,8 +47,9 @@ namespace Book.Controllers
                 return RedirectToAction("Login", "KhachHangs");
             }
             int SoLuong = Convert.ToInt32(Request.Params.Get("SoLuong"));
-            String date = "2001-01-01";
-            db.Don(Convert.ToInt32(Session["ID"].ToString()), DateTime.Parse(date), dt.MaSach, SoLuong);
+            DateTime date = DateTime.Now;
+            
+            db.Don(Convert.ToInt32(Session["ID"].ToString()), date, dt.MaSach, SoLuong);
             return RedirectToAction("ViewCart", "Gios");
         }
 

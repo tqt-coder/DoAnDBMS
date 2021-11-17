@@ -204,7 +204,9 @@
     else {
         btnPaid.onclick = (event) => {
             event.preventDefault();
-            totalBill();
+            setTimeout(function () {
+                totalBill();
+            }, 5000);
            
             btnPaid.textContent = 'Đã thanh toán';
 
