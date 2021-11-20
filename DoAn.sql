@@ -693,4 +693,16 @@ End;
 
 Go
 
+-- procedure xem sách không có trong chi hóa đơn
+Create proc BookNotSell
+As
+
+Begin
+	Select s.MaSach,s.GiaBan,s.HinhAnh,s.MaNXB,s.SoLuong,s.TenSach,s.TenTacGia,s.TheLoai,nxb.TenNXB 
+	from Sach as s, NhaXuatBan as nxb 
+	Where s.MaSach not in (select ct.MaSach from ChiTietHoaDon as ct)
+End
+
+
+
 

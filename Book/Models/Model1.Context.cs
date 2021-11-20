@@ -48,6 +48,16 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SumMoney_Result>("[DoAnEntities1].[SumMoney](@MaHD)", maHDParameter);
         }
     
+        public virtual ObjectResult<BookNotOrder_Result> BookNotOrder()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotOrder_Result>("BookNotOrder");
+        }
+    
+        public virtual ObjectResult<BookNotSell_Result> BookNotSell()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotSell_Result>("BookNotSell");
+        }
+    
         public virtual int Don(Nullable<int> maKH, Nullable<System.DateTime> ngayDat, string maSach, Nullable<int> soLuong)
         {
             var maKHParameter = maKH.HasValue ?

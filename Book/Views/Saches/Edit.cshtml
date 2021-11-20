@@ -2,86 +2,120 @@
 
 @{
     ViewBag.Title = "Edit Book";
-    Layout = "~/Views/Shared/ViewAdmin.cshtml";
+    Layout = "~/Views/Shared/ViewAD.cshtml";
 }
 
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Sach</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.MaSach)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenSach, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenSach, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenSach, "", new { @class = "text-danger" })
+<div id="editEmployeeModal" class="modal-fade">
+    @*appear when add class: sk-chase-background__appear*@
+    <div class="around-loading">
+        <div align="center" class="fond">
+            <div class="contener_general">
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_1">&nbsp;</div>
+                </div>
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_2">&nbsp;</div>
+                </div>
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_3">&nbsp;</div>
+                </div>
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_4">&nbsp;</div>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenTacGia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenTacGia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenTacGia, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaNXB, "MaNXB", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaNXB", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MaNXB, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/Saches/Edit" method="post" class="form-edit__book">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h4 class="modal-title">Chỉnh sửa thông tin sách</h4>
+                    <div style="float:right; text-decoration: none">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TheLoai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TheLoai, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TheLoai, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoLuong, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GiaBan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HinhAnh, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+                        @Html.ActionLink("Back to List", "Home")
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Mã sách:   @Html.DisplayFor(model => model.MaSach)</label>
+                        <input style="display:none" type="text" name="MaSach" class="form-control" value="@Html.DisplayFor(model => model.MaSach)" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên sách</label>
+                        <input type="text" required class="form-control" name="TenSach" value="@Html.DisplayFor(model => model.TenSach)">
+                    </div>
+                    <div class="form-group">
+                        <label>Tên tác giả</label>
+                        <input type="text" required class="form-control" name="TenTacGia" value="@Html.DisplayFor(model => model.TenTacGia)">
+                    </div>
+                    <div class="form-group">
+                        <label>Thể loại</label>
+                        <input type="text" required class="form-control" name="TheLoai" value="@Html.DisplayFor(model => model.TheLoai)">
+                    </div>
+                    <div class="form-group">
+                        <label>Số lượng</label>
+                        <input type="text" required class="form-control" name="SoLuong" value="@Html.DisplayFor(model => model.SoLuong)">
+                    </div>
+                    <div class="form-group">
+                        <label>Nhà xuất bản</label>
+                        @Html.DropDownList("MaNXB", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Giá bán</label>
+                        <input type="text" required class="form-control" name="GiaBan" value="@Html.DisplayFor(model => model.GiaBan)">
+                    </div>
+                    <div class="form-group">
+                        <label>Link hình ảnh</label>
+                        <input type="text" required class="form-control" name="HinhAnh" value="@Html.DisplayFor(model => model.HinhAnh)">
+                    </div>
+                </div>
+                <div class="modal-footer" >
+                    <input type="button" class="btn btn-default btn-default__reset" data-dismiss="modal" value="Reset">
+                    <input type="submit"  class="btn btn-info btn-info__save" value="Save">
+                </div>
+            </form>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Home")
 </div>
+
+<script>
+   
+    var btnReset = document.querySelector('.btn-default__reset');
+    var formEdit = document.querySelector('.form-edit__book');
+    var spinner = document.querySelector('.around-loading');
+    formEdit.onsubmit= (e)=> {
+        event.preventDefault();
+        spinner.classList.add('sk-chase-background__appear')
+        setTimeout(() => {
+            formEdit.submit();
+        }, 5000)
+    }
+    
+
+    btnReset.onclick = function (e) {
+        e.preventDefault();
+      
+        var id = document.querySelector('input[name="MaSach"]').value;
+        var serviceURL = `/Saches/Edit?id=${id}`;
+        var model = {
+            
+        };
+        $.ajax({
+            type: "GET",
+            url: "",
+            data: JSON.stringify(model),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'html',
+            success: function (data) {
+                $('#editEmployeeModal').load(serviceURL);
+            },
+            error: function (data, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+       
+    }
+</script>

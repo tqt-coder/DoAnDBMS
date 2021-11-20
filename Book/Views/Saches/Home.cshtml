@@ -1,72 +1,111 @@
 ﻿@model IEnumerable<Book.Models.Sach>
 
+
 @{
-    Layout = "~/Views/Shared/ViewAdmin.cshtml";
+    ViewBag.Title = "List Books";
+    Layout = "~/Views/Shared/ViewAD.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>View</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TenSach)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TenTacGia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TheLoai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SoLuong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiaBan)
-            </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.NhaXuatBan.TenNXB)
-            </th>
-            <th></th>
-        </tr>
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Quản lý <b>Sách</b></h2>
+                </div>
+                <div class="col-sm-6">
+                    <a href="/Saches/Create" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+                </div>
+            </div>
+        </div>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenSach)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenTacGia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TheLoai)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SoLuong)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GiaBan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NhaXuatBan.TenNXB)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.MaSach }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.MaSach })
-                </td>
-            </tr>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+
+                    <th>Tên sách</th>
+                    <th>Tên tác giả</th>
+                    <th>Thể loại</th>
+                    <th>Số lượng</th>
+                    <th>Giá bán</th>
+                    <th>Tên nhà xuất bản</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenSach)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenTacGia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TheLoai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoLuong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GiaBan)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenNXB)
+                        </td>
+                        <td>
+                            <a href="/Saches/Edit?id=@Html.DisplayFor(modelItem => item.MaSach)" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip">&#xE254;</i></a>
+                            <a href="#deleteEmployeeModal" data-idBook="@Html.DisplayFor(modelItem => item.MaSach)" class="delete delete__book" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<!-- Delete Modal HTML -->
+<div id="deleteEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-delete-book" action="/Saches/Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input style="display:none" type="text" class="modal-content__book-id" name="id" value="" />
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Xóa khách hàng</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc muốn xóa dòng này?</p>
+                    <p class="text-warning"><small>Hành động không thể khôi phục lại.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+                    <input type="submit" class="btn btn-danger" value="Xóa">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var deleteArr = document.querySelectorAll('.delete__book i');
+    var inputBook = document.querySelector('.modal-content__book-id');
+    Array.from(deleteArr).forEach((deletebtn, index) => {
+        deletebtn.onclick = function (e) {
+            var idBook = e.target.parentElement;
+            var id = idBook.dataset.idbook;
+            inputBook.value = id;
         }
+    });
 
-    </table>
-</body>
-</html>
+</script>
+

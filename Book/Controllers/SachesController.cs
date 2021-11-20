@@ -17,13 +17,17 @@ namespace Book.Controllers
         // GET: Saches
         public ActionResult Index()
         {
+            ViewBag.title = "List Books";
             var saches = db.Saches.Include(s => s.NhaXuatBan).Where(s => s.SoLuong > 1).Take(10);
             return View(saches.ToList());
         }
 
         public ActionResult Home()
         {
-            var saches = db.Saches.Include(s => s.NhaXuatBan);
+            var saches =
+                from s in db.Saches
+                join r in db.NhaXuatBans on s.MaNXB equals r.MaNXB
+                select s;
             return View(saches.ToList());
         }
         public ActionResult Catetogy(string li)
@@ -35,40 +39,7 @@ namespace Book.Controllers
             return View(saches.ToList());
         }
 
-        // Post detail
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Details([Bind(Include = "MaSach")] ChiTietHoaDon dt)
-        {
-            if (Session["UserID"] == null)
-            {
-                // Trả về trang login để đăng nhập
-                return RedirectToAction("Login", "KhachHangs");
-            }
-            int SoLuong = Convert.ToInt32(Request.Params.Get("SoLuong"));
-            DateTime date = DateTime.Now;
-            
-            db.Don(Convert.ToInt32(Session["ID"].ToString()), date, dt.MaSach, SoLuong);
-            return RedirectToAction("ViewCart", "Gios");
-        }
-
-        // GET: Saches/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sach);
-        }
-
-
+       
         // view Search
         public ActionResult Search(String sa)
         {
@@ -101,7 +72,7 @@ namespace Book.Controllers
             {
                 db.Saches.Add(sach);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Home");
             }
 
             ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sach.MaNXB);
@@ -135,36 +106,38 @@ namespace Book.Controllers
             {
                 db.Entry(sach).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Home");
             }
             ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sach.MaNXB);
-            return View(sach);
+            return View();
         }
 
         // GET: Saches/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sach sach = db.Saches.Find(id);
-            if (sach == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sach);
-        }
+        //public ActionResult Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Sach sach = db.Saches.Find(id);
+        //    if (sach == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    db.Saches.Remove(sach);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Home");
+        //}
 
         // POST: Saches/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult Delete(string id)
         {
             Sach sach = db.Saches.Find(id);
             db.Saches.Remove(sach);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Home");
         }
 
         protected override void Dispose(bool disposing)
