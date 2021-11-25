@@ -63,6 +63,7 @@ CREATE TABLE Sach
 )
 GO
 
+
 CREATE TABLE KhachHang 
 (
 	MaKH INT IDENTITY(1,1),
@@ -122,7 +123,7 @@ Begin
 END
 
 Go
-
+-- Phân quyền
 Create procedure PhanQuyenUser
         @login varchar(50),
         @db varchar(100)
@@ -264,7 +265,7 @@ Begin
 End
 
 Go
-
+-- Trigger khi hủy đơn hàng
 CREATE TRIGGER t_huydon ON ChiTietHoaDon AFTER DELETE
 AS
 Declare @MaSach VARCHAR(20), @SoLuong int
@@ -403,6 +404,7 @@ Begin
 end
 
 go
+
 -- Trigger cập nhập lại hóa đơn khi xóa chi tiết hóa đơn
 Create Trigger XoaChiTietHoaDon On ChiTietHoaDon
 After Delete
@@ -694,14 +696,14 @@ End;
 Go
 
 -- procedure xem sách không có trong chi hóa đơn
-Create proc BookNotSell
+/*Create proc BookNotSell
 As
 
 Begin
 	Select s.MaSach,s.GiaBan,s.HinhAnh,s.MaNXB,s.SoLuong,s.TenSach,s.TenTacGia,s.TheLoai,nxb.TenNXB 
 	from Sach as s, NhaXuatBan as nxb 
 	Where s.MaSach not in (select ct.MaSach from ChiTietHoaDon as ct)
-End
+End*/
 
 
 

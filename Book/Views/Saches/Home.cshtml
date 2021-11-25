@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Book.Models.Sach>
-
+﻿@model PagedList.IPagedList<Book.Models.BookNotOrder_Result>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "List Books";
@@ -35,8 +35,10 @@
                 </tr>
             </thead>
             <tbody>
+
                 @foreach (var item in Model)
                 {
+
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.TenSach)
@@ -64,8 +66,18 @@
                     </tr>
                 }
 
+
             </tbody>
+
         </table>
+        <br />
+        <div class="book__paging">
+
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Home", new { page }))
+        </div>
+
 
     </div>
 </div>
@@ -80,11 +92,11 @@
                 <input style="display:none" type="text" class="modal-content__book-id" name="id" value="" />
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Xóa khách hàng</h4>
+                    <h4 class="modal-title">Xóa sách</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Bạn có chắc muốn xóa dòng này?</p>
+                    <p>Bạn có chắc muốn xóa không?</p>
                     <p class="text-warning"><small>Hành động không thể khôi phục lại.</small></p>
                 </div>
                 <div class="modal-footer">
@@ -99,13 +111,18 @@
 <script>
     var deleteArr = document.querySelectorAll('.delete__book i');
     var inputBook = document.querySelector('.modal-content__book-id');
+
     Array.from(deleteArr).forEach((deletebtn, index) => {
+
         deletebtn.onclick = function (e) {
+
             var idBook = e.target.parentElement;
             var id = idBook.dataset.idbook;
+
             inputBook.value = id;
         }
     });
+    
 
 </script>
 

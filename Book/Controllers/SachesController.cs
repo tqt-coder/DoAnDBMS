@@ -7,7 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Book.Models;
-
+using PagedList;
+using PagedList.Mvc;
 namespace Book.Controllers
 {
     public class SachesController : Controller
@@ -22,13 +23,17 @@ namespace Book.Controllers
             return View(saches.ToList());
         }
 
-        public ActionResult Home()
+        public ActionResult Home(int? page)
         {
-            var saches =
-                from s in db.Saches
-                join r in db.NhaXuatBans on s.MaNXB equals r.MaNXB
-                select s;
-            return View(saches.ToList());
+            if (page == null)
+            {
+                page = 1;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            var saches = db.Database.SqlQuery<BookNotOrder_Result>("BookNotOrder");
+           
+            return View(saches.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult Catetogy(string li)
         {
@@ -138,6 +143,36 @@ namespace Book.Controllers
             db.Saches.Remove(sach);
             db.SaveChanges();
             return RedirectToAction("Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details([Bind(Include = "MaSach")] ChiTietHoaDon dt)
+        {
+            if (Session["UserID"] == null)
+            {
+                // Trả về trang login để đăng nhập
+                return RedirectToAction("Login", "KhachHangs");
+            }
+            int SoLuong = Convert.ToInt32(Request.Params.Get("SoLuong"));
+            DateTime date = DateTime.Now;
+
+            db.Don(Convert.ToInt32(Session["ID"].ToString()), date, dt.MaSach, SoLuong);
+            return RedirectToAction("ViewCart", "Gios");
+        }
+
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Sach sach = db.Saches.Find(id);
+            if (sach == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sach);
         }
 
         protected override void Dispose(bool disposing)

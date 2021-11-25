@@ -265,6 +265,7 @@
       <Parameter Name="login" Mode="In" Type="String" />
       <Parameter Name="db" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="BookNotOrder1" ReturnType="Collection(DoAnModel.BookNotOrder1_Result)" />
   </EntityContainer>
   <ComplexType Name="BookNotOrder_Result">
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -317,5 +318,16 @@
     <Property Type="Int32" Name="SoLuong" Nullable="false" />
     <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="BookNotOrder1_Result">
+    <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
+    <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
+    <Property Type="String" Name="HinhAnh" Nullable="false" />
+    <Property Type="String" Name="MaNXB" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TenNXB" Nullable="true" MaxLength="50" />
   </ComplexType>
 </Schema>

@@ -39,7 +39,7 @@ namespace Book.Controllers
         // GET: NguoiQuanLies/Create
         public ActionResult Create()
         {
-            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "HovaTen");
+            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "Gmail");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace Book.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaNQL,Ten,MaKH")] NguoiQuanLy nguoiQuanLy)
+        public ActionResult Create([Bind(Include ="MaNQL,Ten,MaKH")] NguoiQuanLy nguoiQuanLy)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace Book.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "HovaTen", nguoiQuanLy.MaKH);
+            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "Gmail", nguoiQuanLy.MaKH);
             return View(nguoiQuanLy);
         }
 
@@ -73,7 +73,7 @@ namespace Book.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "HovaTen", nguoiQuanLy.MaKH);
+            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "Gmail", nguoiQuanLy.MaKH);
             return View(nguoiQuanLy);
         }
 
@@ -90,7 +90,7 @@ namespace Book.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "HovaTen", nguoiQuanLy.MaKH);
+            ViewBag.MaKH = new SelectList(db.KhachHangs, "MaKH", "Gmail", nguoiQuanLy.MaKH);
             return View(nguoiQuanLy);
         }
 

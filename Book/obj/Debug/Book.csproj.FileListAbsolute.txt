@@ -408,3 +408,7 @@ C:\DoAnDBMS\DoAnDBMS\DoAnDBMS\Book\bin\System.Web.WebPages.Razor.xml
 C:\DoAnDBMS\DoAnDBMS\DoAnDBMS\Book\bin\Newtonsoft.Json.xml
 C:\DoAnDBMS\DoAnDBMS\DoAnDBMS\Book\bin\Antlr3.Runtime.pdb
 C:\DoAnDBMS\DoAnDBMS\DoAnDBMS\Book\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\DoAnDBMS\DoAnDBMS\DoAnDBMS\Book\bin\PagedList.dll
+C:\DoAnDBMS\DoAnDBMS\DoAnDBMS\Book\bin\PagedList.Mvc.dll
+C:\DoAnDBMS\DoAnDBMS\DoAnDBMS\Book\bin\PagedList.xml
+C:\DoAnDBMS\DoAnDBMS\DoAnDBMS\Book\bin\PagedList.Mvc.xml

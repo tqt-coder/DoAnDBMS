@@ -64,13 +64,14 @@ namespace Book.Controllers
         }
 
         // GET: ChiTietHoaDons/Edit/5
-        public ActionResult Edit(int? id, String maSach)
+        public ActionResult Edit(String id, String maSach)
         {
-            if (id == null || maSach == null)
+            int idBook = Convert.ToInt32(id);
+            if (idBook == null || maSach == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ChiTietHoaDon hd = db.ChiTietHoaDons.Where(s => s.MaHD == id && s.MaSach == maSach).SingleOrDefault();
+            ChiTietHoaDon hd = db.ChiTietHoaDons.Where(s => s.MaHD == idBook && s.MaSach == maSach).SingleOrDefault();
             if (hd == null)
             {
                 return HttpNotFound();
@@ -105,32 +106,16 @@ namespace Book.Controllers
             return View(chiTietHoaDon);
         }
 
-        // GET: ChiTietHoaDons/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ChiTietHoaDon chiTietHoaDon = db.ChiTietHoaDons.Find(id);
-            if (chiTietHoaDon == null)
-            {
-                return HttpNotFound();
-            }
-            return View(chiTietHoaDon);
-        }
-
-        // POST: ChiTietHoaDons/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int? MaHD, string MaSach)
         {
-            ChiTietHoaDon chiTietHoaDon = db.ChiTietHoaDons.Find(id);
-            db.ChiTietHoaDons.Remove(chiTietHoaDon);
+            db.XoaHoaDon(MaHD, MaSach);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
+     
         protected override void Dispose(bool disposing)
         {
             if (disposing)

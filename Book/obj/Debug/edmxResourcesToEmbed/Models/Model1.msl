@@ -118,21 +118,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="BookNotOrder" FunctionName="DoAnModel.Store.BookNotOrder">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="DoAnModel.BookNotOrder_Result">
-          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
-          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-          <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
-          <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
-          <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
-          <ScalarProperty Name="TenNXB" ColumnName="TenNXB" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="BookNotSell" FunctionName="DoAnModel.Store.BookNotSell">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DoAnModel.BookNotSell_Result">
@@ -198,5 +183,20 @@
     <FunctionImportMapping FunctionImportName="XoaHoaDon" FunctionName="DoAnModel.Store.XoaHoaDon" />
     <FunctionImportMapping FunctionImportName="XoaQuyenAdmin" FunctionName="DoAnModel.Store.XoaQuyenAdmin" />
     <FunctionImportMapping FunctionImportName="XoaQuyenUser" FunctionName="DoAnModel.Store.XoaQuyenUser" />
+    <FunctionImportMapping FunctionImportName="BookNotOrder1" FunctionName="DoAnModel.Store.BookNotOrder">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.BookNotOrder1_Result">
+          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+          <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
+          <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
+          <ScalarProperty Name="TenNXB" ColumnName="TenNXB" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

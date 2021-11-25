@@ -1,45 +1,101 @@
 ﻿@model Book.Models.NguoiQuanLy
 
 @{
-    ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/ViewAdmin.cshtml";
+    ViewBag.Title = "Edit Managers";
+    Layout = "~/Views/Shared/ViewAD.cshtml";
 }
 
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>NguoiQuanLy</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.MaNQL)
-
-            <div class="form-group" style="display:none">
-                @Html.LabelFor(model => model.Ten, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Ten, "", new { @class = "text-danger" })
+<div id="editManagerModal" class="modal-fade">
+    @*appear when add class: sk-chase-background__appear*@
+    <div class="around-loading">
+        <div align="center" class="fond">
+            <div class="contener_general">
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_1">&nbsp;</div>
                 </div>
-            </div>
-
-            <div class="form-group" style="margin: 1rem 0.4rem 2rem">
-                @Html.LabelFor(model => model.MaKH, "Tên Khách hàng", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("MaKH", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_2">&nbsp;</div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_3">&nbsp;</div>
+                </div>
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_4">&nbsp;</div>
                 </div>
             </div>
         </div>
+
+
+    </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/NguoiQuanLies/Edit" method="post" class="form-edit__book">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h4 class="modal-title">Chỉnh sửa thông tin người quản lý</h4>
+                    <div style="float:right; text-decoration: none">
+
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Mã Người Quản lý:   @Html.DisplayFor(model => model.MaNQL)</label>
+                        <input style="display:none" type="text" name="MaNQL" class="form-control" value="@Html.DisplayFor(model => model.MaNQL)" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên Người quản lý</label>
+                        <input type="text" required class="form-control" name="Ten" value="@Html.DisplayFor(model => model.Ten)">
+                    </div>
+                    <div class="form-group">
+                        <label>Khách Hàng</label>
+                        @Html.DropDownList("MaKH", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default btn-default__reset" data-dismiss="modal" value="Reset">
+                    <input type="submit" class="btn btn-info btn-info__save" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var btnReset = document.querySelector('.btn-default__reset');
+    var formEdit = document.querySelector('.form-edit__book');
+    var spinner = document.querySelector('.around-loading');
+    formEdit.onsubmit= (e)=> {
+        event.preventDefault();
+        spinner.classList.add('sk-chase-background__appear')
+        setTimeout(() => {
+            formEdit.submit();
+        }, 5000)
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+
+    btnReset.onclick = function (e) {
+        e.preventDefault();
+
+        var id = document.querySelector('input[name="MaNQL"]').value;
+        var serviceURL = `/NguoiQuanLies/Edit?id=${id}`;
+        var model = {
+
+        };
+        $.ajax({
+            type: "GET",
+            url: "",
+            data: JSON.stringify(model),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'html',
+            success: function (data) {
+                $('#editManagerModal').load(serviceURL);
+            },
+            error: function (data, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+
+    }
+</script>

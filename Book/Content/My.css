@@ -1,4 +1,9 @@
-﻿.around-loading {
+﻿.book__paging {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.around-loading {
     position: fixed;
     top: 0;
     left: 0;

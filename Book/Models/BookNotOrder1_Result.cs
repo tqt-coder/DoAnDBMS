@@ -10,10 +10,9 @@
 namespace Book.Models
 {
     using System;
-
-    public partial class BookNotOrder_Result
+    
+    public partial class BookNotOrder1_Result
     {
-        
         public string MaSach { get; set; }
         public Nullable<decimal> GiaBan { get; set; }
         public string HinhAnh { get; set; }

@@ -1,0 +1,30 @@
+﻿@model Book.Models.Sach
+
+@{ ViewBag.Title = "Details Book";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+
+<div id="content">
+    <form action="/Saches/Details" class="detail" method="POST">
+        @Html.AntiForgeryToken()
+        <input name="MaSach" style="display:none" value="@Html.DisplayFor(model => model.MaSach)" />
+        <nav class="detail-img">
+            <img class="img" src=@Html.DisplayFor(model => model.HinhAnh)>
+        </nav>
+        <nav class="detail-item">
+            <div class="detail-item__name">@Html.DisplayFor(model => model.TenSach)</div>
+            <div id="cost">@Html.DisplayFor(model => model.GiaBan)đ</div>
+            <div id="ship">Free</div>
+            <div>
+                <input class="change" onclick="var result = document.getElementById('number'); var qty = result.value; if( !isNaN(qty) & qty > 1) result.value--;return false;" type='button' value='-' />
+                <input name="SoLuong" oninput="var result = document.getElementById('number'); var num = parseInt(@Html.DisplayFor(model => model.SoLuong)); if (result.value > num) result.value = (num -1)" type="text" min="1" id="number" value="1">
+                <input class="change" onclick="var result = document.getElementById('number'); var num = parseInt(@Html.DisplayFor(model => model.SoLuong)); var qty = result.value;
+                 if (!isNaN(qty)) result.value++; if (qty == (num - 1)) result.value =  (num -1); return false;" type='button' value='+' />
+            </div>
+            <div class="button">
+                <button class="tobasket" onclick="">Thêm vào giỏ hàng</button>
+            </div>
+        </nav>
+    </form>
+</div>

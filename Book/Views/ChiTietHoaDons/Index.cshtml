@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "List bills";
-    Layout = "~/Views/Shared/ViewAdmin.cshtml";
+    Layout = "~/Views/Shared/ViewAD.cshtml";
 }
 
 <!DOCTYPE html>
@@ -13,52 +13,107 @@
     <title>Index</title>
 </head>
 <body>
-    
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MaHD)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SoLuong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThanhTien)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DonHang.MaDH)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sach.TenSach)
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaHD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoLuong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThanhTien)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DonHang.MaDH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sach.TenSach)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.MaHD, maSach = item.MaSach  }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MaHD, maSach = item.MaSach })
-        </td>
-    </tr>
-        }
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Quản lý <b>hóa đơn</b></h2>
+                    </div>
+                </div>
+            </div>
 
-    </table>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Mã Sách</th>
+                        <th>Số lượng</th>
+                        <th>Thành Tiền</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaSach)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SoLuong)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ThanhTien)
+                            </td>
+                            <td>
+                                <form action="/ChiTietHoaDons/Edit"  data-toggle="modal">
+                                 
+                                    <input style="display:none" type="text" name="id" value=@Html.DisplayFor(modelItem => item.MaHD) />
+                                    <input style="display:none" type="text" name="maSach" value=@Html.DisplayFor(modelItem => item.MaSach) />
+                                    <button class="cart__delete">
+                                        <i class="material-icons" data-toggle="tooltip">&#xE254;</i>
+                                    </button>
+
+                                </form>
+                                @*<a href=@Url.Action("Edit", "ChiTietHoaDons", new { id = @Html.DisplayFor(modelItem => item.MaHD),maSach = @Html.DisplayFor(modelItem => item.MaSach) }) class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip">&#xE254;</i></a>*@
+                                <a href="#deleteEmployeeModal" data-idBook="@Html.DisplayFor(modelItem => item.MaSach)" data-idBill="@Html.DisplayFor(modelItem => item.MaHD)" class="delete delete__book" data-toggle="modal">
+                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <!-- Delete Modal HTML -->
+    <div id="deleteEmployeeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-delete-book" action="/ChiTietHoaDons/Delete" method="post">
+                    @Html.AntiForgeryToken()
+                    <input style="display:none" type="text" class="modal-content__book-bill" name="MaHD" value="" />
+                    <input style="display:none" type="text" class="modal-content__book-id" name="MaSach" value="" />
+                   
+                    <div class="modal-header">
+                        <h4 class="modal-title">Xóa hóa đơn</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bạn có chắc muốn xóa dòng này?</p>
+                        <p class="text-warning"><small>Hành động không thể khôi phục lại.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+                        <input type="submit" class="btn btn-danger" value="Xóa">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var deleteArr = document.querySelectorAll('.delete__book i');
+        var inputBook = document.querySelector('.modal-content__book-id');
+        var inputBill = document.querySelector('.modal-content__book-bill');
+        Array.from(deleteArr).forEach((deletebtn, index) => {
+            deletebtn.onclick = function (e) {
+                var idBook = e.target.parentElement;
+                var id = idBook.dataset.idbook;
+                var maBill = idBook.dataset.idbill;
+                inputBook.value = id;
+                inputBill.value = maBill;
+                alert(maBill)
+            }
+        });
+
+    </script>
+
 </body>
 </html>

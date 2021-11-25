@@ -1,44 +1,38 @@
 ﻿@model Book.Models.NguoiQuanLy
 
 @{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/ViewAdmin.cshtml";
+    ViewBag.Title = "Create Managers";
+    Layout = "~/Views/Shared/ViewAD.cshtml";
 }
+<div id="addManagerModal" class="modal-fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/NguoiQuanLies/Create" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm Người Quản Lý</h4>
+                    <div style="float:right; text-decoration: none">
 
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>NguoiQuanLy</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div style="display:none" class="form-group">
-                @Html.LabelFor(model => model.Ten, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Ten, "", new { @class = "text-danger" })
                 </div>
-            </div>
-
-            <div class="form-group" style="margin: 1rem 0.4rem 2rem">
-                @Html.LabelFor(model => model.MaKH, "Tên người quản lý", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("MaKH", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input type="text" required class="form-control" name="Ten" value="@Html.DisplayFor(model => model.Ten)">
+                    </div>
+                    <div class="form-group">
+                        <label>Khách Hàng</label>
+                        @Html.DropDownList("MaKH", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                <div class="modal-footer">
+                    <input type="reset" class="btn btn-default" data-dismiss="modal" value="Reset">
+                    <input type="submit" class="btn btn-success" value="Add">
                 </div>
-            </div>
+            </form>
         </div>
-    }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
     </div>
+</div>
 

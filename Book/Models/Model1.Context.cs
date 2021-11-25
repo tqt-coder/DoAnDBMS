@@ -196,5 +196,10 @@ namespace Book.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaQuyenUser", loginParameter, dbParameter);
         }
+    
+        public virtual ObjectResult<BookNotOrder1_Result> BookNotOrder1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotOrder1_Result>("BookNotOrder1");
+        }
     }
 }

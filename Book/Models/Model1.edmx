@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DoAnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietHoaDon">
           <Key>
             <PropertyRef Name="MaHD" />
@@ -306,8 +306,7 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <End Role="Sach" EntitySet="Sach" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DoAnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -529,7 +528,7 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <End Role="Sach" EntitySet="Saches" />
           </AssociationSet>
           <FunctionImport Name="SumMoney" IsComposable="true" ReturnType="Collection(DoAnModel.SumMoney_Result)">
-            <Parameter Name="MaHD" Mode="In" Type="Int32" />
+          <Parameter Name="MaHD" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="BookNotOrder" ReturnType="Collection(DoAnModel.BookNotOrder_Result)" />
           <FunctionImport Name="BookNotSell" ReturnType="Collection(DoAnModel.BookNotSell_Result)" />
@@ -548,13 +547,13 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <Parameter Name="db" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="recommend" ReturnType="Collection(DoAnModel.recommend_Result)">
-            <Parameter Name="theloai" Mode="In" Type="String" />
+          <Parameter Name="theloai" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="searchBook" ReturnType="Collection(DoAnModel.searchBook_Result)">
-            <Parameter Name="tenSach" Mode="In" Type="String" />
+          <Parameter Name="tenSach" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="TongTien">
-            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+          <Parameter Name="MaKH" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="TraTien">
             <Parameter Name="MaKH" Mode="In" Type="Int32" />
@@ -562,7 +561,7 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <Parameter Name="NgayNhan" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="ViewCart" ReturnType="Collection(DoAnModel.ViewCart_Result)">
-            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+          <Parameter Name="MaKH" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="XoaHoaDon">
             <Parameter Name="MaHD" Mode="In" Type="Int32" />
@@ -576,6 +575,7 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <Parameter Name="login" Mode="In" Type="String" />
             <Parameter Name="db" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="BookNotOrder1" ReturnType="Collection(DoAnModel.BookNotOrder1_Result)" />
         </EntityContainer>
         <ComplexType Name="BookNotOrder_Result">
           <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -628,6 +628,17 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Property Type="Int32" Name="SoLuong" Nullable="false" />
           <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
           <Property Type="String" Name="HinhAnh" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="BookNotOrder1_Result">
+          <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
+          <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
+          <Property Type="String" Name="HinhAnh" Nullable="false" />
+          <Property Type="String" Name="MaNXB" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="SoLuong" Nullable="true" />
+          <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenNXB" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -752,21 +763,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="BookNotOrder" FunctionName="DoAnModel.Store.BookNotOrder">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DoAnModel.BookNotOrder_Result">
-                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
-                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-                <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
-                <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
-                <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
-                <ScalarProperty Name="TenNXB" ColumnName="TenNXB" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="BookNotSell" FunctionName="DoAnModel.Store.BookNotSell">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DoAnModel.BookNotSell_Result">
@@ -832,6 +828,21 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <FunctionImportMapping FunctionImportName="XoaHoaDon" FunctionName="DoAnModel.Store.XoaHoaDon" />
           <FunctionImportMapping FunctionImportName="XoaQuyenAdmin" FunctionName="DoAnModel.Store.XoaQuyenAdmin" />
           <FunctionImportMapping FunctionImportName="XoaQuyenUser" FunctionName="DoAnModel.Store.XoaQuyenUser" />
+          <FunctionImportMapping FunctionImportName="BookNotOrder1" FunctionName="DoAnModel.Store.BookNotOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.BookNotOrder1_Result">
+                <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+                <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
+                <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
+                <ScalarProperty Name="TenNXB" ColumnName="TenNXB" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
