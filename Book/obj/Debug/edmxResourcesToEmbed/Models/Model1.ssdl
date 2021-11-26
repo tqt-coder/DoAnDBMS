@@ -105,9 +105,11 @@ warning 6002: The table/view 'DoAn.dbo.View_KH' does not have a primary key defi
 warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="view_thongtinKH">
     <Key>
+      <PropertyRef Name="MaSach" />
       <PropertyRef Name="NgayDat" />
       <PropertyRef Name="MaKH" />
     </Key>
+    <Property Name="MaSach" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="HovaTen" Type="nvarchar" MaxLength="50" />
     <Property Name="NgayDat" Type="date" Nullable="false" />
     <Property Name="NgayNhan" Type="date" />
@@ -182,7 +184,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
     </ReferentialConstraint>
   </Association>
   <Function Name="BookNotOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-  <Function Name="BookNotSell" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="Don" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MaKH" Type="int" Mode="In" />
     <Parameter Name="NgayDat" Type="date" Mode="In" />
@@ -272,6 +273,7 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
     </EntitySet>
     <EntitySet Name="view_thongtinKH" EntityType="Self.view_thongtinKH" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
+    [view_thongtinKH].[MaSach] AS [MaSach], 
     [view_thongtinKH].[HovaTen] AS [HovaTen], 
     [view_thongtinKH].[NgayDat] AS [NgayDat], 
     [view_thongtinKH].[NgayNhan] AS [NgayNhan], 

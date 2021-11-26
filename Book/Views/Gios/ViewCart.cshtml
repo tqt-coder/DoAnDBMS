@@ -7,6 +7,7 @@
 
 
 <div id="content">
+    
     <div class="cart-background">
         <h2 class="cart__title">Giỏ hàng</h2>
         <div class="cart__bill">
@@ -204,15 +205,22 @@
     else {
         btnPaid.onclick = (event) => {
             event.preventDefault();
-            setTimeout(function () {
-                totalBill();
-            }, 5000);
-           
+          
             btnPaid.textContent = 'Đã thanh toán';
+           
+            setTimeout(() => {
+                totalBill();
+               
+            }, 5000)
 
-            alert(`
+            setTimeout(() => {
+                alert(`
                   Thanh toán thành công
                     Cảm ơn quý khách`);
+            }, 200)
+          
+            
+            
         }
     }
 

@@ -1,10 +1,9 @@
 ﻿@model Book.Models.NguoiQuanLy
 
 @{
-    ViewBag.Title = "Edit Managers";
-    Layout = "~/Views/Shared/ViewAD.cshtml";
+    ViewBag.Title = "List customers";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
-
 <div id="editManagerModal" class="modal-fade">
     @*appear when add class: sk-chase-background__appear*@
     <div class="around-loading">
@@ -66,7 +65,7 @@
     var btnReset = document.querySelector('.btn-default__reset');
     var formEdit = document.querySelector('.form-edit__book');
     var spinner = document.querySelector('.around-loading');
-    formEdit.onsubmit= (e)=> {
+    formEdit.onsubmit = (e) => {
         event.preventDefault();
         spinner.classList.add('sk-chase-background__appear')
         setTimeout(() => {

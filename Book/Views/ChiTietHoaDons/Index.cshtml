@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<Book.Models.ChiTietHoaDon>
 
 @{
-    ViewBag.Title = "List bills";
-    Layout = "~/Views/Shared/ViewAD.cshtml";
+    ViewBag.Title = "List customers";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
 <!DOCTYPE html>
@@ -28,6 +28,8 @@
                 <thead>
                     <tr>
                         <th>Mã Sách</th>
+                        <th>Tên Sách</th>
+                        <th>Mã Khách Hàng</th>
                         <th>Số lượng</th>
                         <th>Thành Tiền</th>
                         <th>Thao tác</th>
@@ -36,33 +38,39 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.MaSach)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SoLuong)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ThanhTien)
-                            </td>
-                            <td>
-                                <form action="/ChiTietHoaDons/Edit"  data-toggle="modal">
-                                 
-                                    <input style="display:none" type="text" name="id" value=@Html.DisplayFor(modelItem => item.MaHD) />
-                                    <input style="display:none" type="text" name="maSach" value=@Html.DisplayFor(modelItem => item.MaSach) />
-                                    <button class="cart__delete">
-                                        <i class="material-icons" data-toggle="tooltip">&#xE254;</i>
-                                    </button>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaSach)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sach.TenSach)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DonHang.MaKH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoLuong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ThanhTien)
+                        </td>
+                        <td>
+                            <form action="/ChiTietHoaDons/Edit" class="detail__form" data-toggle="modal">
 
-                                </form>
-                                @*<a href=@Url.Action("Edit", "ChiTietHoaDons", new { id = @Html.DisplayFor(modelItem => item.MaHD),maSach = @Html.DisplayFor(modelItem => item.MaSach) }) class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip">&#xE254;</i></a>*@
-                                <a href="#deleteEmployeeModal" data-idBook="@Html.DisplayFor(modelItem => item.MaSach)" data-idBill="@Html.DisplayFor(modelItem => item.MaHD)" class="delete delete__book" data-toggle="modal">
-                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                </a>
-                            </td>
+                                <input style="display:none" type="text" name="id" value=@Html.DisplayFor(modelItem => item.MaHD) />
+                                <input style="display:none" type="text" name="maSach" value=@Html.DisplayFor(modelItem => item.MaSach) />
+                                <button class="cart__delete">
+                                    <i class="material-icons" data-toggle="tooltip">&#xE254;</i>
+                                </button>
 
-                        </tr>
+                            </form>
+                            @*<a href=@Url.Action("Edit", "ChiTietHoaDons", new { id = @Html.DisplayFor(modelItem => item.MaHD),maSach = @Html.DisplayFor(modelItem => item.MaSach) }) class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip">&#xE254;</i></a>*@
+                            <a href="#deleteEmployeeModal" data-idBook="@Html.DisplayFor(modelItem => item.MaSach)" data-idBill="@Html.DisplayFor(modelItem => item.MaHD)" class="delete delete__book" data-toggle="modal">
+                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                            </a>
+                        </td>
+
+                    </tr>
                     }
 
                 </tbody>
@@ -80,7 +88,7 @@
                     @Html.AntiForgeryToken()
                     <input style="display:none" type="text" class="modal-content__book-bill" name="MaHD" value="" />
                     <input style="display:none" type="text" class="modal-content__book-id" name="MaSach" value="" />
-                   
+
                     <div class="modal-header">
                         <h4 class="modal-title">Xóa hóa đơn</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

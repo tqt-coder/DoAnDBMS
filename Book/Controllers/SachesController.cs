@@ -16,11 +16,18 @@ namespace Book.Controllers
         private DoAnEntities1 db = new DoAnEntities1();
 
         // GET: Saches
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             ViewBag.title = "List Books";
-            var saches = db.Saches.Include(s => s.NhaXuatBan).Where(s => s.SoLuong > 1).Take(10);
-            return View(saches.ToList());
+            if (page == null)
+            {
+                page = 1;
+            }
+            int pageSize = 12;
+            int pageNumber = (page ?? 1);
+            var saches = db.Saches.ToList();
+
+            return View(saches.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Home(int? page)
@@ -44,7 +51,6 @@ namespace Book.Controllers
             return View(saches.ToList());
         }
 
-       
         // view Search
         public ActionResult Search(String sa)
         {
@@ -116,23 +122,6 @@ namespace Book.Controllers
             ViewBag.MaNXB = new SelectList(db.NhaXuatBans, "MaNXB", "TenNXB", sach.MaNXB);
             return View();
         }
-
-        // GET: Saches/Delete/5
-        //public ActionResult Delete(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Sach sach = db.Saches.Find(id);
-        //    if (sach == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    db.Saches.Remove(sach);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Home");
-        //}
 
         // POST: Saches/Delete/5
         [HttpPost]

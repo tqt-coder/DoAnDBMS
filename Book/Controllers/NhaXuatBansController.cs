@@ -20,21 +20,6 @@ namespace Book.Controllers
             return View(db.NhaXuatBans.ToList());
         }
 
-        // GET: NhaXuatBans/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NhaXuatBan nhaXuatBan = db.NhaXuatBans.Find(id);
-            if (nhaXuatBan == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nhaXuatBan);
-        }
-
         // GET: NhaXuatBans/Create
         public ActionResult Create()
         {
@@ -89,31 +74,17 @@ namespace Book.Controllers
             return View(nhaXuatBan);
         }
 
-        // GET: NhaXuatBans/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NhaXuatBan nhaXuatBan = db.NhaXuatBans.Find(id);
-            if (nhaXuatBan == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nhaXuatBan);
-        }
-
-        // POST: NhaXuatBans/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult Delete(string id)
         {
             NhaXuatBan nhaXuatBan = db.NhaXuatBans.Find(id);
             db.NhaXuatBans.Remove(nhaXuatBan);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        
 
         protected override void Dispose(bool disposing)
         {

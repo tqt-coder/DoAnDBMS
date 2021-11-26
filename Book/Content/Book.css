@@ -1,8 +1,15 @@
-﻿
+﻿.book__paging.book__paging-style {
+    margin: 15% 30px 10px auto;
+    display: inline-block;
+    width: 200px;
+   
+}
 .navbar {
+    height: 100px;
     display: flex;
     align-items: flex-end;
     justify-content: right;
+    align-items: flex-end;
 }
 
 #content {
@@ -16,7 +23,7 @@
 }
 
 .header-top-banner {
-    z-index: 2;
+    z-index: 10;
     position: fixed;
     top: 0;
     left: 0;
@@ -49,6 +56,7 @@
 
     .navbar_link:hover {
         color: rgb(63, 63, 241);
+        text-decoration: none;
     }
 
 .navbar_logo {
@@ -213,10 +221,12 @@ form.form_search::after {
     color: var(--black-text);
     margin: 10px 0;
 }
-
-    .item__book:hover {
+a.item__book {
+    text-decoration: none;
+}
+ .item__book:hover {
         color: var(--black-text);
-    }
+ }
 
 .item-div__infor-book-name {
     line-height: 16px;

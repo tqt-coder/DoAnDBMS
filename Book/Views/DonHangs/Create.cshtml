@@ -5,64 +5,49 @@
     Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+<div id="addManagerModal" class="modal-fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/DonHangs/Create" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm Đơn Hàng</h4>
+                    <div style="float:right; text-decoration: none">
 
-        <div class="form-horizontal">
-            <h4>DonHang</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.MaKH, "MaKH", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("MaKH", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+
                 </div>
-            </div>
+                <div class="modal-body">
+                    <div style="display:none" class="form-group">
+                        <label>Mã đơn hàng</label>
+                        <input type="text" required class="form-control" name="MaDH" value="@Html.DisplayFor(model => model.MaDH)">
+                    </div>
+                    <div class="form-group">
+                        <label>Mã khách hàng</label>
+                        <input type="text" readonly class="form-control" name="MaKH" value="@Session["ID"]">
+                    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.NgayDat, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NgayDat, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NgayDat, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <div class="form-group">
+                        <label>Ngày đặt</label>
+                        <input type="date" required class="form-control" name="NgayDat" value="@Html.DisplayFor(model => model.NgayDat)">
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày nhận</label>
+                        <input type="date" required class="form-control" name="NgayNhan" value="@Html.DisplayFor(model => model.NgayNhan)">
+                    </div>
+                    <div class="form-group">
+                        <label>Tổng tiền</label>
+                        <input type="text" required class="form-control" name="TongTien" value="@Html.DisplayFor(model => model.TongTien)">
+                    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.NgayNhan, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NgayNhan, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NgayNhan, "", new { @class = "text-danger" })
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TongTien, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TongTien, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TongTien, "", new { @class = "text-danger" })
+                <div class="modal-footer">
+                    <input type="reset" class="btn btn-default" data-dismiss="modal" value="Reset">
+                    <input type="submit" class="btn btn-success" value="Add">
                 </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
+            </form>
         </div>
-    }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
     </div>
-</body>
-</html>
+</div>

@@ -21,6 +21,7 @@
     height: 30rem;
     object-fit: cover;
 }
+
 .cart-background {
     position: absolute;
     top: 0;
@@ -31,6 +32,7 @@
     max-height: 80rem;
     padding: 4rem 0;
     overflow-y: auto;
+    z-index: 5;
 }
 
 .cart-background__content {

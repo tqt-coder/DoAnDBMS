@@ -214,13 +214,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\cart.css" />
     <Content Include="Content\img\empty cart.png" />
     <Content Include="Content\img\logo.png" />
+    <Content Include="Content\my.css" />
     <Content Include="Content\MyStyle.css" />
-    <Content Include="Content\My.css" />
+    <Content Include="Content\my2.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\StyleBook.css" />
-    <Content Include="Content\Cart.css" />
+    <Content Include="Content\Book.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -250,8 +251,6 @@
     <Content Include="Views\Saches\Edit.cshtml" />
     <Content Include="Views\Saches\Catetogy.cshtml" />
     <Content Include="Views\Saches\Index.cshtml" />
-    <Content Include="Views\KhachHangs\Delete.cshtml" />
-    <Content Include="Views\KhachHangs\Details.cshtml" />
     <Content Include="Views\KhachHangs\Edit.cshtml" />
     <Content Include="Views\KhachHangs\Index.cshtml" />
     <Content Include="Views\KhachHangs\Login.cshtml" />
@@ -274,12 +273,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Views\KhachHangs\UserDashBoard.cshtml" />
-    <Content Include="Views\KhachHangs\Purchases.cshtml" />
     <Content Include="Views\Saches\Search.cshtml" />
     <Content Include="Views\DonHangs\Create.cshtml" />
-    <Content Include="Views\DonHangs\Delete.cshtml" />
-    <Content Include="Views\DonHangs\Details.cshtml" />
     <Content Include="Views\DonHangs\Edit.cshtml" />
     <Content Include="Views\DonHangs\Index.cshtml" />
     <Content Include="Views\ChiTietHoaDons\Edit.cshtml" />
@@ -290,15 +285,13 @@
     <Content Include="Views\NguoiQuanLies\Edit.cshtml" />
     <Content Include="Views\NguoiQuanLies\Index.cshtml" />
     <Content Include="Views\NhaXuatBans\Create.cshtml" />
-    <Content Include="Views\NhaXuatBans\Delete.cshtml" />
-    <Content Include="Views\NhaXuatBans\Details.cshtml" />
     <Content Include="Views\NhaXuatBans\Edit.cshtml" />
     <Content Include="Views\NhaXuatBans\Index.cshtml" />
     <Content Include="Views\Shared\ViewAdmin.cshtml" />
     <Content Include="Views\view_thongtinKH\Index.cshtml" />
     <Content Include="Views\Saches\Home.cshtml" />
-    <Content Include="Views\Shared\ViewAD.cshtml" />
     <Content Include="Views\Saches\Details.cshtml" />
+    <Content Include="Views\KhachHangs\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

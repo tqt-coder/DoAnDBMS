@@ -12,8 +12,8 @@ namespace Book
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/base.css",
-                       "~/Content/StyleBook.css",
-                        "~/Content/Cart.css"
+                       "~/Content/Book.css",
+                        "~/Content/cart.css"
                       ));
         }
     }

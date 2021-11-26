@@ -198,7 +198,7 @@ As
 GO
 
 CREATE Trigger ThemQuyen on KhachHang
-After Insert,Update
+After Insert
 As
 	Declare @maKH varchar(20), @gmail varchar(50),@quyen nvarchar(20)
 Begin
@@ -358,14 +358,14 @@ Go
 
 
 Create VIEW view_thongtinKH AS
-	SELECT  kh.HovaTen,dh.NgayDat,dh.NgayNhan,s.TenSach,dh.TongTien,dh.MaKH
+	SELECT  s.MaSach,kh.HovaTen,dh.NgayDat,dh.NgayNhan,s.TenSach,dh.TongTien,dh.MaKH
 	FROM KhachHang as kh, DonHang as dh,ChiTietHoaDon as ct, Sach as s
 	WHERE dh.MaKH=kh.MaKh and dh.MaDH = ct.MaHD and dh.NgayNhan is not null and s.MaSach = ct.MaSach
 GO
 --select * from view_thongtinKH where view_thongtinKH.MaKH = 3
 --trigger tinhtien--
 CREATE TRIGGER TinhTien ON ChitietHoaDon
-for insert,update AS
+for insert AS
 DECLARE @MaHD INT ,@Tien money,@MaSach varchar(20), @SoLuong int
 Declare TinhTienCursor Cursor for
 	SELECT MaHD,s.GiaBan,ne.MaSach,ne.SoLuong 
@@ -433,6 +433,35 @@ Declare XoaChiTietHoaDonCursor Cursor For
 END
 GO
 
+-- Tính tiền
+create TRIGGER TinhTienupdate ON ChiTietHoaDon
+for update AS
+DECLARE @MaHD INT ,@Tien money,@MaSach varchar(20), @new int,@old int
+Declare TinhTienupdateCursor Cursor for
+	SELECT ne.MaHD,s.GiaBan,ne.MaSach,ne.SoLuong,ol.SoLuong
+	FROM Sach s,inserted ne,deleted ol
+	WHERE ne.MaSach=s.MaSach
+	and ne.MaSach=ol.MaSach
+	and ne.MaHD=ol.MaHD
+BEGIN
+	open TinhTienupdateCursor
+	Fetch next from TinhTienupdateCursor into @MaHD, @Tien,@MaSach,@new,@old
+	while @@FETCH_STATUS=0
+	begin
+		Begin Transaction TinhTien
+		UPDATE ChiTietHoaDon
+		SET ThanhTien=SoLuong*@Tien
+		where MaHD=@MaHD and MaSach=@MaSach
+
+		UPDATE Sach SET SoLuong = SoLuong - (@new-@old)
+		Where MaSach=@MaSach
+		commit Transaction
+	Fetch next from TinhTienupdateCursor into @MaHD, @Tien,@MaSach,@new,@old
+	end
+	Close TinhTienupdateCursor
+	Deallocate TinhTienupdateCursor
+END
+GO
 -- Trigger tính Tổng hóa đơn trong Đơn Hàng
 Create Function SumMoney(
 	@MaHD INT 
@@ -696,14 +725,15 @@ End;
 Go
 
 -- procedure xem sách không có trong chi hóa đơn
-/*Create proc BookNotSell
+Create proc BookNotOrder
 As
 
 Begin
 	Select s.MaSach,s.GiaBan,s.HinhAnh,s.MaNXB,s.SoLuong,s.TenSach,s.TenTacGia,s.TheLoai,nxb.TenNXB 
 	from Sach as s, NhaXuatBan as nxb 
 	Where s.MaSach not in (select ct.MaSach from ChiTietHoaDon as ct)
-End*/
+	and s.MaNXB=nxb.MaNXB
+End
 
 
 

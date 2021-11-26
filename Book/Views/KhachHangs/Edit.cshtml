@@ -1,90 +1,102 @@
 ﻿@model Book.Models.KhachHang
 
 @{
-    ViewBag.Title = "Edit customer";
+    ViewBag.Title = "List customers";
     Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-</head>
-<body>
-
-
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>KhachHang</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.MaKH)
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.HovaTen, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.HovaTen, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.HovaTen, "", new { @class = "text-danger" })
+<div id="editEmployeeModal" class="modal-fade">
+    @*appear when add class: sk-chase-background__appear*@
+    <div class="around-loading">
+        <div align="center" class="fond">
+            <div class="contener_general">
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_1">&nbsp;</div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SoDienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_2">&nbsp;</div>
                 </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_3">&nbsp;</div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.PassWord, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Gmail, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Quyen, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Quyen, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Quyen, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                <div class="contener_mixte">
+                    <div class="ballcolor ball_4">&nbsp;</div>
                 </div>
             </div>
         </div>
+
+
+    </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/KhachHangs/Edit" method="post" class="form-edit__book">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h4 class="modal-title">Chỉnh sửa thông tin khách hàng</h4>
+                    <div style="float:right; text-decoration: none">
+
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Mã khách hàng: @Html.DisplayFor(model => model.MaKH)</label>
+                        <input style="display:none" type="text" name="MaKH" class="form-control"
+                               value="@Html.DisplayFor(model => model.MaKH)" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Họ Và Tên</label>
+                        <input type="text" required class="form-control" name="HovaTen"
+                               value="@Html.DisplayFor(model => model.HovaTen)">
+                    </div>
+                    <div class="form-group">
+                        <label>Số Điện Thoại</label>
+                        <input type="text" required class="form-control" name="SoDienThoai"
+                               value="@Html.DisplayFor(model => model.SoDienThoai)">
+                    </div>
+                    <div class="form-group">
+                        <label>Địa Chỉ</label>
+                        <input type="text" required class="form-control" name="DiaChi"
+                               value="@Html.DisplayFor(model => model.DiaChi)">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="text" required class="form-control" name="PassWord"
+                               value="@Html.DisplayFor(model => model.PassWord)">
+                    </div>
+                    <div class="form-group">
+                        <label>Gmail</label>
+                        <input type="email" required class="form-control" name="Gmail"
+                               value="@Html.DisplayFor(model => model.Gmail)">
+                    </div>
+                    <div class="form-group">
+                        <label>Quyền truy cập</label>
+                        <input type="text" required class="form-control" name="Quyen"
+                               value="@Html.DisplayFor(model => model.Quyen)">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="reset" class="btn btn-default btn-default__reset" data-dismiss="modal" value="Reset">
+                    <input type="submit" class="btn btn-info btn-info__save" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var btnReset = document.querySelector('.btn-default__reset');
+    var formEdit = document.querySelector('.form-edit__book');
+    var spinner = document.querySelector('.around-loading');
+    formEdit.onsubmit = (e) => {
+        event.preventDefault();
+        spinner.classList.add('sk-chase-background__appear')
+        setTimeout(() => {
+            formEdit.submit();
+        }, 5000)
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</body>
-</html>
+
+
+</script>

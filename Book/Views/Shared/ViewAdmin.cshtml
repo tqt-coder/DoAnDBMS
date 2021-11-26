@@ -1,39 +1,121 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    ViewBag.Title = "Quản trị";
+    Layout = null;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="~/Content/base.css">
-    <link rel="stylesheet" href="~/Content/MyStyle.css">
-    <style>
-        body {
-            font-size: 1.6rem;
-        }
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        
-    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/Content/my2.css">
+    <link href="~/Content/my.css" rel="stylesheet">
+
 </head>
 
 <body>
-    <div class="container">
-        <div class="container__title">
-            <a href="/KhachHangs/UserDashBoard" class="container__title-link"><i class="fas fa-house-user"></i></a>
-            Trang quản trị
-        </div>
-        @RenderBody()
-    </div>
+    <section id="container">
+
+        <header class="header black-bg">
+            
+            <a href="#" class="logo"><b>BookStore <span> Admin</span></b></a>
+           
+            <div class="nav notify-row" id="top_menu">
+
+            </div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="/KhachHangs/Login">Logout</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                 sidebar menu start
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <p class="centered">
+                        <a href="profile.html"><img src="~/Content/img/logo.png" class="img-circle" width="200"></a>
+                    </p>
+                    <h5 class="centered"></h5>
+                    <li class="mt">
+                        <a href="/Saches/Home">
+                            <i class="fa fa-book"></i>
+                            <span>Sách</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/KhachHangs/Index">
+                            <i class="fa fa-desktop"></i>
+                            <span>Khách Hàng</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/DonHangs/Index">
+                            <i class="fa fa-th"></i>
+                            <span>Đơn Hàng</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/ChiTietHoaDons/Index">
+                            <i class="fa fa-tasks"></i>
+                            <span>Chi Tiết Đơn Hàng</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/NhaXuatBans/Index">
+                            <i class="fa fa-bookmark"></i>
+                            <span>Nhà Xuất Bản</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/NhaXuatBans/Index">
+                            <i class="fa fa-bookmark"></i>
+                            <span>Nhà Xuất Bản</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/view_thongtinKH/Index">
+                            <i class="fa fa-tasks"></i>
+                            <span>Đơn hàng đã nhận</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/Saches/Index">
+                            <i class="fa fa-home"></i>
+                            <span>Trang chủ</span>
+                        </a>
+                    </li>
+
+                </ul>
+                 
+            </div>
+        </aside>
+
+        <section id="main-content">
+            <section class="wrapper site-min-height">
+                <div class="row mt">
+
+                    @RenderBody()
+                </div>
+
+            </section>
+
+        </section>
+
+    </section>
+
 </body>
 
 </html>
-
-
-
-

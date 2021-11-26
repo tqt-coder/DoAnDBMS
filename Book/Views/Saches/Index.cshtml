@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Book.Models.Sach>
+﻿@model PagedList.IPagedList<Book.Models.Sach>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Home page";
@@ -41,10 +42,10 @@
                                 @if (Session["ad"] != null)
                                 {
 
-                                <a href=@Url.Action("Delete", "Saches", new { id = item.MaSach })>
+                                    <a href=@Url.Action("Delete", "Saches", new { id = item.MaSach })>
 
-                                    <i class="fa fa-times-circle book__icon-delete"></i>
-                                </a>
+                                        <i class="fa fa-times-circle book__icon-delete"></i>
+                                    </a>
                                 }
                                 <a href=@Url.Action("Details", "Saches", new { id = item.MaSach }) class="item__book">
                                     <div class="item-div">
@@ -78,6 +79,12 @@
 
                             </div>
                         }
+                        <div class="book__paging book__paging-style">
+
+                            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                        </div>
                         <!-- end -->
                     </div>
 

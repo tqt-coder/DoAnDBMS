@@ -21,31 +21,24 @@ namespace Book.Controllers
             return View(db.KhachHangs.ToList());
         }
 
-        public ActionResult Purchases()
-        {
-            return View(db.KhachHangs.ToList());
-        }
-        public ActionResult UserDashBoard()
+       
+        public ActionResult Admin()
         {
             if (Session["UserID"] != null)
             {
                 if (Session["ad"].ToString() == "manager")
                 {
 
-
                     return View();
-
 
                 }
                 else
                 {
-
                     return RedirectToAction("Login");
                 }
             }
             else
             {
-
                 return RedirectToAction("Login");
 
             }
@@ -76,7 +69,7 @@ namespace Book.Controllers
                     if (obj.Quyen.ToString() == "admin")
                     {
                         Session["ad"] = "manager";
-                        return RedirectToAction("UserDashBoard");
+                        return RedirectToAction("Admin");
                     }
                     return RedirectToAction("Index", "Saches");
                 }
@@ -86,21 +79,6 @@ namespace Book.Controllers
             return View(user);
         }
 
-
-        // GET: KhachHangs/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
-        }
 
         // GET: KhachHangs/Create
         public ActionResult Register()
@@ -163,25 +141,9 @@ namespace Book.Controllers
             return View(khachHang);
         }
 
-        // GET: KhachHangs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return HttpNotFound();
-            }
-            return View(khachHang);
-        }
-
-        // POST: KhachHangs/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? id)
+        public ActionResult Delete(int? id)
         {
             KhachHang khachHang = db.KhachHangs.Find(id);
             db.KhachHangs.Remove(khachHang);
@@ -189,6 +151,7 @@ namespace Book.Controllers
             return RedirectToAction("Index");
         }
 
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)

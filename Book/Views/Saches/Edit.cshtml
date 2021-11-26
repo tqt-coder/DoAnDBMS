@@ -1,8 +1,8 @@
 ﻿@model Book.Models.Sach
 
 @{
-    ViewBag.Title = "Edit Book";
-    Layout = "~/Views/Shared/ViewAD.cshtml";
+    ViewBag.Title = "List customers";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
 }
 
 <div id="editEmployeeModal" class="modal-fade">
@@ -72,9 +72,9 @@
                         <input type="text" required class="form-control" name="HinhAnh" value="@Html.DisplayFor(model => model.HinhAnh)">
                     </div>
                 </div>
-                <div class="modal-footer" >
+                <div class="modal-footer">
                     <input type="button" class="btn btn-default btn-default__reset" data-dismiss="modal" value="Reset">
-                    <input type="submit"  class="btn btn-info btn-info__save" value="Save">
+                    <input type="submit" class="btn btn-info btn-info__save" value="Save">
                 </div>
             </form>
         </div>
@@ -82,26 +82,26 @@
 </div>
 
 <script>
-   
+
     var btnReset = document.querySelector('.btn-default__reset');
     var formEdit = document.querySelector('.form-edit__book');
     var spinner = document.querySelector('.around-loading');
-    formEdit.onsubmit= (e)=> {
+    formEdit.onsubmit = (e) => {
         event.preventDefault();
         spinner.classList.add('sk-chase-background__appear')
         setTimeout(() => {
             formEdit.submit();
         }, 5000)
     }
-    
+
 
     btnReset.onclick = function (e) {
         e.preventDefault();
-      
+
         var id = document.querySelector('input[name="MaSach"]').value;
         var serviceURL = `/Saches/Edit?id=${id}`;
         var model = {
-            
+
         };
         $.ajax({
             type: "GET",
@@ -116,6 +116,6 @@
                 alert(errorThrown);
             }
         });
-       
+
     }
 </script>
