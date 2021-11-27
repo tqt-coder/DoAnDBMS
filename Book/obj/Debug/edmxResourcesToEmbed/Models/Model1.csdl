@@ -321,15 +321,26 @@
   <EntityType Name="view_thongtinKH">
     <Key>
       <PropertyRef Name="MaSach" />
+      <PropertyRef Name="DiaChi" />
+      <PropertyRef Name="Gmail" />
       <PropertyRef Name="NgayDat" />
       <PropertyRef Name="MaKH" />
+      <PropertyRef Name="SoLuong" />
+      <PropertyRef Name="MaDH" />
     </Key>
     <Property Name="MaSach" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="NgayNhan" Type="DateTime" Precision="0" />
     <Property Name="TenSach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GiaBan" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="MaKH" Type="Int32" Nullable="false" />
+    <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <Property Name="MaDH" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

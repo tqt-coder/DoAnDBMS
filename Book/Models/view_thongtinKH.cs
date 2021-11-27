@@ -16,10 +16,17 @@ namespace Book.Models
     {
         public string MaSach { get; set; }
         public string HovaTen { get; set; }
+        public string DiaChi { get; set; }
+        public string Gmail { get; set; }
+        public string SoDienThoai { get; set; }
         public System.DateTime NgayDat { get; set; }
         public Nullable<System.DateTime> NgayNhan { get; set; }
         public string TenSach { get; set; }
+        public Nullable<decimal> GiaBan { get; set; }
         public Nullable<decimal> TongTien { get; set; }
         public int MaKH { get; set; }
+        public Nullable<decimal> ThanhTien { get; set; }
+        public int SoLuong { get; set; }
+        public int MaDH { get; set; }
     }
 }

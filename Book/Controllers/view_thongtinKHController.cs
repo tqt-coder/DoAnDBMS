@@ -17,9 +17,29 @@ namespace Book.Controllers
         // GET: view_thongtinKH
         public ActionResult Index()
         {
-            return View(db.view_thongtinKH.Distinct().ToList());
+            return View(db.view_thongtinKH.ToList());
         }
 
+        public ActionResult Invoidce()
+        {
+            if (Session["UserID"] != null)
+            {
+               
+                int maKH = Convert.ToInt32(Session["ID"]);
+                DateTime date = DateTime.Now;
+                DateTime date2 = DateTime.Parse(date.ToString("MM-dd-yyyy"));
+                var viewKH = db.view_thongtinKH.Where(s => s.MaKH == maKH && s.NgayDat == date2) ;
+                if(viewKH.ToList().Count() > 0)
+                {
+                    ViewBag.item = true;
+                }
+                return View(viewKH.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "KhachHangs");
+            }
+        }
         // GET: view_thongtinKH/Details/5
         public ActionResult Details(int? id)
         {

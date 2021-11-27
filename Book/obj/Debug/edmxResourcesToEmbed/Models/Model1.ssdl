@@ -106,16 +106,27 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
   <EntityType Name="view_thongtinKH">
     <Key>
       <PropertyRef Name="MaSach" />
+      <PropertyRef Name="DiaChi" />
+      <PropertyRef Name="Gmail" />
       <PropertyRef Name="NgayDat" />
       <PropertyRef Name="MaKH" />
+      <PropertyRef Name="SoLuong" />
+      <PropertyRef Name="MaDH" />
     </Key>
     <Property Name="MaSach" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="HovaTen" Type="nvarchar" MaxLength="50" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Gmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
     <Property Name="NgayDat" Type="date" Nullable="false" />
     <Property Name="NgayNhan" Type="date" />
     <Property Name="TenSach" Type="nvarchar" MaxLength="50" />
+    <Property Name="GiaBan" Type="money" />
     <Property Name="TongTien" Type="money" />
     <Property Name="MaKH" Type="int" Nullable="false" />
+    <Property Name="ThanhTien" Type="money" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="MaDH" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="fk_ctdh_dh">
     <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
@@ -190,14 +201,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
     <Parameter Name="MaSach" Type="varchar" Mode="In" />
     <Parameter Name="SoLuong" Type="int" Mode="In" />
   </Function>
-  <Function Name="PhanQuyenAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="login" Type="varchar" Mode="In" />
-    <Parameter Name="db" Type="varchar" Mode="In" />
-  </Function>
-  <Function Name="PhanQuyenUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="login" Type="varchar" Mode="In" />
-    <Parameter Name="db" Type="varchar" Mode="In" />
-  </Function>
   <Function Name="recommend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="theloai" Type="nvarchar" Mode="In" />
   </Function>
@@ -228,14 +231,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
   <Function Name="XoaHoaDon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MaHD" Type="int" Mode="In" />
     <Parameter Name="MaSach" Type="nvarchar" Mode="In" />
-  </Function>
-  <Function Name="XoaQuyenAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="login" Type="varchar" Mode="In" />
-    <Parameter Name="db" Type="varchar" Mode="In" />
-  </Function>
-  <Function Name="XoaQuyenUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="login" Type="varchar" Mode="In" />
-    <Parameter Name="db" Type="varchar" Mode="In" />
   </Function>
   <EntityContainer Name="DoAnModelStoreContainer">
     <EntitySet Name="ChiTietHoaDon" EntityType="Self.ChiTietHoaDon" Schema="dbo" store:Type="Tables" />
@@ -275,11 +270,18 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
       <DefiningQuery>SELECT 
     [view_thongtinKH].[MaSach] AS [MaSach], 
     [view_thongtinKH].[HovaTen] AS [HovaTen], 
+    [view_thongtinKH].[DiaChi] AS [DiaChi], 
+    [view_thongtinKH].[Gmail] AS [Gmail], 
+    [view_thongtinKH].[SoDienThoai] AS [SoDienThoai], 
     [view_thongtinKH].[NgayDat] AS [NgayDat], 
     [view_thongtinKH].[NgayNhan] AS [NgayNhan], 
     [view_thongtinKH].[TenSach] AS [TenSach], 
+    [view_thongtinKH].[GiaBan] AS [GiaBan], 
     [view_thongtinKH].[TongTien] AS [TongTien], 
-    [view_thongtinKH].[MaKH] AS [MaKH]
+    [view_thongtinKH].[MaKH] AS [MaKH], 
+    [view_thongtinKH].[ThanhTien] AS [ThanhTien], 
+    [view_thongtinKH].[SoLuong] AS [SoLuong], 
+    [view_thongtinKH].[MaDH] AS [MaDH]
     FROM [dbo].[view_thongtinKH] AS [view_thongtinKH]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="fk_ctdh_dh" Association="Self.fk_ctdh_dh">

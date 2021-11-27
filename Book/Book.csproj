@@ -217,11 +217,12 @@
     <Content Include="Content\cart.css" />
     <Content Include="Content\img\empty cart.png" />
     <Content Include="Content\img\logo.png" />
+    <Content Include="Content\invoidce.css" />
     <Content Include="Content\my.css" />
     <Content Include="Content\MyStyle.css" />
     <Content Include="Content\my2.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\Book.css" />
+    <Content Include="Content\Book1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -292,6 +293,7 @@
     <Content Include="Views\Saches\Home.cshtml" />
     <Content Include="Views\Saches\Details.cshtml" />
     <Content Include="Views\KhachHangs\Admin.cshtml" />
+    <Content Include="Views\view_thongtinKH\Invoidce.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

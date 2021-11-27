@@ -20,9 +20,16 @@ namespace Book.Controllers
             var donHangs = db.DonHangs.Include(d => d.KhachHang);
             return View(donHangs.ToList());
         }
+
+       
+        
         // Update cập nhật mua hàng
         public ActionResult Update(DonHang dh)
         {
+            if (dh.NgayNhan != null)
+            {
+                Session["appear"] = "have";
+            }
             db.Entry(dh).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index", "Saches");
@@ -59,6 +66,7 @@ namespace Book.Controllers
         {
             if (ModelState.IsValid)
             {
+               
                 db.DonHangs.Add(donHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");

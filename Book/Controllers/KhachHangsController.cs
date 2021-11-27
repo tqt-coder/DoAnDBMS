@@ -12,7 +12,7 @@ namespace Book.Controllers
 {
     public class KhachHangsController : Controller
     {
-        private DoAnEntities1 db = new DoAnEntities1();
+       private DoAnEntities1 db = new DoAnEntities1();
 
 
         // GET: KhachHangs
@@ -66,6 +66,7 @@ namespace Book.Controllers
                     Session["UserName"] = obj.Gmail.ToString();
                     Session["ID"] = obj.MaKH.ToString();
                     Session["ad"] = null;
+                    Session["Name"] = obj.HovaTen.ToString();
                     if (obj.Quyen.ToString() == "admin")
                     {
                         Session["ad"] = "manager";

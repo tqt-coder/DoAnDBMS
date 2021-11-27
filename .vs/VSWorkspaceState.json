@@ -1,7 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Book",
+    "\\Book\\Controllers",
+    "\\Book\\Views",
+    "\\Book\\Views\\ChiTietHoaDons",
+    "\\Book\\Views\\DonHangs",
+    "\\Book\\Views\\Gios",
+    "\\Book\\Views\\KhachHangs",
+    "\\Book\\Views\\Shared",
+    "\\Book\\Views\\view_thongtinKH"
   ],
-  "SelectedNode": "\\Book.sln",
+  "SelectedNode": "\\Book\\Controllers\\view_thongtinKHController.cs",
   "PreviewInSolutionExplorer": false
 }

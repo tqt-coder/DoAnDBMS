@@ -111,16 +111,27 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
         <EntityType Name="view_thongtinKH">
           <Key>
             <PropertyRef Name="MaSach" />
+            <PropertyRef Name="DiaChi" />
+            <PropertyRef Name="Gmail" />
             <PropertyRef Name="NgayDat" />
             <PropertyRef Name="MaKH" />
+            <PropertyRef Name="SoLuong" />
+            <PropertyRef Name="MaDH" />
           </Key>
           <Property Name="MaSach" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="HovaTen" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SoDienThoai" Type="varchar" MaxLength="10" />
           <Property Name="NgayDat" Type="date" Nullable="false" />
           <Property Name="NgayNhan" Type="date" />
           <Property Name="TenSach" Type="nvarchar" MaxLength="50" />
+          <Property Name="GiaBan" Type="money" />
           <Property Name="TongTien" Type="money" />
           <Property Name="MaKH" Type="int" Nullable="false" />
+          <Property Name="ThanhTien" Type="money" />
+          <Property Name="SoLuong" Type="int" Nullable="false" />
+          <Property Name="MaDH" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="fk_ctdh_dh">
           <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
@@ -195,14 +206,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Parameter Name="MaSach" Type="varchar" Mode="In" />
           <Parameter Name="SoLuong" Type="int" Mode="In" />
         </Function>
-        <Function Name="PhanQuyenAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="login" Type="varchar" Mode="In" />
-          <Parameter Name="db" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="PhanQuyenUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="login" Type="varchar" Mode="In" />
-          <Parameter Name="db" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="recommend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="theloai" Type="nvarchar" Mode="In" />
         </Function>
@@ -233,14 +236,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
         <Function Name="XoaHoaDon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MaHD" Type="int" Mode="In" />
           <Parameter Name="MaSach" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="XoaQuyenAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="login" Type="varchar" Mode="In" />
-          <Parameter Name="db" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="XoaQuyenUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="login" Type="varchar" Mode="In" />
-          <Parameter Name="db" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="DoAnModelStoreContainer">
           <EntitySet Name="ChiTietHoaDon" EntityType="Self.ChiTietHoaDon" Schema="dbo" store:Type="Tables" />
@@ -280,11 +275,18 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <DefiningQuery>SELECT 
     [view_thongtinKH].[MaSach] AS [MaSach], 
     [view_thongtinKH].[HovaTen] AS [HovaTen], 
+    [view_thongtinKH].[DiaChi] AS [DiaChi], 
+    [view_thongtinKH].[Gmail] AS [Gmail], 
+    [view_thongtinKH].[SoDienThoai] AS [SoDienThoai], 
     [view_thongtinKH].[NgayDat] AS [NgayDat], 
     [view_thongtinKH].[NgayNhan] AS [NgayNhan], 
     [view_thongtinKH].[TenSach] AS [TenSach], 
+    [view_thongtinKH].[GiaBan] AS [GiaBan], 
     [view_thongtinKH].[TongTien] AS [TongTien], 
-    [view_thongtinKH].[MaKH] AS [MaKH]
+    [view_thongtinKH].[MaKH] AS [MaKH], 
+    [view_thongtinKH].[ThanhTien] AS [ThanhTien], 
+    [view_thongtinKH].[SoLuong] AS [SoLuong], 
+    [view_thongtinKH].[MaDH] AS [MaDH]
     FROM [dbo].[view_thongtinKH] AS [view_thongtinKH]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="fk_ctdh_dh" Association="Self.fk_ctdh_dh">
@@ -633,16 +635,27 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
         <EntityType Name="view_thongtinKH">
           <Key>
             <PropertyRef Name="MaSach" />
+            <PropertyRef Name="DiaChi" />
+            <PropertyRef Name="Gmail" />
             <PropertyRef Name="NgayDat" />
             <PropertyRef Name="MaKH" />
+            <PropertyRef Name="SoLuong" />
+            <PropertyRef Name="MaDH" />
           </Key>
           <Property Name="MaSach" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="NgayNhan" Type="DateTime" Precision="0" />
           <Property Name="TenSach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GiaBan" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="MaKH" Type="Int32" Nullable="false" />
+          <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SoLuong" Type="Int32" Nullable="false" />
+          <Property Name="MaDH" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -756,8 +769,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Don" FunctionName="DoAnModel.Store.Don" />
-          <FunctionImportMapping FunctionImportName="PhanQuyenAdmin" FunctionName="DoAnModel.Store.PhanQuyenAdmin" />
-          <FunctionImportMapping FunctionImportName="PhanQuyenUser" FunctionName="DoAnModel.Store.PhanQuyenUser" />
           <FunctionImportMapping FunctionImportName="recommend" FunctionName="DoAnModel.Store.recommend">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DoAnModel.recommend_Result">
@@ -803,8 +814,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="XoaHoaDon" FunctionName="DoAnModel.Store.XoaHoaDon" />
-          <FunctionImportMapping FunctionImportName="XoaQuyenAdmin" FunctionName="DoAnModel.Store.XoaQuyenAdmin" />
-          <FunctionImportMapping FunctionImportName="XoaQuyenUser" FunctionName="DoAnModel.Store.XoaQuyenUser" />
           <FunctionImportMapping FunctionImportName="BookNotOrder1" FunctionName="DoAnModel.Store.BookNotOrder">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DoAnModel.BookNotOrder1_Result">
@@ -823,11 +832,18 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <EntitySetMapping Name="view_thongtinKH">
             <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
               <MappingFragment StoreEntitySet="view_thongtinKH">
+                <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
                 <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
                 <ScalarProperty Name="TenSach" ColumnName="TenSach" />
                 <ScalarProperty Name="NgayNhan" ColumnName="NgayNhan" />
                 <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
                 <ScalarProperty Name="MaSach" ColumnName="MaSach" />
               </MappingFragment>

@@ -48,13 +48,13 @@
                     </div>
                     <div class="form-group">
                         <label>Ngày đặt</label>
-                        <input type="text" required class="form-control" name="NgayDat"
+                        <input type="date" required class="form-control" name="NgayDat"
                                value="@Html.DisplayFor(model => model.NgayDat)">
                     </div>
                     <div class="form-group">
                         <label>Ngày nhận</label>
-                        <input type="text" required class="form-control" name="NgayNhan"
-                               value="@Html.DisplayFor(model => model.NgayNhan)">
+                        <input type="date" required class="form-control" name="NgayNhan"
+                               value="DateTime.Parse(@Html.DisplayFor(model => model.NgayNhan))">
                     </div>
                     <div class="form-group">
                         <label>Thành tiền</label>

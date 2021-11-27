@@ -7,7 +7,7 @@
 
 
 <div id="content">
-    
+
     <div class="cart-background">
         <h2 class="cart__title">Giỏ hàng</h2>
         <div class="cart__bill">
@@ -205,12 +205,12 @@
     else {
         btnPaid.onclick = (event) => {
             event.preventDefault();
-          
+
             btnPaid.textContent = 'Đã thanh toán';
-           
+
             setTimeout(() => {
                 totalBill();
-               
+
             }, 5000)
 
             setTimeout(() => {
@@ -218,9 +218,9 @@
                   Thanh toán thành công
                     Cảm ơn quý khách`);
             }, 200)
-          
-            
-            
+
+
+
         }
     }
 
@@ -229,7 +229,7 @@
     var cartTitle = document.querySelector('.cart__title');
     var cartImg = document.querySelector('.cart-background__empty');
     if (sum === 0) {
-        cartBill.style.display= 'none';
+        cartBill.style.display = 'none';
         cartTitle.textContent = 'Giỏ hàng trống';
         cartTitle.style.color = 'red';
         cartImg.classList.remove('hidden-infor');
@@ -240,4 +240,3 @@
     }
 
 </script>
-

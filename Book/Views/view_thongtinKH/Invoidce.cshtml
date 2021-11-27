@@ -1,0 +1,187 @@
+﻿@model IEnumerable<Book.Models.view_thongtinKH>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/invoidce.css">
+
+</head>
+
+<body>
+
+    @if (ViewBag.item == null)
+    {
+        <h2>Không có thông báo</h2>
+        <a href="/Saches/Index">Trở về</a>
+    }
+
+    @if (ViewBag.item != null)
+    {
+        Session["apppear"] = "no";
+        int counter = 1;
+        int max = 0;
+
+        foreach (var item in Model)
+        {
+            if (max < int.Parse(@Html.DisplayFor(modelItem => item.MaDH).ToString()))
+            {
+                max = int.Parse(@Html.DisplayFor(modelItem => item.MaDH).ToString());
+            }
+        }
+
+
+        <div class="form" id="invoice">
+
+            <div class="invoice overflow-auto">
+                <div style="min-width: 600px">
+                    <header>
+                        <div class="row">
+
+                            <div class="col company-details">
+                                <h2 class="name">
+                                    Hóa Đơn
+                                </h2>
+
+                            </div>
+                        </div>
+                    </header>
+                    <main>
+                        <div class="row contacts">
+                            <div class="col invoice-to">
+                                <h2 class="to">@Session["Name"]</h2>
+
+                                <div class="address2"><i class="fa fa-map"></i><span class="address"></span> </div>
+                                <div class="address2"><i class="fa fa-phone-square"></i> <span class="phone-js"></span></div>
+                                <div class="email"><i class="fa fa-envelope-square"></i><a href="mailto:@Session["UserName"]">@Session["UserName"]</a></div>
+                            </div>
+                            <div class="col invoice-details">
+                                <div class="date">Ngày đặt hàng: <span class="create-date-js">01/10/2018</span></div>
+                                <div class="date">Ngày nhận hàng: <span class="recive-date-js">01/10/2018</span></div>
+                            </div>
+                        </div>
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="text-left">Tên sách</th>
+                                    <th class="text-right">Đơn giá</th>
+                                    <th class="text-right">Số lượng</th>
+                                    <th class="text-right">Thành tiển</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    Session["appear"] = "appear";
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    if (max == int.Parse(@Html.DisplayFor(modelItem => item.MaDH).ToString()))
+                                    {
+
+                                        <tr>
+                                            <td class="no">@(counter)</td>
+                                            <td class="text-left">
+                                                <h3>
+                                                    @Html.DisplayFor(modelItem => item.TenSach)
+                                                </h3>
+                                            </td>
+                                            <td class="unit">@Html.DisplayFor(modelItem => item.GiaBan) đ</td>
+                                            <td class="qty">@Html.DisplayFor(modelItem => item.SoLuong)</td>
+                                            <td class="total">@Html.DisplayFor(modelItem => item.ThanhTien) đ</td>
+
+                                            <input class="money-@(counter)" type="text" hidden value="@Html.DisplayFor(modelItem => item.TongTien)" />
+                                            <input class="phone-@(counter)" type="text" hidden value="@Html.DisplayFor(modelItem => item.SoDienThoai)" />
+                                            <input class="date-create-@(counter)" type="text" hidden value="@Html.DisplayFor(modelItem => item.NgayDat)" />
+                                            <input class="date-recive-@(counter)" type="text" hidden value="@Html.DisplayFor(modelItem => item.NgayNhan)" />
+                                            <input class="address-@(counter++)" type="text" hidden value="@Html.DisplayFor(modelItem => item.DiaChi)" />
+
+                                        </tr>
+
+                                    }
+
+                                }
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td colspan="2">Tổng cộng</td>
+                                    <td class="total__bill">0 VND</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </main>
+                    <footer>
+                        <div class="thanks">Thank you!</div>
+                        <div class="toolbar hidden-print">
+                            <div class="text-right text-right-btn">
+                                <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+                                <a href="/Saches/Index" class="btn  btn-infor__return"><i class="fa fa-arrow-left"></i>Trỏ về</a>
+                            </div>
+                            <hr>
+                        </div>
+                        <a href="/Saches/Index" class="bill-close__btn hidden-print"><i class="fa fa-times-circle"></i></a>
+                    </footer>
+                </div>
+                <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+                <div></div>
+            </div>
+
+        </div>
+    }
+
+    <script>
+        var totalBIll = document.querySelector('.total__bill');
+        var money = document.querySelector('.money-1').value;
+
+        var cDate = document.querySelector('.create-date-js');
+        var vDate = document.querySelector('.date-create-1').value;
+
+        var rDate = document.querySelector('.recive-date-js');
+        var vrDate = document.querySelector('.date-recive-1').value;
+
+        var phone = document.querySelector('.phone-js');
+        var vPhone = document.querySelector('.phone-1').value;
+
+        var address = document.querySelector('.address');
+        var vAdd = document.querySelector('.address-1').value;
+
+        totalBIll.textContent = money + ' VND';
+        var date1 = new Date(vDate);
+        var date2 = new Date(vrDate);
+        cDate.textContent = date1.toLocaleDateString("vi-VN");
+        rDate.textContent = date2.toLocaleDateString("vi-VN");
+        address.textContent = vAdd;
+
+        phone.textContent = vPhone;
+
+
+        $('#printInvoice').click(function () {
+            Popup($('.invoice')[0].outerHTML);
+
+            function Popup(data) {
+
+                window.print();
+                return true;
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -11,6 +11,17 @@
     justify-content: right;
     align-items: flex-end;
 }
+.invoidce-infor-js {
+    font-size: 12px;
+    font-size: 12px;
+    position: absolute;
+    top: -80%;
+    left: -10%;
+    display: none;
+}
+.invoidce-infor-js.invoidce-infor-appear{
+    display:block;
+}
 
 #content {
     margin-top: 100px;
@@ -38,6 +49,7 @@
 }
 
 .navbar_item {
+    position: relative;
     margin: 0 30px;
     color: #FF4000;
 }
