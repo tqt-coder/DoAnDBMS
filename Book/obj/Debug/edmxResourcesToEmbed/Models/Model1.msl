@@ -187,5 +187,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ThongKe" FunctionName="DoAnModel.Store.ThongKe">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.ThongKe_Result">
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

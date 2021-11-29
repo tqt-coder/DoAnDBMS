@@ -16,7 +16,47 @@
     @Styles.Render("~/Content/css")
 
 
+    <style>
+        .navbar_item.navbar_item__account:hover {
+            cursor: pointer;
+        }
+        .navbar_item__account:hover .navbar-account__user {
+            display: block;
+        }
+        .navbar-account__user {
+            position: absolute;
+            background-color: #fff;
+            min-width: 20rem;
+            padding: 1rem;
+            top: 100%;
+            right: 0;
+            box-shadow: 2px 2px 8px 2px #999;
+            display: none;
+            border-radius: 0.5rem;
+           
+        }
+        .navbar-account__user .navbar_link{
+                display: block;
+                padding: 0.6rem 0.5rem;
+                color: #000;
+                
 
+        }
+            .navbar-account__user .navbar_link:hover {
+                color: blue;
+                background-color: #ccc;
+            }
+            .navbar-account__user:before {
+                display: block;
+                background-color: transparent;
+                width: 100%;
+                height: 2rem;
+                position: absolute;
+                content: "";
+                top: -23%;
+                right: -1%;
+            }
+    </style>
 
 
 </head>
@@ -67,19 +107,29 @@
                         <p class="navbar_item">
                             <a href="/Gios/ViewCart" class="navbar_link">GIỎ HÀNG</a>
                         </p>
-                        <div class="navbar_item">
+                        <div class="navbar_item navbar_item__account">
                             @if (Session["UserName"] == null)
                             {
                                 <a href="/KhachHangs/Login" class="navbar_link">ĐĂNG NHẬP</a>
                             }
                             @if (Session["UserName"] != null)
                             {
-                                <a href="/KhachHangs/Login" class="navbar_link">ĐĂNG XUẤT</a>
+
+                                if (Session["ad"] != null)
+                                {
+
+                                    <a href="/KhachHangs/Admin" class="navbar_link">QUẢN TRỊ</a>
+                                }
+                                else
+                                {
+                                    <h5>TÀI KHOẢN</h5>
+                                    <div class="navbar-account__user">
+                                        <a href="/KhachHangs/Login" class="navbar_link">ĐĂNG XUẤT</a>
+                                        <a href="/KhachHangs/EditInfor?id=@Session["ID"]" class="navbar_link">CHỈNH SỬA THÔNG TIN</a>
+                                    </div>
+                                }
                             }
-                            @if (Session["UserName"] != null && Session["ad"] != null)
-                            {
-                                <a href="/KhachHangs/Admin" class="navbar_link">QUẢN TRỊ</a>
-                            }
+
 
                         </div>
                     </ul>

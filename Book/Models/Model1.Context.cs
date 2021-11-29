@@ -201,5 +201,22 @@ namespace Book.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotOrder1_Result>("BookNotOrder1");
         }
+    
+        public virtual ObjectResult<ThongKe_Result> ThongKe(string ngay, string thang, string nam)
+        {
+            var ngayParameter = ngay != null ?
+                new ObjectParameter("ngay", ngay) :
+                new ObjectParameter("ngay", typeof(string));
+    
+            var thangParameter = thang != null ?
+                new ObjectParameter("thang", thang) :
+                new ObjectParameter("thang", typeof(string));
+    
+            var namParameter = nam != null ?
+                new ObjectParameter("nam", nam) :
+                new ObjectParameter("nam", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe_Result>("ThongKe", ngayParameter, thangParameter, namParameter);
+        }
     }
 }

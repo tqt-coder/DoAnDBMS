@@ -21,8 +21,14 @@ namespace Book.Controllers
             return View(donHangs.ToList());
         }
 
-       
-        
+        public ActionResult Chart()
+        {
+            var dt = db.Database.SqlQuery<ThongKe_Result>("ThongKe "+"'ngay', null, null");
+
+            return View(dt.ToList());
+
+        }
+
         // Update cập nhật mua hàng
         public ActionResult Update(DonHang dh)
         {

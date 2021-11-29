@@ -254,6 +254,11 @@
     </FunctionImport>
     <FunctionImport Name="BookNotOrder1" ReturnType="Collection(DoAnModel.BookNotOrder1_Result)" />
     <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
+    <FunctionImport Name="ThongKe" ReturnType="Collection(DoAnModel.ThongKe_Result)">
+      <Parameter Name="ngay" Mode="In" Type="String" />
+      <Parameter Name="thang" Mode="In" Type="String" />
+      <Parameter Name="nam" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="BookNotOrder_Result">
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -343,4 +348,8 @@
     <Property Name="SoLuong" Type="Int32" Nullable="false" />
     <Property Name="MaDH" Type="Int32" Nullable="false" />
   </EntityType>
+  <ComplexType Name="ThongKe_Result">
+    <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="NgayDat" Nullable="false" />
+  </ComplexType>
 </Schema>

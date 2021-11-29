@@ -142,6 +142,35 @@ namespace Book.Controllers
             return View(khachHang);
         }
 
+        public ActionResult EditInfor(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            KhachHang khachHang = db.KhachHangs.Find(id);
+            if (khachHang == null)
+            {
+                return HttpNotFound();
+            }
+            return View(khachHang);
+        }
+
+        // POST: KhachHangs/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditInfor([Bind(Include = "MaKH,HovaTen,SoDienThoai,DiaChi,PassWord,Gmail,Quyen")] KhachHang khachHang)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(khachHang).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index","Saches");
+            }
+            return View(khachHang);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)

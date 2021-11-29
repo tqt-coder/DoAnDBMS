@@ -20,7 +20,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <link rel="stylesheet" href="~/Content/my2.css">
-    <link href="~/Content/my.css" rel="stylesheet">
+    <link href="~/Content/my1.css" rel="stylesheet">
 
 </head>
 
@@ -73,7 +73,7 @@
                             <span>Chi Tiết Đơn Hàng</span>
                         </a>
                     </li>
-                   
+
                     <li class="sub-menu">
                         <a href="/NhaXuatBans/Index">
                             <i class="fa fa-bookmark"></i>
@@ -85,6 +85,18 @@
                             <i class="fa fa-tasks"></i>
                             <span>Đơn hàng đã nhận</span>
                         </a>
+                    </li>
+                    <li class="sub-menu sub-menu-js">
+                        <a style="cursor:pointer" >
+                            <i class=" fa fa-bar-chart-o"></i>
+                            <span>Thống kê</span>
+                        </a>
+                        <ul class="sub">
+                            <li><a href="/DonHangs/Chart">Theo tuần</a></li>
+                            <li><a href="#">Chartjs</a></li>
+                            <li><a href="#">Flot Charts</a></li>
+                            <li><a href="#">xChart</a></li>
+                        </ul>
                     </li>
                     <li class="sub-menu">
                         <a href="/Saches/Index">
@@ -110,7 +122,15 @@
         </section>
 
     </section>
+    <script>
+        var subMenu = document.querySelector('.sub-menu.sub-menu-js');
+        subMenu.onclick = function (e) {
+            e.target.parentElement.classList.add('active');
+            
+        };
 
+
+    </script>
 </body>
 
 </html>

@@ -222,6 +222,11 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="ThongKe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ngay" Type="varchar" Mode="In" />
+          <Parameter Name="thang" Type="varchar" Mode="In" />
+          <Parameter Name="nam" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="TongTien" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MaKH" Type="int" Mode="In" />
         </Function>
@@ -568,6 +573,11 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="BookNotOrder1" ReturnType="Collection(DoAnModel.BookNotOrder1_Result)" />
           <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
+          <FunctionImport Name="ThongKe" ReturnType="Collection(DoAnModel.ThongKe_Result)">
+            <Parameter Name="ngay" Mode="In" Type="String" />
+            <Parameter Name="thang" Mode="In" Type="String" />
+            <Parameter Name="nam" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="BookNotOrder_Result">
           <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -657,6 +667,10 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Property Name="SoLuong" Type="Int32" Nullable="false" />
           <Property Name="MaDH" Type="Int32" Nullable="false" />
         </EntityType>
+        <ComplexType Name="ThongKe_Result">
+          <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+          <Property Type="DateTime" Name="NgayDat" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -849,6 +863,14 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ThongKe" FunctionName="DoAnModel.Store.ThongKe">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.ThongKe_Result">
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

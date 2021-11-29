@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Book.Models.ThongKe_Result>
+@{
+    ViewBag.Title = "Chart";
+    Layout = "~/Views/Shared/ViewAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title>Chart</title>
+
+    <!-- Custom styles for this template -->
+    <link href="~/Content/chart.css" rel="stylesheet">
+    <link href="~/Content/my1.css" rel="stylesheet">
+</head>
+
+<body>
+    @foreach (var item in Model)
+    {
+    <div style="display:none" class="chart-money">
+        <input class="total-money" type="text" value=" @Html.DisplayFor(modelItem => item.TongTien)" />
+        <input class="date-money" type="text" value=" @Html.DisplayFor(modelItem => item.NgayDat)" />
+
+    </div>
+
+    }
+        <section id="container">
+            <section id="main-content">
+                <section class="wrapper site-min-height">
+                    <div class="content-panel">
+                        <h4>Danh thu (Triệu VND)</h4>
+                        <div class="panel-body">
+                            <figure class="demo-xchart" id="chart"></figure>
+                        </div>
+                        <h3 class="chart-title">Danh thu theo tuần</h3>
+                    </div>
+                    <!-- page end-->
+                </section>
+            </section>
+
+
+        </section>
+
+        <script src="~/Content/js/chart1.js"></script>
+        <script src="~/Content/js/chart2.js"></script>
+        <script>
+            var charMoneyArr = document.querySelectorAll('.chart-money');
+           var kq=  Array.from(charMoneyArr).reduce(function (callback, input) {
+                var obj = {};
+                var inputMoney = input.querySelector('.total-money').value.trim();
+                var inputDate = input.querySelector('.date-money').value.trim();
+               var date = new Date(inputDate);
+               obj.y = parseFloat(inputMoney)/1000;
+               obj.x = date.toLocaleDateString();
+               callback.push(obj)
+                return callback;
+                
+            }, [])
+            console.log(kq)
+            var model = {
+                "className": ".main.l1",
+                "data": kq
+
+            };
+            var fn = function () {
+
+                var data = [{
+                    "xScale": "ordinal",
+                    "comp": [],
+                    "main": [model],
+                    "type": "bar",
+                    "yScale": "linear"
+                }];
+
+                var order = [0, 1, 0, 2],
+                    i = 0,
+                    xFormat = d3.time.format('%A'),
+                    chart = new xChart('line-dotted', data[order[i]], '#chart', {
+                        axisPaddingTop: 5,
+                        dataFormatX: function (x) {
+                            return new Date(x);
+                        },
+                        tickFormatX: function (x) {
+                            return xFormat(x);
+                        },
+                        timing: 1250
+                    }),
+                    rotateTimer,
+                    toggles = d3.selectAll('.multi button'),
+                    t = 3500;
+
+                function updateChart(i) {
+                    var d = data[i];
+                    chart.setData(d);
+                    toggles.classed('toggled', function () {
+                        return (d3.select(this).attr('data-type') === d.type);
+                    });
+                    return d;
+                }
+
+                toggles.on('click', function (d, i) {
+                    clearTimeout(rotateTimer);
+                    updateChart(i);
+                });
+
+                function rotateChart() {
+                    i += 1;
+                    i = (i >= order.length) ? 0 : i;
+                    var d = updateChart(order[i]);
+                    rotateTimer = setTimeout(rotateChart, t);
+                }
+                rotateTimer = setTimeout(rotateChart, t);
+            };
+            fn();
+        </script>
+    </body>
+
+</html>
+

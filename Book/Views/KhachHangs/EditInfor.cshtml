@@ -1,0 +1,119 @@
+﻿@model Book.Models.KhachHang
+@{
+    ViewBag.Title = "Chỉnh sửa thông tin";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="~/Content/editprofile.css" rel="stylesheet">
+    <link href="~/Content/my2.css" rel="stylesheet">
+    
+
+</head>
+
+<body>
+    
+        @*appear when add class: sk-chase-background__appear*@
+        <div class="around-loading">
+            <div align="center" class="fond">
+                <div class="contener_general">
+                    <div class="contener_mixte">
+                        <div class="ballcolor ball_1">&nbsp;</div>
+                    </div>
+                    <div class="contener_mixte">
+                        <div class="ballcolor ball_2">&nbsp;</div>
+                    </div>
+                    <div class="contener_mixte">
+                        <div class="ballcolor ball_3">&nbsp;</div>
+                    </div>
+                    <div class="contener_mixte">
+                        <div class="ballcolor ball_4">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+                <form class="wrapper bg-white mt-sm-5 form-edit__book" action="/KhachHangs/EditInfor" method="post">
+                    @Html.AntiForgeryToken()
+                    <h4 class="pb-4 border-bottom">Tài khoản khách hàng</h4>
+                    <div style="display:none" class="form-group">
+                        <label>Mã khách hàng: @Html.DisplayFor(model => model.MaKH)</label>
+                        <input type="text" name="MaKH" class="form-control"
+                               value="@Html.DisplayFor(model => model.MaKH)" required>
+                    </div>
+                    <div class="py-2">
+                        <div class="row py-2">
+                            <div class="col-md-12">
+                                <label for="HovaTen">Họ và tên</label>
+                                <input type="text" name="HovaTen" class="bg-light form-control" value="@Html.DisplayFor(model => model.HovaTen)" required>
+                            </div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="col-md-6">
+                                <label for="email">Tài khoản Gmail</label>
+                                <input type="email" name="Gmail" value="@Html.DisplayFor(model => model.Gmail)" required class="bg-light form-control">
+                            </div>
+                            <div class="col-md-6 pt-md-0 pt-3">
+                                <label for="phone">Số điện thoại</label>
+                                <input type="tel" name="SoDienThoai" value="@Html.DisplayFor(model => model.SoDienThoai)" required class="bg-light form-control">
+                            </div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="col-md-12">
+                                <label for="country">Địa chỉ</label>
+                                <input type="text" name="DiaChi" value="@Html.DisplayFor(model => model.DiaChi)" required class="bg-light form-control">
+                            </div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="col-md-12">
+                                <label for="HovaTen">Mật khẩu</label>
+                                <input type="password" value="@Html.DisplayFor(model => model.PassWord)" class="bg-light form-control" name="PassWord" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:none" class="form-group">
+                        <input type="text" required class="form-control" name="Quyen"
+                               value="@Html.DisplayFor(model => model.Quyen)">
+                    </div>
+                    <div class="py-3 pb-4 border-bottom">
+                        <button class="btn btn-primary mr-3">Cập nhật</button>
+                        <button type="reset" class="btn border button">Đặt lại</button>
+                    </div>
+                    <div class="d-sm-flex align-items-center pt-3" id="deactivate">
+
+                        <div class="ml-auto"> <a href="/Saches/Index" class="btn danger">Thoát</a> </div>
+                    </div>
+
+
+                </form>
+            
+
+    <script>
+
+        var btnReset = document.querySelector('.btn-default__reset');
+        var formEdit = document.querySelector('.form-edit__book');
+        var spinner = document.querySelector('.around-loading');
+        formEdit.onsubmit = (e) => {
+            event.preventDefault();
+            spinner.classList.add('sk-chase-background__appear')
+            setTimeout(() => {
+                formEdit.submit();
+            }, 5000)
+        }
+
+
+
+    </script>
+</body>
+</html>

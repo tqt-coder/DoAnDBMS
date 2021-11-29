@@ -217,6 +217,11 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
       </CollectionType>
     </ReturnType>
   </Function>
+  <Function Name="ThongKe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ngay" Type="varchar" Mode="In" />
+    <Parameter Name="thang" Type="varchar" Mode="In" />
+    <Parameter Name="nam" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="TongTien" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MaKH" Type="int" Mode="In" />
   </Function>
