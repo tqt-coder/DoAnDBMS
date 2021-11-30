@@ -2,7 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\Book",
-    "\\Book\\Controllers",
+    "\\Book\\Models",
     "\\Book\\Views",
     "\\Book\\Views\\ChiTietHoaDons",
     "\\Book\\Views\\DonHangs",
@@ -11,6 +11,6 @@
     "\\Book\\Views\\Shared",
     "\\Book\\Views\\view_thongtinKH"
   ],
-  "SelectedNode": "\\Book\\Views\\Gios\\ViewCart.cshtml",
+  "SelectedNode": "\\Book\\Models",
   "PreviewInSolutionExplorer": false
 }

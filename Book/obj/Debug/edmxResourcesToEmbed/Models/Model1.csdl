@@ -108,6 +108,31 @@
     <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
+  <EntityType Name="view_thongtinKH">
+    <Key>
+      <PropertyRef Name="MaSach" />
+      <PropertyRef Name="DiaChi" />
+      <PropertyRef Name="Gmail" />
+      <PropertyRef Name="NgayDat" />
+      <PropertyRef Name="MaKH" />
+      <PropertyRef Name="SoLuong" />
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaSach" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Gmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="NgayNhan" Type="DateTime" Precision="0" />
+    <Property Name="TenSach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GiaBan" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MaKH" Type="Int32" Nullable="false" />
+    <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <Property Name="MaDH" Type="Int32" Nullable="false" />
+  </EntityType>
   <Association Name="fk_ctdh_dh">
     <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
     <End Role="ChiTietHoaDon" Type="Self.ChiTietHoaDon" Multiplicity="*" />
@@ -184,6 +209,7 @@
     <EntitySet Name="DatHangs" EntityType="Self.DatHang" />
     <EntitySet Name="Gios" EntityType="Self.Gio" />
     <EntitySet Name="View_KH" EntityType="Self.View_KH" />
+    <EntitySet Name="view_thongtinKH" EntityType="Self.view_thongtinKH" />
     <AssociationSet Name="fk_ctdh_dh" Association="Self.fk_ctdh_dh">
       <End Role="DonHang" EntitySet="DonHangs" />
       <End Role="ChiTietHoaDon" EntitySet="ChiTietHoaDons" />
@@ -208,26 +234,22 @@
       <Parameter Name="MaHD" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="BookNotOrder" ReturnType="Collection(DoAnModel.BookNotOrder_Result)" />
-    <FunctionImport Name="BookNotSell" ReturnType="Collection(DoAnModel.BookNotSell_Result)" />
     <FunctionImport Name="Don">
       <Parameter Name="MaKH" Mode="In" Type="Int32" />
       <Parameter Name="NgayDat" Mode="In" Type="DateTime" />
       <Parameter Name="MaSach" Mode="In" Type="String" />
       <Parameter Name="SoLuong" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="PhanQuyenAdmin">
-      <Parameter Name="login" Mode="In" Type="String" />
-      <Parameter Name="db" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="PhanQuyenUser">
-      <Parameter Name="login" Mode="In" Type="String" />
-      <Parameter Name="db" Mode="In" Type="String" />
-    </FunctionImport>
     <FunctionImport Name="recommend" ReturnType="Collection(DoAnModel.recommend_Result)">
       <Parameter Name="theloai" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="searchBook" ReturnType="Collection(DoAnModel.searchBook_Result)">
       <Parameter Name="tenSach" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ThongKe" ReturnType="Collection(DoAnModel.ThongKe_Result)">
+      <Parameter Name="dateStart" Mode="In" Type="DateTime" />
+      <Parameter Name="dateEnd" Mode="In" Type="DateTime" />
+      <Parameter Name="chucnang" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="TongTien">
       <Parameter Name="MaKH" Mode="In" Type="Int32" />
@@ -244,34 +266,19 @@
       <Parameter Name="MaHD" Mode="In" Type="Int32" />
       <Parameter Name="MaSach" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="XoaQuyenAdmin">
-      <Parameter Name="login" Mode="In" Type="String" />
-      <Parameter Name="db" Mode="In" Type="String" />
+    <FunctionImport Name="ThongKe2" ReturnType="Collection(DoAnModel.ThongKe2_Result)">
+      <Parameter Name="dateStart" Mode="In" Type="DateTime" />
+      <Parameter Name="dateEnd" Mode="In" Type="DateTime" />
     </FunctionImport>
-    <FunctionImport Name="XoaQuyenUser">
-      <Parameter Name="login" Mode="In" Type="String" />
-      <Parameter Name="db" Mode="In" Type="String" />
+    <FunctionImport Name="trongnam" ReturnType="Collection(DoAnModel.trongnam_Result)" />
+    <FunctionImport Name="trongthang" ReturnType="Collection(DoAnModel.trongthang_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
     </FunctionImport>
-    <FunctionImport Name="BookNotOrder1" ReturnType="Collection(DoAnModel.BookNotOrder1_Result)" />
-    <EntitySet Name="view_thongtinKH" EntityType="DoAnModel.view_thongtinKH" />
-    <FunctionImport Name="ThongKe" ReturnType="Collection(DoAnModel.ThongKe_Result)">
-      <Parameter Name="ngay" Mode="In" Type="String" />
-      <Parameter Name="thang" Mode="In" Type="String" />
-      <Parameter Name="nam" Mode="In" Type="String" />
+    <FunctionImport Name="trongtuan" ReturnType="Collection(DoAnModel.trongtuan_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="BookNotOrder_Result">
-    <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
-    <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
-    <Property Type="String" Name="HinhAnh" Nullable="false" />
-    <Property Type="String" Name="MaNXB" Nullable="true" MaxLength="20" />
-    <Property Type="Int32" Name="SoLuong" Nullable="true" />
-    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="TenNXB" Nullable="true" MaxLength="50" />
-  </ComplexType>
-  <ComplexType Name="BookNotSell_Result">
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
     <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
@@ -302,6 +309,10 @@
     <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
   </ComplexType>
+  <ComplexType Name="ThongKe_Result">
+    <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+    <Property Type="DateTime" Name="NgayDat" Nullable="false" />
+  </ComplexType>
   <ComplexType Name="ViewCart_Result">
     <Property Type="Int32" Name="MaHD" Nullable="false" />
     <Property Type="Int32" Name="MaKH" Nullable="false" />
@@ -312,44 +323,21 @@
     <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
   </ComplexType>
-  <ComplexType Name="BookNotOrder1_Result">
-    <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
-    <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
-    <Property Type="String" Name="HinhAnh" Nullable="false" />
-    <Property Type="String" Name="MaNXB" Nullable="true" MaxLength="20" />
-    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+  <ComplexType Name="ThongKe2_Result">
     <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="TenNXB" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SoLuong" Nullable="true" />
+    <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
   </ComplexType>
-  <EntityType Name="view_thongtinKH">
-    <Key>
-      <PropertyRef Name="MaSach" />
-      <PropertyRef Name="DiaChi" />
-      <PropertyRef Name="Gmail" />
-      <PropertyRef Name="NgayDat" />
-      <PropertyRef Name="MaKH" />
-      <PropertyRef Name="SoLuong" />
-      <PropertyRef Name="MaDH" />
-    </Key>
-    <Property Name="MaSach" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="HovaTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Gmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="NgayDat" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="NgayNhan" Type="DateTime" Precision="0" />
-    <Property Name="TenSach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="GiaBan" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="MaKH" Type="Int32" Nullable="false" />
-    <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="SoLuong" Type="Int32" Nullable="false" />
-    <Property Name="MaDH" Type="Int32" Nullable="false" />
-  </EntityType>
-  <ComplexType Name="ThongKe_Result">
-    <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
+  <ComplexType Name="trongnam_Result">
+    <Property Type="Int32" Name="thang" Nullable="true" />
+    <Property Type="Decimal" Name="tong" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="trongthang_Result">
     <Property Type="DateTime" Name="NgayDat" Nullable="false" />
+    <Property Type="Decimal" Name="tong" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="trongtuan_Result">
+    <Property Type="DateTime" Name="NgayDat" Nullable="false" />
+    <Property Type="Decimal" Name="tong" Nullable="true" Precision="19" />
   </ComplexType>
 </Schema>

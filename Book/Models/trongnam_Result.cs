@@ -11,16 +11,9 @@ namespace Book.Models
 {
     using System;
     
-    public partial class BookNotSell_Result
+    public partial class trongnam_Result
     {
-        public string MaSach { get; set; }
-        public Nullable<decimal> GiaBan { get; set; }
-        public string HinhAnh { get; set; }
-        public string MaNXB { get; set; }
-        public Nullable<int> SoLuong { get; set; }
-        public string TenSach { get; set; }
-        public string TenTacGia { get; set; }
-        public string TheLoai { get; set; }
-        public string TenNXB { get; set; }
+        public Nullable<int> thang { get; set; }
+        public Nullable<decimal> tong { get; set; }
     }
 }

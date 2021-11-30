@@ -218,9 +218,13 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
     </ReturnType>
   </Function>
   <Function Name="ThongKe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="ngay" Type="varchar" Mode="In" />
-    <Parameter Name="thang" Type="varchar" Mode="In" />
-    <Parameter Name="nam" Type="varchar" Mode="In" />
+    <Parameter Name="dateStart" Type="date" Mode="In" />
+    <Parameter Name="dateEnd" Type="date" Mode="In" />
+    <Parameter Name="chucnang" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ThongKe2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="dateStart" Type="date" Mode="In" />
+    <Parameter Name="dateEnd" Type="date" Mode="In" />
   </Function>
   <Function Name="TongTien" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MaKH" Type="int" Mode="In" />
@@ -229,6 +233,13 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
     <Parameter Name="MaKH" Type="int" Mode="In" />
     <Parameter Name="Tien" Type="money" Mode="In" />
     <Parameter Name="NgayNhan" Type="date" Mode="In" />
+  </Function>
+  <Function Name="trongnam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="trongthang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="date" Type="date" Mode="In" />
+  </Function>
+  <Function Name="trongtuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="date" Type="date" Mode="In" />
   </Function>
   <Function Name="ViewCart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MaKH" Type="int" Mode="In" />

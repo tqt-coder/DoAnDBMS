@@ -145,13 +145,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BookNotOrder1_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\BookNotOrder_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BookNotSell_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChiTietHoaDon.cs">
@@ -202,7 +196,19 @@
     <Compile Include="Models\SumMoney_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ThongKe2_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ThongKe_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\trongnam_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\trongthang_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\trongtuan_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewCart_Result.cs">
@@ -222,8 +228,14 @@
     <Content Include="Content\img\empty cart.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\invoidce.css" />
+    <Content Include="Content\js\morris-conf.js" />
+    <Content Include="Content\js\morris.min.js" />
+    <Content Include="Content\js\raphael.js" />
     <Content Include="Content\js\chart1.js" />
     <Content Include="Content\js\chart2.js" />
+    <Content Include="Content\js\jqaccordion.js" />
+    <Content Include="Content\js\nicescroll.js" />
+    <Content Include="Content\js\jquery.js" />
     <Content Include="Content\my1.css" />
     <Content Include="Content\MyStyle.css" />
     <Content Include="Content\my2.css" />
@@ -266,7 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ThongKe\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -303,6 +314,8 @@
     <Content Include="Views\view_thongtinKH\Invoidce.cshtml" />
     <Content Include="Views\DonHangs\Chart.cshtml" />
     <Content Include="Views\KhachHangs\EditInfor.cshtml" />
+    <Content Include="Views\DonHangs\Chart2.cshtml" />
+    <Content Include="Views\DonHangs\Chart3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -23,7 +23,31 @@ namespace Book.Controllers
 
         public ActionResult Chart()
         {
-            var dt = db.Database.SqlQuery<ThongKe_Result>("ThongKe "+"'ngay', null, null");
+            var dt = db.Database.SqlQuery<ThongKe_Result>("ThongKe "+"'2021-11-23', '2021-11-24', 'CN1'");
+
+            return View(dt.ToList());
+
+        }
+
+        // Thông kê số lượng theo ngày
+        public ActionResult Chart2()
+        {
+            DateTime date = DateTime.Now;
+            DateTime date2 = DateTime.Parse(date.ToString("MM-dd-yyyy"));
+            var dt = db.Database.SqlQuery<ThongKe2_Result>("ThongKe2 '" +date2 +"' ,'2021-11-30'").ToList();
+
+            int count = dt.Count;
+            if(count <= 0)
+            {
+                ViewBag.Quantity = "empty";
+            }
+            return View(dt);
+
+        }
+
+        public ActionResult Chart3()
+        {
+            var dt = db.Database.SqlQuery<trongnam_Result>("trongnam");
 
             return View(dt.ToList());
 

@@ -53,11 +53,6 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotOrder_Result>("BookNotOrder");
         }
     
-        public virtual ObjectResult<BookNotSell_Result> BookNotSell()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotSell_Result>("BookNotSell");
-        }
-    
         public virtual int Don(Nullable<int> maKH, Nullable<System.DateTime> ngayDat, string maSach, Nullable<int> soLuong)
         {
             var maKHParameter = maKH.HasValue ?
@@ -79,32 +74,6 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Don", maKHParameter, ngayDatParameter, maSachParameter, soLuongParameter);
         }
     
-        public virtual int PhanQuyenAdmin(string login, string db)
-        {
-            var loginParameter = login != null ?
-                new ObjectParameter("login", login) :
-                new ObjectParameter("login", typeof(string));
-    
-            var dbParameter = db != null ?
-                new ObjectParameter("db", db) :
-                new ObjectParameter("db", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PhanQuyenAdmin", loginParameter, dbParameter);
-        }
-    
-        public virtual int PhanQuyenUser(string login, string db)
-        {
-            var loginParameter = login != null ?
-                new ObjectParameter("login", login) :
-                new ObjectParameter("login", typeof(string));
-    
-            var dbParameter = db != null ?
-                new ObjectParameter("db", db) :
-                new ObjectParameter("db", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PhanQuyenUser", loginParameter, dbParameter);
-        }
-    
         public virtual ObjectResult<recommend_Result> recommend(string theloai)
         {
             var theloaiParameter = theloai != null ?
@@ -121,6 +90,23 @@ namespace Book.Models
                 new ObjectParameter("tenSach", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<searchBook_Result>("searchBook", tenSachParameter);
+        }
+    
+        public virtual ObjectResult<ThongKe_Result> ThongKe(Nullable<System.DateTime> dateStart, Nullable<System.DateTime> dateEnd, string chucnang)
+        {
+            var dateStartParameter = dateStart.HasValue ?
+                new ObjectParameter("dateStart", dateStart) :
+                new ObjectParameter("dateStart", typeof(System.DateTime));
+    
+            var dateEndParameter = dateEnd.HasValue ?
+                new ObjectParameter("dateEnd", dateEnd) :
+                new ObjectParameter("dateEnd", typeof(System.DateTime));
+    
+            var chucnangParameter = chucnang != null ?
+                new ObjectParameter("chucnang", chucnang) :
+                new ObjectParameter("chucnang", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe_Result>("ThongKe", dateStartParameter, dateEndParameter, chucnangParameter);
         }
     
         public virtual int TongTien(Nullable<int> maKH)
@@ -171,52 +157,40 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaHoaDon", maHDParameter, maSachParameter);
         }
     
-        public virtual int XoaQuyenAdmin(string login, string db)
+        public virtual ObjectResult<ThongKe2_Result> ThongKe2(Nullable<System.DateTime> dateStart, Nullable<System.DateTime> dateEnd)
         {
-            var loginParameter = login != null ?
-                new ObjectParameter("login", login) :
-                new ObjectParameter("login", typeof(string));
+            var dateStartParameter = dateStart.HasValue ?
+                new ObjectParameter("dateStart", dateStart) :
+                new ObjectParameter("dateStart", typeof(System.DateTime));
     
-            var dbParameter = db != null ?
-                new ObjectParameter("db", db) :
-                new ObjectParameter("db", typeof(string));
+            var dateEndParameter = dateEnd.HasValue ?
+                new ObjectParameter("dateEnd", dateEnd) :
+                new ObjectParameter("dateEnd", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaQuyenAdmin", loginParameter, dbParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe2_Result>("ThongKe2", dateStartParameter, dateEndParameter);
         }
     
-        public virtual int XoaQuyenUser(string login, string db)
+        public virtual ObjectResult<trongnam_Result> trongnam()
         {
-            var loginParameter = login != null ?
-                new ObjectParameter("login", login) :
-                new ObjectParameter("login", typeof(string));
-    
-            var dbParameter = db != null ?
-                new ObjectParameter("db", db) :
-                new ObjectParameter("db", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaQuyenUser", loginParameter, dbParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<trongnam_Result>("trongnam");
         }
     
-        public virtual ObjectResult<BookNotOrder1_Result> BookNotOrder1()
+        public virtual ObjectResult<trongthang_Result> trongthang(Nullable<System.DateTime> date)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotOrder1_Result>("BookNotOrder1");
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<trongthang_Result>("trongthang", dateParameter);
         }
     
-        public virtual ObjectResult<ThongKe_Result> ThongKe(string ngay, string thang, string nam)
+        public virtual ObjectResult<trongtuan_Result> trongtuan(Nullable<System.DateTime> date)
         {
-            var ngayParameter = ngay != null ?
-                new ObjectParameter("ngay", ngay) :
-                new ObjectParameter("ngay", typeof(string));
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
     
-            var thangParameter = thang != null ?
-                new ObjectParameter("thang", thang) :
-                new ObjectParameter("thang", typeof(string));
-    
-            var namParameter = nam != null ?
-                new ObjectParameter("nam", nam) :
-                new ObjectParameter("nam", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe_Result>("ThongKe", ngayParameter, thangParameter, namParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<trongtuan_Result>("trongtuan", dateParameter);
         }
     }
 }

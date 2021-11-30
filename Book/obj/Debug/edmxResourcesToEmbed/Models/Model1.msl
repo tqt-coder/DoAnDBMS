@@ -99,10 +99,45 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="view_thongtinKH">
+      <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
+        <MappingFragment StoreEntitySet="view_thongtinKH">
+          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+          <ScalarProperty Name="NgayNhan" ColumnName="NgayNhan" />
+          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <FunctionImportMapping FunctionName="DoAnModel.Store.SumMoney" FunctionImportName="SumMoney">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DoAnModel.SumMoney_Result">
           <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="BookNotOrder" FunctionName="DoAnModel.Store.BookNotOrder">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.BookNotOrder_Result">
+          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
+          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+          <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
+          <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
+          <ScalarProperty Name="TenNXB" ColumnName="TenNXB" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -135,6 +170,14 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ThongKe" FunctionName="DoAnModel.Store.ThongKe">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.ThongKe_Result">
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="TongTien" FunctionName="DoAnModel.Store.TongTien" />
     <FunctionImportMapping FunctionImportName="TraTien" FunctionName="DoAnModel.Store.TraTien" />
     <FunctionImportMapping FunctionImportName="ViewCart" FunctionName="DoAnModel.Store.ViewCart">
@@ -152,46 +195,36 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="XoaHoaDon" FunctionName="DoAnModel.Store.XoaHoaDon" />
-    <FunctionImportMapping FunctionImportName="BookNotOrder1" FunctionName="DoAnModel.Store.BookNotOrder">
+    <FunctionImportMapping FunctionImportName="ThongKe2" FunctionName="DoAnModel.Store.ThongKe2">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="DoAnModel.BookNotOrder1_Result">
-          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
-          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-          <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+        <ComplexTypeMapping TypeName="DoAnModel.ThongKe2_Result">
           <ScalarProperty Name="TenSach" ColumnName="TenSach" />
-          <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
-          <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
-          <ScalarProperty Name="TenNXB" ColumnName="TenNXB" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="view_thongtinKH">
-      <EntityTypeMapping TypeName="DoAnModel.view_thongtinKH">
-        <MappingFragment StoreEntitySet="view_thongtinKH">
-          <ScalarProperty Name="MaDH" ColumnName="MaDH" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-          <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
-          <ScalarProperty Name="NgayNhan" ColumnName="NgayNhan" />
-          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
-          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-          <ScalarProperty Name="Gmail" ColumnName="Gmail" />
-          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-          <ScalarProperty Name="HovaTen" ColumnName="HovaTen" />
-          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="ThongKe" FunctionName="DoAnModel.Store.ThongKe">
+    <FunctionImportMapping FunctionImportName="trongnam" FunctionName="DoAnModel.Store.trongnam">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="DoAnModel.ThongKe_Result">
-          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+        <ComplexTypeMapping TypeName="DoAnModel.trongnam_Result">
+          <ScalarProperty Name="thang" ColumnName="thang" />
+          <ScalarProperty Name="tong" ColumnName="tong" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="trongthang" FunctionName="DoAnModel.Store.trongthang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.trongthang_Result">
           <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+          <ScalarProperty Name="tong" ColumnName="tong" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="trongtuan" FunctionName="DoAnModel.Store.trongtuan">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.trongtuan_Result">
+          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+          <ScalarProperty Name="tong" ColumnName="tong" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

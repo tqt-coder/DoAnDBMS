@@ -49,21 +49,25 @@
         <script src="~/Content/js/chart2.js"></script>
         <script>
             var charMoneyArr = document.querySelectorAll('.chart-money');
-           var kq=  Array.from(charMoneyArr).reduce(function (callback, input) {
+           
+            var kq = Array.from(charMoneyArr).reduce(function (callback, input) {
+                
                 var obj = {};
                 var inputMoney = input.querySelector('.total-money').value.trim();
                 var inputDate = input.querySelector('.date-money').value.trim();
                var date = new Date(inputDate);
                obj.y = parseFloat(inputMoney)/1000;
-               obj.x = date.toLocaleDateString();
-               callback.push(obj)
+                obj.x = date.toLocaleDateString();
+
+                callback.push(obj)
+
                 return callback;
                 
             }, [])
-            console.log(kq)
+            
             var model = {
                 "className": ".main.l1",
-                "data": kq
+                "data": kq 
 
             };
             var fn = function () {
