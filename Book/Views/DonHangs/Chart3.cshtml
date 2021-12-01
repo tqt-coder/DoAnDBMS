@@ -18,19 +18,35 @@
     <link href="~/Content/chart.css" rel="stylesheet">
     <link href="~/Content/my1.css" rel="stylesheet">
     <style>
+        .form-change__nam{
+            border: 2px solid #999;
+            display: block;
+          
+            width: 600px;
+            padding: 20px;
+            margin: 10px 30px;
+        }
+        .form-div{
+            display: inline-block;
+            margin: 0 10px;
+        }
         .current-year {
             width: 200px;
             height: 40px;
             margin-left: 50px;
             padding: 5px 10px;
-            color: blue;
             outline: none;
+            border-radius: 5px;
         }
 
         .current-year__label {
+            text-align: center;
             font-size: 20px;
             color: #000;
             margin-left: 50px;
+        }
+        .btn.btn-theme{
+            float: right;
         }
     </style>
 </head>
@@ -46,10 +62,10 @@
 
     }
 
-    <form action="/DonHangs/Chart3" method="get">
-        <div>
-            <label class="current-year__label">Chọn năm</label>
-            <select class="current-year" name="year">
+    <form action="/DonHangs/Chart3" class="form-change__nam"  method="get">
+        <div  class="form-div">
+            <label class="current-year__label">Chọn năm: </label>
+            <select class="current-year btn-danger" name="year">
                 @{
                     foreach (var item in ViewBag.time)
                     {
@@ -62,7 +78,7 @@
             </select>
         </div>
 
-        <input type="submit" value="Thống kê" />
+        <input type="submit" class="btn btn-success" value="Thống kê" />
     </form>
     <section id="container">
         <section id="main-content">

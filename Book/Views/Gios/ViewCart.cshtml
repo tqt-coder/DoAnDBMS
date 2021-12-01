@@ -45,7 +45,7 @@
                     <div class="cart-detail">
                         <form name="formItem_@Html.DisplayFor(modelItem => item.MaKH)_@Html.DisplayFor(modelItem => item.MaSach)" class="cart-quantity">
                             <span class="cart-quantity__change cart-quantity__change-subtract">-</span>
-                            <input name="SoLuong" class="cart-quantity__text" value=@Html.DisplayFor(modelItem => item.SoLuong)>
+                            <input name="SoLuong" readonly class="cart-quantity__text" value=@Html.DisplayFor(modelItem => item.SoLuong)>
                             <span class="cart-quantity__change cart-quantity__change-plus">+</span>
                             <input style="display:none" type="text" class="item__MaHD" name="MaHD" value=@Html.DisplayFor(modelItem => item.MaHD) />
                             <input style="display:none" type="text" name="MaSach" value=@Html.DisplayFor(modelItem => item.MaSach) />
@@ -186,9 +186,12 @@
 
                 $('#content').load("/Gios/ViewCart");
             },
-            error: function (data, errorThrown) {
-                alert(errorThrown);
-            }
+           
+           error: function (data, errorThrown) {
+                    formItem.querySelector('input[name="SoLuong"]').value -= 1;
+                    sendInfo();
+           }
+            
 
         });
 

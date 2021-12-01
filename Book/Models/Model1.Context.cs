@@ -243,13 +243,9 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("bookyear", cnParameter);
         }
     
-        public virtual ObjectResult<bookyear2_Result> bookyear2(string cn)
+        public virtual ObjectResult<bookyear2_Result> bookyear2()
         {
-            var cnParameter = cn != null ?
-                new ObjectParameter("cn", cn) :
-                new ObjectParameter("cn", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bookyear2_Result>("bookyear2", cnParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bookyear2_Result>("bookyear2");
         }
     }
 }

@@ -204,9 +204,7 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
         <Function Name="bookyear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cn" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="bookyear2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="cn" Type="varchar" Mode="In" />
-        </Function>
+        <Function Name="bookyear2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Don" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MaKH" Type="int" Mode="In" />
           <Parameter Name="NgayDat" Type="date" Mode="In" />
@@ -633,7 +631,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Parameter Name="cn" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="bookyear2" ReturnType="Collection(DoAnModel.bookyear2_Result)">
-          <Parameter Name="cn" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="BookNotOrder_Result">

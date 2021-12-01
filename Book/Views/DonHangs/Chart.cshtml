@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Book.Models.ThongKe_Result>
+﻿@model IEnumerable<Book.Models.trongthang_Result>
 @{
     ViewBag.Title = "Chart";
     Layout = "~/Views/Shared/ViewAdmin.cshtml";
@@ -21,107 +21,91 @@
 <body>
     @foreach (var item in Model)
     {
-    <div style="display:none" class="chart-money">
-        <input class="total-money" type="text" value=" @Html.DisplayFor(modelItem => item.TongTien)" />
-        <input class="date-money" type="text" value=" @Html.DisplayFor(modelItem => item.NgayDat)" />
+        <div style="display:none" class="chart-money">
+            <input class="total-money" type="text" value=" @Html.DisplayFor(modelItem => item.tong)" />
+            <input class="date-money" type="text" value=" @Html.DisplayFor(modelItem => item.NgayDat)" />
 
-    </div>
+        </div>
 
     }
-        <section id="container">
-            <section id="main-content">
-                <section class="wrapper site-min-height">
-                    <div class="content-panel">
-                        <h4>Danh thu (Triệu VND)</h4>
-                        <div class="panel-body">
-                            <figure class="demo-xchart" id="chart"></figure>
+    <section id="main-content">
+        <section class="wrapper site-min-height">
+
+            <div>
+                <a href="/DonHangs/Chart2" class="btn btn-theme04"><i class="fa fa-list-alt"></i>  Thống kê số lượng</a>
+            </div>
+            <h3><i class="fa fa-angle-right"></i>Doanh thu trong tuần</h3>
+            <div id="morris">
+                <div class="row mt">
+
+                    <div class="col-lg-10 col-mg">
+                        <div class="content-panel">
+
+                            <div style="font-size: 16px" class="panel-body">
+                                <div id="hero-bar" class="graph"></div>
+                            </div>
                         </div>
-                        <h3 class="chart-title">Danh thu theo tuần</h3>
                     </div>
-                    <!-- page end-->
-                </section>
-            </section>
+                </div>
+
+            </div>
 
 
         </section>
+    </section>
 
-        <script src="~/Content/js/chart1.js"></script>
-        <script src="~/Content/js/chart2.js"></script>
-        <script>
-            var charMoneyArr = document.querySelectorAll('.chart-money');
-           
-            var kq = Array.from(charMoneyArr).reduce(function (callback, input) {
-                
-                var obj = {};
-                var inputMoney = input.querySelector('.total-money').value.trim();
-                var inputDate = input.querySelector('.date-money').value.trim();
-               var date = new Date(inputDate);
-               obj.y = parseFloat(inputMoney)/1000;
-                obj.x = date.toLocaleDateString();
+    <script src="~/Content/js/jquery.js"></script>
+    <script class="include" type="text/javascript" src="~/Content/js/jqaccordion.js"></script>
+    <script src="~/Content/js/nicescroll.js" type="text/javascript"></script>
+    <script src="~/Content/js/raphael.js"></script>
+    <script src="~/Content/js/morris.min.js"></script>
+    <script>
+        var charMoneyArr = document.querySelectorAll('.chart-money');
 
-                callback.push(obj)
+        var kq = Array.from(charMoneyArr).reduce(function (callback, input) {
 
-                return callback;
-                
-            }, [])
+            var obj = {};
+            var inputMoney = input.querySelector('.total-money').value.trim();
+            var inputDate = input.querySelector('.date-money').value.trim();
+
+            var date = new Date(inputDate);
             
-            var model = {
-                "className": ".main.l1",
-                "data": kq 
+            obj.geekbench  = parseFloat(inputMoney);
+            obj.device = date.toLocaleString('vi', { year: "numeric", month: "numeric", day: "numeric" });
 
-            };
-            var fn = function () {
+            callback.push(obj)
 
-                var data = [{
-                    "xScale": "ordinal",
-                    "comp": [],
-                    "main": [model],
-                    "type": "bar",
-                    "yScale": "linear"
-                }];
+            return callback;
 
-                var order = [0, 1, 0, 2],
-                    i = 0,
-                    xFormat = d3.time.format('%A'),
-                    chart = new xChart('line-dotted', data[order[i]], '#chart', {
-                        axisPaddingTop: 5,
-                        dataFormatX: function (x) {
-                            return new Date(x);
-                        },
-                        tickFormatX: function (x) {
-                            return xFormat(x);
-                        },
-                        timing: 1250
-                    }),
-                    rotateTimer,
-                    toggles = d3.selectAll('.multi button'),
-                    t = 3500;
+        }, [])
 
-                function updateChart(i) {
-                    var d = data[i];
-                    chart.setData(d);
-                    toggles.classed('toggled', function () {
-                        return (d3.select(this).attr('data-type') === d.type);
-                    });
-                    return d;
-                }
+        console.log(kq)
+        var Script = function () {
+        $(function () {
 
-                toggles.on('click', function (d, i) {
-                    clearTimeout(rotateTimer);
-                    updateChart(i);
-                });
 
-                function rotateChart() {
-                    i += 1;
-                    i = (i >= order.length) ? 0 : i;
-                    var d = updateChart(order[i]);
-                    rotateTimer = setTimeout(rotateChart, t);
-                }
-                rotateTimer = setTimeout(rotateChart, t);
-            };
-            fn();
-        </script>
-    </body>
+            Morris.Bar({
+                element: 'hero-bar',
+                data: kq,
+                xkey: 'device',
+                ykeys: ['geekbench'],
+                labels: ['Doanh thu (Triệu đồng) '],
+                barRatio: 0.4,
+                xLabelAngle: 35,
+                hideHover: 'auto',
+                barColors: ['#5cb85c']
+            });
+
+
+
+            $('.code-example').each(function (index, el) {
+                eval($(el).text());
+            });
+        });
+
+}();
+    </script>
+</body>
 
 </html>
 

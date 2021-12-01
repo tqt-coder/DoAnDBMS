@@ -21,11 +21,24 @@ namespace Book.Controllers
             return View(donHangs.ToList());
         }
 
-        public ActionResult Chart()
+        public ActionResult Chart(string month, string year)
         {
-            var dt = db.Database.SqlQuery<ThongKe_Result>("ThongKe "+"'2021-11-23', '2021-11-24', 'CN1'");
+            DateTime date = DateTime.Now;
+            string date2 = year + "-" + month + "-1";
+
+         
+            if (month == null)
+            {
+                var dt = db.Database.SqlQuery<trongthang_Result>("trongthang '" + date +"'");
+                return View(dt.ToList());
+            }
+            else
+            {
+                 var dt = db.Database.SqlQuery<trongthang_Result>("trongthang '" + date2 + "'");
+                return View(dt.ToList());
+            }
            
-            return View(dt.ToList());
+          
 
         }
 
@@ -33,14 +46,18 @@ namespace Book.Controllers
         public ActionResult Chart2()
         {
             DateTime date = DateTime.Now;
-            DateTime date2 = DateTime.Parse(date.ToString("MM-dd-yyyy"));
-            var dt = db.Database.SqlQuery<ThongKe2_Result>("ThongKe2 '" +date2 +"' ,'2021-11-30'").ToList();
+           
+            var dt = db.Database.SqlQuery<ThongKe2_Result>("ThongKe2 '" +date +"' ,'2021-11-30'").ToList();
             
             
             int count = dt.Count;
             if(count <= 0)
             {
-                ViewBag.Quantity = "empty";
+                ViewBag.Quantity = null;
+            }
+            else
+            {
+                ViewBag.Quantity = "have";
             }
             return View(dt);
 
@@ -54,7 +71,7 @@ namespace Book.Controllers
             ViewBag.year = yy;
             var dt = db.Database.SqlQuery<trongnam_Result>("trongnam "+ yy);
 
-            var dt2 = db.Database.SqlQuery<bookyear2_Result>("bookyear2 '123' ").ToList();
+            var dt2 = db.Database.SqlQuery<bookyear2_Result>("bookyear2 ").ToList();
 
             List<int> allYears = new List<int>();
             for (int i=0; i< dt2.Count(); i++)
@@ -64,6 +81,15 @@ namespace Book.Controllers
             ViewBag.time = allYears;
 
             return View(dt.ToList());
+
+        }
+
+        public ActionResult Chart4()
+        {
+            DateTime date = DateTime.Now;
+            var dt = db.Database.SqlQuery<trongtuan_Result>("trongtuan '" + date + "'").ToList();
+
+            return View(dt);
 
         }
 

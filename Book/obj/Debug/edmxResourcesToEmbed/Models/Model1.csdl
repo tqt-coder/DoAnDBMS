@@ -293,9 +293,7 @@
     <FunctionImport Name="bookyear" ReturnType="Collection(Int32)">
       <Parameter Name="cn" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="bookyear2" ReturnType="Collection(DoAnModel.bookyear2_Result)">
-      <Parameter Name="cn" Mode="In" Type="String" />
-    </FunctionImport>
+    <FunctionImport Name="bookyear2" ReturnType="Collection(DoAnModel.bookyear2_Result)" />
   </EntityContainer>
   <ComplexType Name="BookNotOrder_Result">
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />

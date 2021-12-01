@@ -324,6 +324,7 @@
     <Content Include="Views\KhachHangs\EditInfor.cshtml" />
     <Content Include="Views\DonHangs\Chart2.cshtml" />
     <Content Include="Views\DonHangs\Chart3.cshtml" />
+    <Content Include="Views\DonHangs\Chart4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
