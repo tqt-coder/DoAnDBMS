@@ -170,9 +170,13 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe2_Result>("ThongKe2", dateStartParameter, dateEndParameter);
         }
     
-        public virtual ObjectResult<trongnam_Result> trongnam()
+        public virtual ObjectResult<trongnam_Result> trongnam(Nullable<int> nam)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<trongnam_Result>("trongnam");
+            var namParameter = nam.HasValue ?
+                new ObjectParameter("nam", nam) :
+                new ObjectParameter("nam", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<trongnam_Result>("trongnam", namParameter);
         }
     
         public virtual ObjectResult<trongthang_Result> trongthang(Nullable<System.DateTime> date)

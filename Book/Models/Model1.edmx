@@ -239,7 +239,9 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           <Parameter Name="Tien" Type="money" Mode="In" />
           <Parameter Name="NgayNhan" Type="date" Mode="In" />
         </Function>
-        <Function Name="trongnam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="trongnam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nam" Type="int" Mode="In" />
+        </Function>
         <Function Name="trongthang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="date" Type="date" Mode="In" />
         </Function>
@@ -600,12 +602,14 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
             <Parameter Name="dateStart" Mode="In" Type="DateTime" />
             <Parameter Name="dateEnd" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="trongnam" ReturnType="Collection(DoAnModel.trongnam_Result)" />
+          <FunctionImport Name="trongnam" ReturnType="Collection(DoAnModel.trongnam_Result)" >
+            <Parameter Name="nam" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="trongthang" ReturnType="Collection(DoAnModel.trongthang_Result)">
-            <Parameter Name="date" Mode="In" Type="DateTime" />
+          <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="trongtuan" ReturnType="Collection(DoAnModel.trongtuan_Result)">
-            <Parameter Name="date" Mode="In" Type="DateTime" />
+          <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="BookNotOrder_Result">

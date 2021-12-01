@@ -26,9 +26,13 @@
             <input class="total-money" type="text" value=" @Html.DisplayFor(modelItem => item.tong)" />
             <input class="date-money" type="text" value=" @Html.DisplayFor(modelItem => item.thang)" />
 
+
         </div>
 
     }
+    <form action="/DonHangs/Chart3" method="get">
+        <input class="current-year" name="year" type="text" value="@ViewBag.year" />
+    </form>
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
@@ -37,7 +41,7 @@
                     <div class="row mt">
                         <div class="col-lg-10">
                             <div class="content-panel">
-                                <div class="panel-body">
+                                <div style="font-size: 16px" class="panel-body">
                                     <div id="hero-graph" class="graph"></div>
                                 </div>
                             </div>
@@ -68,9 +72,10 @@
             var obj = {};
             var inputMoney = input.querySelector('.total-money').value.trim();
             var inputDate = input.querySelector('.date-money').value.trim();
+            var inputYear = document.querySelector('.current-year').value.trim();
 
-            obj.period = inputDate;
-            obj.licensed = parseInt(inputMoney);
+            obj.period = inputYear + "-" + inputDate;
+            obj.licensed = parseInt(inputMoney) / 1000;
 
             callback.push(obj)
 
@@ -84,13 +89,13 @@
             //morris chart
 
             $(function () {
-                
+
                 Morris.Line({
                     element: 'hero-graph',
                     data: kq,
                     xkey: 'period',
                     ykeys: ['licensed'],
-                    labels: ['Tổng tiền', 'Off the road'],
+                    labels: ['Tổng tiền ( Triệu đồng)', 'Off the road'],
                     lineColors: ['#ed5565']
                 });
 

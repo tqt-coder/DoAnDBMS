@@ -270,7 +270,9 @@
       <Parameter Name="dateStart" Mode="In" Type="DateTime" />
       <Parameter Name="dateEnd" Mode="In" Type="DateTime" />
     </FunctionImport>
-    <FunctionImport Name="trongnam" ReturnType="Collection(DoAnModel.trongnam_Result)" />
+    <FunctionImport Name="trongnam" ReturnType="Collection(DoAnModel.trongnam_Result)">
+      <Parameter Name="nam" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="trongthang" ReturnType="Collection(DoAnModel.trongthang_Result)">
       <Parameter Name="date" Mode="In" Type="DateTime" />
     </FunctionImport>

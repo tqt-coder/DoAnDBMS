@@ -234,7 +234,9 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
     <Parameter Name="Tien" Type="money" Mode="In" />
     <Parameter Name="NgayNhan" Type="date" Mode="In" />
   </Function>
-  <Function Name="trongnam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="trongnam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nam" Type="int" Mode="In" />
+  </Function>
   <Function Name="trongthang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="date" Type="date" Mode="In" />
   </Function>

@@ -45,9 +45,12 @@ namespace Book.Controllers
 
         }
 
-        public ActionResult Chart3()
+        public ActionResult Chart3(string year)
         {
-            var dt = db.Database.SqlQuery<trongnam_Result>("trongnam");
+            year = year ?? "2021";
+            int yy = Convert.ToInt32(year);
+            ViewBag.year = year ?? "2021";
+            var dt = db.Database.SqlQuery<trongnam_Result>("trongnam "+ yy);
 
             return View(dt.ToList());
 
