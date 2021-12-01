@@ -17,6 +17,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="~/Content/chart.css" rel="stylesheet">
     <link href="~/Content/my1.css" rel="stylesheet">
+    <style>
+        .current-year {
+            width: 200px;
+            height: 40px;
+            margin-left: 50px;
+            padding: 5px 10px;
+            color: blue;
+            outline: none;
+        }
+
+        .current-year__label {
+            font-size: 20px;
+            color: #000;
+            margin-left: 50px;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,22 +42,37 @@
             <input class="total-money" type="text" value=" @Html.DisplayFor(modelItem => item.tong)" />
             <input class="date-money" type="text" value=" @Html.DisplayFor(modelItem => item.thang)" />
 
-
         </div>
 
     }
+
     <form action="/DonHangs/Chart3" method="get">
-        <input class="current-year" name="year" type="text" value="@ViewBag.year" />
+        <div>
+            <label class="current-year__label">Chọn năm</label>
+            <select class="current-year" name="year">
+                @{
+                    foreach (var item in ViewBag.time)
+                    {
+
+                        <option value="@item"> @item</option>
+                    }
+
+                }
+
+            </select>
+        </div>
+
+        <input type="submit" value="Thống kê" />
     </form>
     <section id="container">
         <section id="main-content">
             <section class="wrapper site-min-height">
-                <h3><i class="fa fa-angle-right"></i>Thống kê trong năm</h3>
+                <h3><i class="fa fa-angle-right"></i>Thống kê trong năm @ViewBag.year</h3>
                 <div id="morris">
                     <div class="row mt">
                         <div class="col-lg-10">
                             <div class="content-panel">
-                                <div style="font-size: 16px" class="panel-body">
+                                <div style="font-size: 16px;font-weight:600" class="panel-body">
                                     <div id="hero-graph" class="graph"></div>
                                 </div>
                             </div>
@@ -64,9 +95,9 @@
     <script src="~/Content/js/raphael.js"></script>
     <script src="~/Content/js/morris.min.js"></script>
     <script>
+        
 
         var charMoneyArr = document.querySelectorAll('.chart-money');
-
         var kq = Array.from(charMoneyArr).reduce(function (callback, input) {
 
             var obj = {};
@@ -75,7 +106,7 @@
             var inputYear = document.querySelector('.current-year').value.trim();
 
             obj.period = inputYear + "-" + inputDate;
-            obj.licensed = parseInt(inputMoney) / 1000;
+            obj.licensed = parseInt(inputMoney)/1000;
 
             callback.push(obj)
 

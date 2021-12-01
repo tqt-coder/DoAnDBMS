@@ -48,6 +48,11 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SumMoney_Result>("[DoAnEntities1].[SumMoney](@MaHD)", maHDParameter);
         }
     
+        public virtual ObjectResult<Nullable<int>> AllYear()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AllYear");
+        }
+    
         public virtual ObjectResult<BookNotOrder_Result> BookNotOrder()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotOrder_Result>("BookNotOrder");
@@ -109,6 +114,19 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe_Result>("ThongKe", dateStartParameter, dateEndParameter, chucnangParameter);
         }
     
+        public virtual ObjectResult<ThongKe2_Result> ThongKe2(Nullable<System.DateTime> dateStart, Nullable<System.DateTime> dateEnd)
+        {
+            var dateStartParameter = dateStart.HasValue ?
+                new ObjectParameter("dateStart", dateStart) :
+                new ObjectParameter("dateStart", typeof(System.DateTime));
+    
+            var dateEndParameter = dateEnd.HasValue ?
+                new ObjectParameter("dateEnd", dateEnd) :
+                new ObjectParameter("dateEnd", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe2_Result>("ThongKe2", dateStartParameter, dateEndParameter);
+        }
+    
         public virtual int TongTien(Nullable<int> maKH)
         {
             var maKHParameter = maKH.HasValue ?
@@ -133,41 +151,6 @@ namespace Book.Models
                 new ObjectParameter("NgayNhan", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TraTien", maKHParameter, tienParameter, ngayNhanParameter);
-        }
-    
-        public virtual ObjectResult<ViewCart_Result> ViewCart(Nullable<int> maKH)
-        {
-            var maKHParameter = maKH.HasValue ?
-                new ObjectParameter("MaKH", maKH) :
-                new ObjectParameter("MaKH", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ViewCart_Result>("ViewCart", maKHParameter);
-        }
-    
-        public virtual int XoaHoaDon(Nullable<int> maHD, string maSach)
-        {
-            var maHDParameter = maHD.HasValue ?
-                new ObjectParameter("MaHD", maHD) :
-                new ObjectParameter("MaHD", typeof(int));
-    
-            var maSachParameter = maSach != null ?
-                new ObjectParameter("MaSach", maSach) :
-                new ObjectParameter("MaSach", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaHoaDon", maHDParameter, maSachParameter);
-        }
-    
-        public virtual ObjectResult<ThongKe2_Result> ThongKe2(Nullable<System.DateTime> dateStart, Nullable<System.DateTime> dateEnd)
-        {
-            var dateStartParameter = dateStart.HasValue ?
-                new ObjectParameter("dateStart", dateStart) :
-                new ObjectParameter("dateStart", typeof(System.DateTime));
-    
-            var dateEndParameter = dateEnd.HasValue ?
-                new ObjectParameter("dateEnd", dateEnd) :
-                new ObjectParameter("dateEnd", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe2_Result>("ThongKe2", dateStartParameter, dateEndParameter);
         }
     
         public virtual ObjectResult<trongnam_Result> trongnam(Nullable<int> nam)
@@ -195,6 +178,78 @@ namespace Book.Models
                 new ObjectParameter("date", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<trongtuan_Result>("trongtuan", dateParameter);
+        }
+    
+        public virtual ObjectResult<ViewCart_Result> ViewCart(Nullable<int> maKH)
+        {
+            var maKHParameter = maKH.HasValue ?
+                new ObjectParameter("MaKH", maKH) :
+                new ObjectParameter("MaKH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ViewCart_Result>("ViewCart", maKHParameter);
+        }
+    
+        public virtual int XoaHoaDon(Nullable<int> maHD, string maSach)
+        {
+            var maHDParameter = maHD.HasValue ?
+                new ObjectParameter("MaHD", maHD) :
+                new ObjectParameter("MaHD", typeof(int));
+    
+            var maSachParameter = maSach != null ?
+                new ObjectParameter("MaSach", maSach) :
+                new ObjectParameter("MaSach", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaHoaDon", maHDParameter, maSachParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> AllYear2(string cn)
+        {
+            var cnParameter = cn != null ?
+                new ObjectParameter("cn", cn) :
+                new ObjectParameter("cn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AllYear2", cnParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> AllYear3(string cn)
+        {
+            var cnParameter = cn != null ?
+                new ObjectParameter("cn", cn) :
+                new ObjectParameter("cn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AllYear3", cnParameter);
+        }
+    
+        public virtual ObjectResult<BookNotOrder1_Result> BookNotOrder1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotOrder1_Result>("BookNotOrder1");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> AllYear4(string cn)
+        {
+            var cnParameter = cn != null ?
+                new ObjectParameter("cn", cn) :
+                new ObjectParameter("cn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AllYear4", cnParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> bookyear(string cn)
+        {
+            var cnParameter = cn != null ?
+                new ObjectParameter("cn", cn) :
+                new ObjectParameter("cn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("bookyear", cnParameter);
+        }
+    
+        public virtual ObjectResult<bookyear2_Result> bookyear2(string cn)
+        {
+            var cnParameter = cn != null ?
+                new ObjectParameter("cn", cn) :
+                new ObjectParameter("cn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bookyear2_Result>("bookyear2", cnParameter);
         }
     }
 }

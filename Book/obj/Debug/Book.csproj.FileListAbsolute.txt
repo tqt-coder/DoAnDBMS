@@ -494,7 +494,7 @@ C:\Users\tranq\Downloads\DoAnDBMS\Book\bin\System.Web.WebPages.Razor.xml
 C:\Users\tranq\Downloads\DoAnDBMS\Book\bin\Newtonsoft.Json.xml
 C:\Users\tranq\Downloads\DoAnDBMS\Book\bin\Antlr3.Runtime.pdb
 C:\Users\tranq\Downloads\DoAnDBMS\Book\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\tranq\Downloads\DoAnDBMS\Book\obj\Debug\Book.csproj.AssemblyReference.cache
 C:\Users\tranq\Downloads\DoAnDBMS\Book\obj\Debug\Book.csproj.CoreCompileInputs.cache
 C:\Users\tranq\Downloads\DoAnDBMS\Book\obj\Debug\Book.dll
 C:\Users\tranq\Downloads\DoAnDBMS\Book\obj\Debug\Book.pdb
+C:\Users\tranq\Downloads\DoAnDBMS\Book\obj\Debug\Book.csproj.AssemblyReference.cache

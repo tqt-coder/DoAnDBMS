@@ -24,7 +24,7 @@ namespace Book.Controllers
         public ActionResult Chart()
         {
             var dt = db.Database.SqlQuery<ThongKe_Result>("ThongKe "+"'2021-11-23', '2021-11-24', 'CN1'");
-
+           
             return View(dt.ToList());
 
         }
@@ -35,7 +35,8 @@ namespace Book.Controllers
             DateTime date = DateTime.Now;
             DateTime date2 = DateTime.Parse(date.ToString("MM-dd-yyyy"));
             var dt = db.Database.SqlQuery<ThongKe2_Result>("ThongKe2 '" +date2 +"' ,'2021-11-30'").ToList();
-
+            
+            
             int count = dt.Count;
             if(count <= 0)
             {
@@ -47,10 +48,20 @@ namespace Book.Controllers
 
         public ActionResult Chart3(string year)
         {
-            year = year ?? "2021";
+            DateTime current = DateTime.Now;
+            year = year ?? current.Year.ToString();
             int yy = Convert.ToInt32(year);
-            ViewBag.year = year ?? "2021";
+            ViewBag.year = yy;
             var dt = db.Database.SqlQuery<trongnam_Result>("trongnam "+ yy);
+
+            var dt2 = db.Database.SqlQuery<bookyear2_Result>("bookyear2 '123' ").ToList();
+
+            List<int> allYears = new List<int>();
+            for (int i=0; i< dt2.Count(); i++)
+            {
+                allYears.Add((int)dt2[i].nam);
+            }
+            ViewBag.time = allYears;
 
             return View(dt.ToList());
 
@@ -177,4 +188,6 @@ namespace Book.Controllers
             base.Dispose(disposing);
         }
     }
+
+   
 }
