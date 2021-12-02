@@ -228,22 +228,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="XoaHoaDon" FunctionName="DoAnModel.Store.XoaHoaDon" />
-    <FunctionImportMapping FunctionImportName="BookNotOrder1" FunctionName="DoAnModel.Store.BookNotOrder1">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="DoAnModel.BookNotOrder1_Result">
-          <ScalarProperty Name="MaSach" ColumnName="MaSach" />
-          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-          <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
-          <ScalarProperty Name="TenTacGia" ColumnName="TenTacGia" />
-          <ScalarProperty Name="TheLoai" ColumnName="TheLoai" />
-          <ScalarProperty Name="TenNXB" ColumnName="TenNXB" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="bookyear" FunctionName="DoAnModel.Store.bookyear" />
     <FunctionImportMapping FunctionImportName="bookyear2" FunctionName="DoAnModel.Store.bookyear2">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DoAnModel.bookyear2_Result">

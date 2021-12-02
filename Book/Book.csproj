@@ -257,8 +257,9 @@
     <Content Include="Content\MyStyle.css" />
     <Content Include="Content\my2.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\Book1.css" />
+    <Content Include="Content\book.css" />
     <Content Include="Content\editprofile.css" />
+    <Content Include="Content\responsive.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\base.css" />

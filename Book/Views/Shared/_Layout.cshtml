@@ -63,7 +63,7 @@
 <body>
     <div class="main">
         <div class="header">
-            <div class="header-top-banner" style="background-color:#7fc310">
+            <div class="header-top-banner" style="background-color: #CCFFFF">
                 <div class="top-banner-block">
                 </div>
                 <div class="navbar_logo">
@@ -216,7 +216,25 @@
     <script>
         var inforInvoidce2 = document.querySelector('.invoidce-infor-js');
         var inforBill = document.querySelector('.navbar_item-infor-js');
-        
+
+        var img = document.querySelector(".img-navbar-background");
+       
+        var i = 1;
+
+        function change_pic() {
+            i = i + 1;
+            if (i == 5) {
+                i = 1;
+            }
+          
+            if (i == 1 || i == 2) {
+                img.src = "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=773&q=80";
+            }
+            else {
+                img.src = "https://images.unsplash.com/photo-1556566952-11eff3d06ed4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80";
+            }
+        }
+        var pic_src = setInterval(change_pic, 2000);
             
     </script>
 </body>

@@ -17,15 +17,33 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/Content/invoidce.css">
-
+    <style>
+        .img-empty-infor{
+            width: 80%;
+            height: 85vh;
+            display: flex;
+            margin: auto;
+        }
+        .title-empty{
+            padding: 20px 0 10px;
+            text-align: center;
+        }
+        .btn-infor__return-empty{
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            margin: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
     @if (ViewBag.item == null)
     {
-        <h2>Không có thông báo</h2>
-        <a href="/Saches/Index">Trở về</a>
+        <h2 class="title-empty">Chưa có thông báo</h2>
+        <img alt="emtyl" class="img-empty-infor" src="https://thumbs.dreamstime.com/b/vector-template-quote-forms-bright-vivid-backgrounds-empty-colorful-speech-frame-business-textual-information-138410595.jpg" />
+        <a href="/Saches/Index" class="btn  btn-infor__return btn-infor__return-empty"><i class="fa fa-arrow-left"></i>Trỏ về trang chủ</a>
     }
 
     @if (ViewBag.item != null)
@@ -68,8 +86,8 @@
                                 <div class="email"><i class="fa fa-envelope-square"></i><a href="mailto:@Session["UserName"]">@Session["UserName"]</a></div>
                             </div>
                             <div class="col invoice-details">
-                                <div class="date">Ngày đặt hàng: <span class="create-date-js">01/10/2018</span></div>
-                                <div class="date">Ngày nhận hàng: <span class="recive-date-js">01/10/2018</span></div>
+                                <div class="date">Ngày đặt hàng: <span class="create-date-js"></span></div>
+                                <div class="date">Ngày nhận hàng: <span class="recive-date-js"></span></div>
                             </div>
                         </div>
                         <table border="0" cellspacing="0" cellpadding="0">

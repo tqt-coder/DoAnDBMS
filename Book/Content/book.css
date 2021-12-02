@@ -1,6 +1,6 @@
 ﻿
 .book__paging.book__paging-style {
-    margin: 15% 30px 10px auto;
+    margin: 5px 30px 10px auto;
     display: inline-block;
     width: 200px;
    
@@ -81,17 +81,27 @@
 }
 
 .item--category {
-    text-decoration: none;
-    padding: 10px 20px;
-    display: block;
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     color: var(--black-text);
     font-size: 14px;
     color: var(--color-white);
+    border: 1px solid;
+    margin: 10px 20px;
+    border-radius: 5px;
+    background: #fff;
+    text-decoration: none;
+    font-weight: 400;
 }
-
-    .item--category:hover {
-        color: #FF4000;
-    }
+.list.collapsed a{
+    text-decoration: none;
+}
+.item--category:hover {
+    color: #FF4000;
+    
+}
 
 .general {
     text-align: center;
@@ -260,6 +270,14 @@ form.form_search::after {
     text-decoration: none;
     color: var(--black-text);
     margin: 10px 0;
+}
+.img-navbar-background {
+    margin-top: 50px;
+    transform: translateX(-20px);
+    height: 700px;
+    width: 120%;
+    object-fit: cover;
+    vertical-align: central;
 }
 a.item__book {
     text-decoration: none;

@@ -2,7 +2,6 @@
   "ExpandedNodes": [
     "",
     "\\Book",
-    "\\Book\\Content",
     "\\Book\\Views",
     "\\Book\\Views\\ChiTietHoaDons",
     "\\Book\\Views\\DonHangs",
@@ -11,6 +10,6 @@
     "\\Book\\Views\\Shared",
     "\\Book\\Views\\view_thongtinKH"
   ],
-  "SelectedNode": "\\Book\\Views\\DonHangs\\Chart4.cshtml",
+  "SelectedNode": "\\Book\\Views\\Shared\\_Layout.cshtml",
   "PreviewInSolutionExplorer": false
 }

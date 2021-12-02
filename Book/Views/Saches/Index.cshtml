@@ -12,33 +12,34 @@
     <div class="content-layout">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-4 col-sm-0" style="background-color: #0cb5db;">
+                <div class="col-lg-2 col-md-4 col-sm-0" style="background-color: #0cb5db;overflow:hidden">
                     <div>
                         <div class="block" data-view-id="search_filter_container" data-view-label="Danh mục sản phẩm">
 
                             <h4 class="content__title">Danh mục sản phẩm</h4>
                             <div class="list collapsed">
-                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Lịch sử" })>Sách về lịch sử</a>
-                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Trinh thám" })>Sách trinh thám</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Lịch sử" })>Sách về lịch sử <i class="fas fa-chevron-right"></i></a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Trinh thám" })>Sách trinh thám <i class="fas fa-chevron-right"></i></a>
                                 <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Kiến thức - Bách khoa" })>
-                                    Kiến thức - Bách khoa
+                                    Kiến thức - Bách khoa <i class="fas fa-chevron-right"></i>
                                 </a>
-                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Tiểu thuyết" })>Tiểu thuyết</a>
-                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Khoa học" })>Sách về khoa học</a>
-                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Ngoại ngữ" })>Sách ngoại ngữ</a>
-                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Kỹ năng sống" })>Sách về kỹ năng sống</a>
-                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Thiếu nhi" })>Sách thiếu nhi</a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Tiểu thuyết" })>Tiểu thuyết <i class="fas fa-chevron-right"></i></a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Khoa học" })>Sách về khoa học <i class="fas fa-chevron-right"></i></a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Ngoại ngữ" })>Sách ngoại ngữ <i class="fas fa-chevron-right"></i></a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Kỹ năng sống" })>Sách về kỹ năng sống <i class="fas fa-chevron-right"></i></a>
+                                <a class="item item--category " href=@Url.Action("Catetogy", "Saches", new { li ="Thiếu nhi" })>Sách thiếu nhi <i class="fas fa-chevron-right"></i></a>
                             </div>
                         </div>
 
                     </div>
+                    <img class="img-navbar-background" src="https://img4.thuthuatphanmem.vn/uploads/2020/12/26/hinh-anh-ve-sach-mo-ra_051502949.jpg?fbclid=IwAR3cUUgRLJEFlqHuLlFTNwuSGEkEfjo-1p9QbrzgQa9_hp9s1S50li-HnfY" alt="bookstore"/>
                 </div>
-                <div class="col-lg-10 col-md-8 col-sm-12 " style="background-color: #fff;">
+                <div class="col-lg-10 col-md-8 col-sm-12" style="background-color: #fff">
                     <div class="row">
                         @foreach (var item in Model)
                         {
                             <!-- giao diện sách -->
-                            <div class="col-lg-3 col-md-4 col-sm-6 book__container">
+                            <div class="col-lg-3 col-md-4 col-sm-6 book__container"  >
                                 @if (Session["ad"] != null)
                                 {
 

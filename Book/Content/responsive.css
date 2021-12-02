@@ -1,0 +1,17 @@
+﻿
+/*tablet*/
+
+@media only screen and (max-width: 1490px) {
+    .btn.btn-success {
+        display: flex;
+        margin: 10px auto;
+        position: relative;
+        top: 0;
+        left: 0;
+        padding: 9px 20px;
+    }
+}
+
+/*mobile*/
+@media only screen and (max-width: 600px) {
+}

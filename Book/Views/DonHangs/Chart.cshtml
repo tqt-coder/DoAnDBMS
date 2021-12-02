@@ -70,7 +70,7 @@
 
             var date = new Date(inputDate);
             
-            obj.geekbench  = parseFloat(inputMoney);
+            obj.geekbench  = parseFloat(inputMoney)/1000;
             obj.device = date.toLocaleString('vi', { year: "numeric", month: "numeric", day: "numeric" });
 
             callback.push(obj)
@@ -79,7 +79,6 @@
 
         }, [])
 
-        console.log(kq)
         var Script = function () {
         $(function () {
 
