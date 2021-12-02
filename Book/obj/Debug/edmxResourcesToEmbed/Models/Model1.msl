@@ -252,5 +252,29 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SoSachBanTrongThang" FunctionName="DoAnModel.Store.SoSachBanTrongThang">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.SoSachBanTrongThang_Result">
+          <ScalarProperty Name="TongSachBan" ColumnName="TongSachBan" />
+          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SoSachBanTrongTuan" FunctionName="DoAnModel.Store.SoSachBanTrongTuan">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.SoSachBanTrongTuan_Result">
+          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+          <ScalarProperty Name="TongSachBan" ColumnName="TongSachBan" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SoSachBanTrongNam" FunctionName="DoAnModel.Store.SoSachBanTrongNam">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DoAnModel.SoSachBanTrongNam_Result">
+          <ScalarProperty Name="TongSachBan" ColumnName="TongSachBan" />
+          <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

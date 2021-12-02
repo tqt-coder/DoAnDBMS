@@ -200,6 +200,15 @@
     <Compile Include="Models\searchBook_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SoSachBanTrongNam_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SoSachBanTrongThang_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SoSachBanTrongTuan_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SumMoney_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -235,11 +244,12 @@
     <Content Include="Content\img\empty cart.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\invoidce.css" />
+    <Content Include="Content\js\animate.js" />
+    <Content Include="Content\js\indexchart.js" />
+    <Content Include="Content\js\xy.js" />
     <Content Include="Content\js\morris-conf.js" />
     <Content Include="Content\js\morris.min.js" />
     <Content Include="Content\js\raphael.js" />
-    <Content Include="Content\js\chart1.js" />
-    <Content Include="Content\js\chart2.js" />
     <Content Include="Content\js\jqaccordion.js" />
     <Content Include="Content\js\nicescroll.js" />
     <Content Include="Content\js\jquery.js" />
@@ -250,7 +260,6 @@
     <Content Include="Content\Book1.css" />
     <Content Include="Content\editprofile.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\base.css" />
     <Content Include="Models\Model1.Context.tt">
@@ -288,10 +297,6 @@
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -325,6 +330,9 @@
     <Content Include="Views\DonHangs\Chart2.cshtml" />
     <Content Include="Views\DonHangs\Chart3.cshtml" />
     <Content Include="Views\DonHangs\Chart4.cshtml" />
+    <Content Include="Views\DonHangs\SoLuongTheoTuan.cshtml" />
+    <Content Include="Views\DonHangs\SoLuongTheoThang.cshtml" />
+    <Content Include="Views\DonHangs\SoLuongTheoNam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

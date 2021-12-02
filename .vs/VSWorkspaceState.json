@@ -2,7 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\Book",
-    "\\Book\\Models",
+    "\\Book\\Content",
     "\\Book\\Views",
     "\\Book\\Views\\ChiTietHoaDons",
     "\\Book\\Views\\DonHangs",

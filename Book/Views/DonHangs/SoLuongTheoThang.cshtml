@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Book.Models.trongtuan_Result>
+﻿@model IEnumerable<Book.Models.SoSachBanTrongThang_Result>
+
+
 @{
     ViewBag.Title = "Chart";
     Layout = "~/Views/Shared/ViewAdmin.cshtml";
@@ -11,9 +13,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <title>Chart</title>
+    <title>Thống kê</title>
 
-    <!-- Custom styles for this template -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="~/Content/chart.css" rel="stylesheet">
     <link href="~/Content/my1.css" rel="stylesheet">
 </head>
@@ -22,19 +25,18 @@
     @foreach (var item in Model)
     {
         <div style="display:none" class="chart-money">
-            <input class="total-money" type="text" value=" @Html.DisplayFor(modelItem => item.tong)" />
-            <input class="date-money" type="text" value=" @Html.DisplayFor(modelItem => item.NgayDat)" />
+            <input class="total-money" type="text" value=" @Html.DisplayFor(modelItem => item.TenSach)" />
+            <input class="date-money" type="text" value=" @Html.DisplayFor(modelItem => item.TongSachBan)" />
 
         </div>
 
     }
+    
     <section id="main-content">
         <section class="wrapper site-min-height">
 
-            <div>
-                <a href="/DonHangs/SoLuongTheoTuan" class="btn btn-theme04"><i class="fa fa-list-alt"></i>  Thống kê số lượng</a>
-            </div>
-            <h3><i class="fa fa-angle-right"></i> Doanh thu trong tuần</h3>
+           
+            <h3><i class="fa fa-angle-right"></i> Số lượng sách bán trong tháng @Session["month"].ToString()</h3>
             <div id="morris">
                 <div class="row mt">
 
@@ -50,9 +52,9 @@
 
             </div>
 
-
         </section>
     </section>
+
 
     <script src="~/Content/js/jquery.js"></script>
     <script class="include" type="text/javascript" src="~/Content/js/jqaccordion.js"></script>
@@ -60,6 +62,7 @@
     <script src="~/Content/js/raphael.js"></script>
     <script src="~/Content/js/morris.min.js"></script>
     <script>
+
         var charMoneyArr = document.querySelectorAll('.chart-money');
 
         var kq = Array.from(charMoneyArr).reduce(function (callback, input) {
@@ -68,10 +71,8 @@
             var inputMoney = input.querySelector('.total-money').value.trim();
             var inputDate = input.querySelector('.date-money').value.trim();
 
-            var date = new Date(inputDate);
-            
-            obj.geekbench  = parseFloat(inputMoney);
-            obj.device = date.toLocaleString('vi', { year: "numeric", month: "numeric", day: "numeric" });
+            obj.geekbench = parseInt(inputDate);
+            obj.device = inputMoney;
 
             callback.push(obj)
 
@@ -79,33 +80,36 @@
 
         }, [])
 
-        console.log(kq)
+
         var Script = function () {
-        $(function () {
+
+            //morris chart
+
+            $(function () {
 
 
-            Morris.Bar({
-                element: 'hero-bar',
-                data: kq,
-                xkey: 'device',
-                ykeys: ['geekbench'],
-                labels: ['Doanh thu (Triệu đồng) '],
-                barRatio: 0.4,
-                xLabelAngle: 35,
-                hideHover: 'auto',
-                barColors: ['#5cb85c']
+                Morris.Bar({
+                    element: 'hero-bar',
+                    data: kq,
+                    xkey: 'device',
+                    ykeys: ['geekbench'],
+                    labels: ['Số lượng'],
+                    barRatio: 0.4,
+                    xLabelAngle: 35,
+                    hideHover: 'auto',
+                    barColors: ['#ac92ec']
+                });
+
+
+
+                $('.code-example').each(function (index, el) {
+                    eval($(el).text());
+                });
             });
 
-
-
-            $('.code-example').each(function (index, el) {
-                eval($(el).text());
-            });
-        });
-
-}();
+        }();
     </script>
+
 </body>
 
 </html>
-

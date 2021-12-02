@@ -217,6 +217,15 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
         <Function Name="searchBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tenSach" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="SoSachBanTrongNam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SoSachBanTrongThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SoSachBanTrongTuan" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
         <Function Name="SumMoney" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MaHD" Type="int" Mode="In" />
           <ReturnType>
@@ -632,6 +641,15 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="bookyear2" ReturnType="Collection(DoAnModel.bookyear2_Result)">
           </FunctionImport>
+          <FunctionImport Name="SoSachBanTrongThang" ReturnType="Collection(DoAnModel.SoSachBanTrongThang_Result)">
+          <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SoSachBanTrongTuan" ReturnType="Collection(DoAnModel.SoSachBanTrongTuan_Result)">
+          <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SoSachBanTrongNam" ReturnType="Collection(DoAnModel.SoSachBanTrongNam_Result)">
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="BookNotOrder_Result">
           <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -709,6 +727,18 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
         <ComplexType Name="bookyear2_Result">
           <Property Type="Int32" Name="nam" Nullable="true" />
           <Property Type="Int32" Name="soluong" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SoSachBanTrongThang_Result">
+          <Property Type="Int32" Name="TongSachBan" Nullable="true" />
+          <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SoSachBanTrongTuan_Result">
+          <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TongSachBan" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SoSachBanTrongNam_Result">
+          <Property Type="Int32" Name="TongSachBan" Nullable="true" />
+          <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -964,6 +994,30 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
               <ComplexTypeMapping TypeName="DoAnModel.bookyear2_Result">
                 <ScalarProperty Name="nam" ColumnName="nam" />
                 <ScalarProperty Name="soluong" ColumnName="soluong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SoSachBanTrongThang" FunctionName="DoAnModel.Store.SoSachBanTrongThang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.SoSachBanTrongThang_Result">
+                <ScalarProperty Name="TongSachBan" ColumnName="TongSachBan" />
+                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SoSachBanTrongTuan" FunctionName="DoAnModel.Store.SoSachBanTrongTuan">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.SoSachBanTrongTuan_Result">
+                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
+                <ScalarProperty Name="TongSachBan" ColumnName="TongSachBan" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SoSachBanTrongNam" FunctionName="DoAnModel.Store.SoSachBanTrongNam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DoAnModel.SoSachBanTrongNam_Result">
+                <ScalarProperty Name="TongSachBan" ColumnName="TongSachBan" />
+                <ScalarProperty Name="TenSach" ColumnName="TenSach" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

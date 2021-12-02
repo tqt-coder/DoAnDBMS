@@ -47,7 +47,6 @@ CREATE TABLE ChiTietHoaDon (
 	CONSTRAINT pk_cthd PRIMARY KEY( MaHD, MaSach),
 )
 GO
-
 CREATE TABLE Sach
 (
 	MaSach VARCHAR(20) NOT NULL UNIQUE,	
@@ -124,6 +123,7 @@ END
 
 Go
 -- Phân quyền
+/*
 Create procedure PhanQuyenUser
         @login varchar(50),
         @db varchar(100)
@@ -265,6 +265,7 @@ Begin
 End
 
 Go
+*/
 -- Trigger khi hủy đơn hàng
 CREATE TRIGGER t_huydon ON ChiTietHoaDon AFTER DELETE
 AS
@@ -348,7 +349,7 @@ go
 
 -- View
 CREATE VIEW Gio AS
-	SELECT hd.MaHD,kh.MaKH,s.TenSach,s.GiaBan,s.MaSach,hd.SoLuong,hd.ThanhTien,HinhAnh 
+	SELECT hd.MaHD,kh.MaKH,s.TenSach,s.GiaBan,s.MaSach,hd.SoLuong,hd.ThanhTien,s.HinhAnh 
 	FROM ChiTietHoaDon as hd,Sach as s,DonHang dh,KhachHang kh
 	WHERE hd.MaSach=s.MaSach
 	and dh.MaDH=hd.MaHD
@@ -357,12 +358,16 @@ CREATE VIEW Gio AS
 Go
 
 
+
 Create VIEW view_thongtinKH AS
-	SELECT  s.MaSach,kh.HovaTen,dh.NgayDat,dh.NgayNhan,s.TenSach,dh.TongTien,dh.MaKH
+	SELECT  s.MaSach,kh.HovaTen,kh.DiaChi,kh.Gmail,kh.SoDienThoai,dh.NgayDat,dh.NgayNhan,
+	s.TenSach,s.GiaBan,
+	dh.TongTien,dh.MaKH,ct.ThanhTien,ct.SoLuong,dh.MaDH
 	FROM KhachHang as kh, DonHang as dh,ChiTietHoaDon as ct, Sach as s
 	WHERE dh.MaKH=kh.MaKh and dh.MaDH = ct.MaHD and dh.NgayNhan is not null and s.MaSach = ct.MaSach
 GO
---select * from view_thongtinKH where view_thongtinKH.MaKH = 3
+
+--select * from view_thongtinKH  select * from DonHang
 --trigger tinhtien--
 CREATE TRIGGER TinhTien ON ChitietHoaDon
 for insert AS
@@ -736,5 +741,113 @@ Begin
 End
 
 
+select * from DonHang
+
+select sum(TongTien),NgayDat from DonHang group by NgayDat,NgayNhan Having NgayNhan is not null
+
+Insert into DonHang(MaKH,NgayDat,NgayNhan,TongTien) values(2,'2021-8-2','2021-8-30',500)
+
+Create proc ThongKe
+@dateStart date,@dateEnd date, @chucnang varchar(20)
+As
+
+Begin
+	-- CN1 : thống kê tổng tiền theo tuần
+	if(@chucnang = 'CN1')
+		select sum(TongTien) as TongTien,NgayDat from DonHang group by NgayDat,NgayNhan Having NgayNhan is not null
+		-- 
+	if(@chucnang = 'CN2')
+		Select s.TenSach,Sum(vkh.SoLuong) as SoLuong,Sum(vkh.ThanhTien) as ThanhTien from view_thongtinKH as vkh ,Sach as s
+		Where vkh.MaSach = s.MaSach
+		Group by vkh.NgayDat,s.TenSach Having vkh.NgayDat = @dateStart
+
+	
+End;
+
+Create proc ThongKe2
+@dateStart date,@dateEnd date
+As
+
+Begin
+	-- CN1 : thống kê tổng tiền theo tuần
+		Select s.TenSach,Sum(vkh.SoLuong) as SoLuong,Sum(vkh.ThanhTien) as ThanhTien 
+		from view_thongtinKH as vkh ,Sach as s
+		Where vkh.MaSach = s.MaSach
+		Group by vkh.NgayDat,s.TenSach Having vkh.NgayDat = @dateStart	
+End;
 
 
+
+create proc trongtuan
+@date date 
+as
+declare @week int
+select @week=DATEPART(wk,@date) 
+select NgayDat,SUM(TongTien)as tong from DonHang group by NgayDat 
+having DATEPART(wk,NgayDat)=@week  and DATEPART(yy,NgayDat) = DATEPART(yy,@date)
+
+GO
+
+
+
+create proc trongthang
+@date date as
+declare @month int
+select @month=DATEPART(MM,@date)
+select NgayDat,SUM(TongTien)as tong from view_thongtinKH group by NgayDat 
+having DATEPART(MM,NgayDat)=@month and DATEPART(yy,NgayDat) = DATEPART(yy,@Date)
+
+go
+
+alter proc trongnam
+@nam int
+As
+Begin
+select DATEPART( MM,NgayDat) as thang, sum(TongTien) as tong from view_thongtinKH 
+group by DATEPART( MM, NgayDat),DATEPART( yy, NgayDat) Having DATEPART( yy, NgayDat) = @nam
+End;
+
+Go
+
+Create proc bookyear2
+As
+Begin
+	
+Select distinct   DATEPART( yy, NgayDat) as nam, Count(*) as soluong from DonHang Where NgayNhan is not null 
+Group by DATEPART( yy, NgayDat)
+End;
+
+Go
+
+create proc SoSachBanTrongTuan
+@date date
+as
+select TenSach,sum(soluong) as TongSachBan
+from view_thongtinKH
+group by TenSach,DATEPART(WK,NgayDat),DATEPART(yy,NgayDat)
+having DATEPART(WK,NgayDat)=DATEPART(WK,@date)
+and DATEPART(yy,NgayDat)=DATEPART(yy,@date)
+
+Go
+
+Create proc SoSachBanTrongThang
+@date date
+as
+select sum(soluong) as TongSachBan, TenSach
+from view_thongtinKH
+group by DATEPART(mm,NgayDat),DATEPART(yy,NgayDat), TenSach
+having DATEPART(mm,NgayDat)=DATEPART(mm,@date)
+and DATEPART(yy,NgayDat)=DATEPART(yy,@date)
+
+Go
+
+
+create proc SoSachBanTrongNam
+@date date
+as
+	select sum(soluong) as TongSachBan, TenSach
+	from view_thongtinKH
+	group by DATEPART(yy,NgayDat), TenSach
+	having DATEPART(yy,NgayDat)=DATEPART(yy,@date)
+
+Go

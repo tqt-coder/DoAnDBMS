@@ -247,5 +247,32 @@ namespace Book.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bookyear2_Result>("bookyear2");
         }
+    
+        public virtual ObjectResult<SoSachBanTrongThang_Result> SoSachBanTrongThang(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SoSachBanTrongThang_Result>("SoSachBanTrongThang", dateParameter);
+        }
+    
+        public virtual ObjectResult<SoSachBanTrongTuan_Result> SoSachBanTrongTuan(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SoSachBanTrongTuan_Result>("SoSachBanTrongTuan", dateParameter);
+        }
+    
+        public virtual ObjectResult<SoSachBanTrongNam_Result> SoSachBanTrongNam(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SoSachBanTrongNam_Result>("SoSachBanTrongNam", dateParameter);
+        }
     }
 }
