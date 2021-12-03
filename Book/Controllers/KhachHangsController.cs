@@ -28,9 +28,7 @@ namespace Book.Controllers
             {
                 if (Session["ad"].ToString() == "manager")
                 {
-
                     return View();
-
                 }
                 else
                 {
@@ -48,6 +46,7 @@ namespace Book.Controllers
         // Login
         public ActionResult Login()
         {
+           
             return View();
         }
 
@@ -74,9 +73,10 @@ namespace Book.Controllers
                     }
                     return RedirectToAction("Index", "Saches");
                 }
-
+              
             }
             ViewBag.error = "Tên tài khoản hoặc mật khẩu không chính xác";
+
             return View(user);
         }
 
@@ -84,6 +84,10 @@ namespace Book.Controllers
         // GET: KhachHangs/Create
         public ActionResult Register()
         {
+            if (TempData["conflict"] != null)
+            {
+                ViewBag.conflict = "Tài khoản Gmail đã tồn tại";
+            }
             return View();
         }
 
@@ -96,6 +100,15 @@ namespace Book.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                ///// kiểm tra gmail trùng
+                var obj = db.KhachHangs.Where(a => a.Gmail.Equals(khachHang.Gmail)).FirstOrDefault();
+                if (obj != null)
+                {
+
+                    TempData["conflict"] = "true";
+                    return RedirectToAction("Register");
+                }
                 db.KhachHangs.Add(khachHang);
                 db.SaveChanges();
                 if (Session["UserName"] != null && Session["ad"] != null)
@@ -107,7 +120,6 @@ namespace Book.Controllers
                     return RedirectToAction("Login");
                 }
             }
-
             return View(khachHang);
         }
 

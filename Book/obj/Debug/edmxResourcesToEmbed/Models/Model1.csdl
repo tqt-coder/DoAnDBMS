@@ -233,8 +233,8 @@
     <FunctionImport Name="SumMoney" IsComposable="true" ReturnType="Collection(DoAnModel.SumMoney_Result)">
       <Parameter Name="MaHD" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="AllYear" ReturnType="Collection(Int32)" />
     <FunctionImport Name="BookNotOrder" ReturnType="Collection(DoAnModel.BookNotOrder_Result)" />
+    <FunctionImport Name="bookyear2" ReturnType="Collection(DoAnModel.bookyear2_Result)" />
     <FunctionImport Name="Don">
       <Parameter Name="MaKH" Mode="In" Type="Int32" />
       <Parameter Name="NgayDat" Mode="In" Type="DateTime" />
@@ -247,6 +247,15 @@
     <FunctionImport Name="searchBook" ReturnType="Collection(DoAnModel.searchBook_Result)">
       <Parameter Name="tenSach" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="SoSachBanTrongNam" ReturnType="Collection(DoAnModel.SoSachBanTrongNam_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SoSachBanTrongThang" ReturnType="Collection(DoAnModel.SoSachBanTrongThang_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="SoSachBanTrongTuan" ReturnType="Collection(DoAnModel.SoSachBanTrongTuan_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
     <FunctionImport Name="ThongKe" ReturnType="Collection(DoAnModel.ThongKe_Result)">
       <Parameter Name="dateStart" Mode="In" Type="DateTime" />
       <Parameter Name="dateEnd" Mode="In" Type="DateTime" />
@@ -254,7 +263,6 @@
     </FunctionImport>
     <FunctionImport Name="ThongKe2" ReturnType="Collection(DoAnModel.ThongKe2_Result)">
       <Parameter Name="dateStart" Mode="In" Type="DateTime" />
-      <Parameter Name="dateEnd" Mode="In" Type="DateTime" />
     </FunctionImport>
     <FunctionImport Name="TongTien">
       <Parameter Name="MaKH" Mode="In" Type="Int32" />
@@ -280,29 +288,6 @@
       <Parameter Name="MaHD" Mode="In" Type="Int32" />
       <Parameter Name="MaSach" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="AllYear2" ReturnType="Collection(Int32)">
-      <Parameter Name="cn" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="AllYear3" ReturnType="Collection(Int32)">
-      <Parameter Name="cn" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="BookNotOrder1" ReturnType="Collection(DoAnModel.BookNotOrder1_Result)" />
-    <FunctionImport Name="AllYear4" ReturnType="Collection(Int32)">
-      <Parameter Name="cn" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="bookyear" ReturnType="Collection(Int32)">
-      <Parameter Name="cn" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="bookyear2" ReturnType="Collection(DoAnModel.bookyear2_Result)" />
-    <FunctionImport Name="SoSachBanTrongThang" ReturnType="Collection(DoAnModel.SoSachBanTrongThang_Result)">
-      <Parameter Name="date" Mode="In" Type="DateTime" />
-    </FunctionImport>
-    <FunctionImport Name="SoSachBanTrongTuan" ReturnType="Collection(DoAnModel.SoSachBanTrongTuan_Result)">
-      <Parameter Name="date" Mode="In" Type="DateTime" />
-    </FunctionImport>
-    <FunctionImport Name="SoSachBanTrongNam" ReturnType="Collection(DoAnModel.SoSachBanTrongNam_Result)">
-      <Parameter Name="date" Mode="In" Type="DateTime" />
-    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="BookNotOrder_Result">
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -314,6 +299,10 @@
     <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="TenNXB" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="bookyear2_Result">
+    <Property Type="Int32" Name="nam" Nullable="true" />
+    <Property Type="Int32" Name="soluong" Nullable="true" />
   </ComplexType>
   <ComplexType Name="recommend_Result">
     <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
@@ -334,6 +323,18 @@
     <Property Type="Int32" Name="SoLuong" Nullable="true" />
     <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SoSachBanTrongNam_Result">
+    <Property Type="Int32" Name="TongSachBan" Nullable="true" />
+    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="SoSachBanTrongThang_Result">
+    <Property Type="Int32" Name="TongSachBan" Nullable="true" />
+    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="SoSachBanTrongTuan_Result">
+    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="TongSachBan" Nullable="true" />
   </ComplexType>
   <ComplexType Name="ThongKe_Result">
     <Property Type="Decimal" Name="TongTien" Nullable="true" Precision="19" />
@@ -365,32 +366,5 @@
     <Property Type="Int32" Name="SoLuong" Nullable="false" />
     <Property Type="Decimal" Name="ThanhTien" Nullable="true" Precision="19" />
     <Property Type="String" Name="HinhAnh" Nullable="false" />
-  </ComplexType>
-  <ComplexType Name="BookNotOrder1_Result">
-    <Property Type="String" Name="MaSach" Nullable="false" MaxLength="20" />
-    <Property Type="Decimal" Name="GiaBan" Nullable="true" Precision="19" />
-    <Property Type="String" Name="HinhAnh" Nullable="false" />
-    <Property Type="String" Name="MaNXB" Nullable="true" MaxLength="20" />
-    <Property Type="Int32" Name="SoLuong" Nullable="true" />
-    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="TenTacGia" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="TheLoai" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="TenNXB" Nullable="true" MaxLength="50" />
-  </ComplexType>
-  <ComplexType Name="bookyear2_Result">
-    <Property Type="Int32" Name="nam" Nullable="true" />
-    <Property Type="Int32" Name="soluong" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="SoSachBanTrongThang_Result">
-    <Property Type="Int32" Name="TongSachBan" Nullable="true" />
-    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
-  </ComplexType>
-  <ComplexType Name="SoSachBanTrongTuan_Result">
-    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
-    <Property Type="Int32" Name="TongSachBan" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="SoSachBanTrongNam_Result">
-    <Property Type="Int32" Name="TongSachBan" Nullable="true" />
-    <Property Type="String" Name="TenSach" Nullable="true" MaxLength="50" />
   </ComplexType>
 </Schema>

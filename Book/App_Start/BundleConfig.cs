@@ -12,7 +12,7 @@ namespace Book
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/base.css",
-                       "~/Content/book.css",
+                       "~/Content/book1.css",
                         "~/Content/cart.css"
                       ));
         }

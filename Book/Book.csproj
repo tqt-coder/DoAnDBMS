@@ -146,9 +146,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BookNotOrder1_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\BookNotOrder_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -257,7 +254,7 @@
     <Content Include="Content\MyStyle.css" />
     <Content Include="Content\my2.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\book.css" />
+    <Content Include="Content\book1.css" />
     <Content Include="Content\editprofile.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="favicon.ico" />

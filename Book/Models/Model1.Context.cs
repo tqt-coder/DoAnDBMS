@@ -48,14 +48,14 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SumMoney_Result>("[DoAnEntities1].[SumMoney](@MaHD)", maHDParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> AllYear()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AllYear");
-        }
-    
         public virtual ObjectResult<BookNotOrder_Result> BookNotOrder()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotOrder_Result>("BookNotOrder");
+        }
+    
+        public virtual ObjectResult<bookyear2_Result> bookyear2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bookyear2_Result>("bookyear2");
         }
     
         public virtual int Don(Nullable<int> maKH, Nullable<System.DateTime> ngayDat, string maSach, Nullable<int> soLuong)
@@ -97,6 +97,33 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<searchBook_Result>("searchBook", tenSachParameter);
         }
     
+        public virtual ObjectResult<SoSachBanTrongNam_Result> SoSachBanTrongNam(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SoSachBanTrongNam_Result>("SoSachBanTrongNam", dateParameter);
+        }
+    
+        public virtual ObjectResult<SoSachBanTrongThang_Result> SoSachBanTrongThang(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SoSachBanTrongThang_Result>("SoSachBanTrongThang", dateParameter);
+        }
+    
+        public virtual ObjectResult<SoSachBanTrongTuan_Result> SoSachBanTrongTuan(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SoSachBanTrongTuan_Result>("SoSachBanTrongTuan", dateParameter);
+        }
+    
         public virtual ObjectResult<ThongKe_Result> ThongKe(Nullable<System.DateTime> dateStart, Nullable<System.DateTime> dateEnd, string chucnang)
         {
             var dateStartParameter = dateStart.HasValue ?
@@ -114,17 +141,13 @@ namespace Book.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe_Result>("ThongKe", dateStartParameter, dateEndParameter, chucnangParameter);
         }
     
-        public virtual ObjectResult<ThongKe2_Result> ThongKe2(Nullable<System.DateTime> dateStart, Nullable<System.DateTime> dateEnd)
+        public virtual ObjectResult<ThongKe2_Result> ThongKe2(Nullable<System.DateTime> dateStart)
         {
             var dateStartParameter = dateStart.HasValue ?
                 new ObjectParameter("dateStart", dateStart) :
                 new ObjectParameter("dateStart", typeof(System.DateTime));
     
-            var dateEndParameter = dateEnd.HasValue ?
-                new ObjectParameter("dateEnd", dateEnd) :
-                new ObjectParameter("dateEnd", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe2_Result>("ThongKe2", dateStartParameter, dateEndParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ThongKe2_Result>("ThongKe2", dateStartParameter);
         }
     
         public virtual int TongTien(Nullable<int> maKH)
@@ -200,79 +223,6 @@ namespace Book.Models
                 new ObjectParameter("MaSach", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("XoaHoaDon", maHDParameter, maSachParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> AllYear2(string cn)
-        {
-            var cnParameter = cn != null ?
-                new ObjectParameter("cn", cn) :
-                new ObjectParameter("cn", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AllYear2", cnParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> AllYear3(string cn)
-        {
-            var cnParameter = cn != null ?
-                new ObjectParameter("cn", cn) :
-                new ObjectParameter("cn", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AllYear3", cnParameter);
-        }
-    
-        public virtual ObjectResult<BookNotOrder1_Result> BookNotOrder1()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BookNotOrder1_Result>("BookNotOrder1");
-        }
-    
-        public virtual ObjectResult<Nullable<int>> AllYear4(string cn)
-        {
-            var cnParameter = cn != null ?
-                new ObjectParameter("cn", cn) :
-                new ObjectParameter("cn", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AllYear4", cnParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> bookyear(string cn)
-        {
-            var cnParameter = cn != null ?
-                new ObjectParameter("cn", cn) :
-                new ObjectParameter("cn", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("bookyear", cnParameter);
-        }
-    
-        public virtual ObjectResult<bookyear2_Result> bookyear2()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<bookyear2_Result>("bookyear2");
-        }
-    
-        public virtual ObjectResult<SoSachBanTrongThang_Result> SoSachBanTrongThang(Nullable<System.DateTime> date)
-        {
-            var dateParameter = date.HasValue ?
-                new ObjectParameter("date", date) :
-                new ObjectParameter("date", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SoSachBanTrongThang_Result>("SoSachBanTrongThang", dateParameter);
-        }
-    
-        public virtual ObjectResult<SoSachBanTrongTuan_Result> SoSachBanTrongTuan(Nullable<System.DateTime> date)
-        {
-            var dateParameter = date.HasValue ?
-                new ObjectParameter("date", date) :
-                new ObjectParameter("date", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SoSachBanTrongTuan_Result>("SoSachBanTrongTuan", dateParameter);
-        }
-    
-        public virtual ObjectResult<SoSachBanTrongNam_Result> SoSachBanTrongNam(Nullable<System.DateTime> date)
-        {
-            var dateParameter = date.HasValue ?
-                new ObjectParameter("date", date) :
-                new ObjectParameter("date", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SoSachBanTrongNam_Result>("SoSachBanTrongNam", dateParameter);
         }
     }
 }

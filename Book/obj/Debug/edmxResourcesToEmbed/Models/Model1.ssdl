@@ -234,7 +234,6 @@ warning 6002: The table/view 'DoAn.dbo.view_thongtinKH' does not have a primary 
   </Function>
   <Function Name="ThongKe2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="dateStart" Type="date" Mode="In" />
-    <Parameter Name="dateEnd" Type="date" Mode="In" />
   </Function>
   <Function Name="TongTien" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="MaKH" Type="int" Mode="In" />
